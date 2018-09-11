@@ -1,0 +1,194 @@
+2018-08-30 15:16:29 TRACE Main:27 - 1 | A Game of Thrones
+2018-08-30 15:16:29 TRACE Main:27 - 2 | The Eye of the World
+2018-08-30 15:16:29 TRACE Main:27 - 3 | Harry Potter and the Sorcerer's Stone
+2018-08-30 15:16:29 TRACE Main:27 - 4 | Harry Potter and the Chamber of Secrets
+2018-08-30 15:17:26 TRACE Main:29 - 1 | A Game of Thrones
+2018-08-30 15:17:26 TRACE Main:29 - 2 | The Eye of the World
+2018-08-30 15:17:26 TRACE Main:29 - 3 | Harry Potter and the Sorcerer's Stone
+2018-08-30 15:17:26 TRACE Main:29 - 4 | Harry Potter and the Chamber of Secrets
+2018-08-30 15:17:40 TRACE Main:29 - 1 | A Game of Thrones
+2018-08-30 15:17:40 TRACE Main:29 - 2 | The Eye of the World
+2018-08-30 15:17:40 TRACE Main:29 - 3 | Harry Potter and the Sorcerer's Stone
+2018-08-30 15:17:40 TRACE Main:29 - 4 | Harry Potter and the Chamber of Secrets
+2018-08-30 15:19:24 TRACE Main:29 - 1 | 0553593714
+2018-08-30 15:19:24 TRACE Main:29 - 2 | 0812511816
+2018-08-30 15:19:24 TRACE Main:29 - 3 | 0590353403
+2018-08-30 15:19:24 TRACE Main:29 - 4 | 0439064872
+2018-08-30 15:34:33 TRACE Main:30 - 1 | Fantasy
+2018-08-30 15:34:41 TRACE Main:30 - 2 | Non-Fiction
+2018-08-30 15:34:49 TRACE Main:30 - 5 | Historical Romance
+2018-08-30 15:38:58 ERROR Main:10 - class java.sql.SQLSyntaxErrorException: ORA-00904: "PASS": invalid identifier
+
+2018-08-30 15:38:58 WARN  Main:12 - 450: oracle.jdbc.driver.T4CTTIoer
+2018-08-30 15:38:58 WARN  Main:12 - 399: oracle.jdbc.driver.T4CTTIoer
+2018-08-30 15:38:58 WARN  Main:12 - 1017: oracle.jdbc.driver.T4C8Oall
+2018-08-30 15:38:58 WARN  Main:12 - 655: oracle.jdbc.driver.T4CTTIfun
+2018-08-30 15:38:58 WARN  Main:12 - 249: oracle.jdbc.driver.T4CTTIfun
+2018-08-30 15:38:58 WARN  Main:12 - 566: oracle.jdbc.driver.T4C8Oall
+2018-08-30 15:38:58 WARN  Main:12 - 202: oracle.jdbc.driver.T4CStatement
+2018-08-30 15:38:58 WARN  Main:12 - 45: oracle.jdbc.driver.T4CStatement
+2018-08-30 15:38:58 WARN  Main:12 - 766: oracle.jdbc.driver.T4CStatement
+2018-08-30 15:38:58 WARN  Main:12 - 897: oracle.jdbc.driver.OracleStatement
+2018-08-30 15:38:58 WARN  Main:12 - 1034: oracle.jdbc.driver.OracleStatement
+2018-08-30 15:38:58 WARN  Main:12 - 1244: oracle.jdbc.driver.OracleStatement
+2018-08-30 15:38:58 WARN  Main:12 - 420: oracle.jdbc.driver.OracleStatementWrapper
+2018-08-30 15:38:58 WARN  Main:12 - 44: com.revature.driver.Main
+2018-08-30 15:38:58 WARN  Main:12 - 35: com.revature.driver.Main
+2018-08-30 15:38:58 WARN  Main:12 - 23: com.revature.driver.Main
+2018-08-30 15:40:26 TRACE Main:43 - select * from login where username ='rorr' and pswd='pass1'
+2018-08-30 15:40:26 TRACE Main:47 - User found!
+2018-08-30 15:41:06 TRACE Main:43 - select * from login where username ='paulm' and pswd='pass'
+2018-08-30 15:41:06 TRACE Main:47 - User found!
+2018-08-30 15:41:26 TRACE Main:43 - select * from login where username ='paulm' and pswd=''--'
+2018-08-30 15:41:42 TRACE Main:43 - select * from login where username ='paulm' and pswd='';--'
+2018-08-30 15:41:42 ERROR Main:10 - class java.sql.SQLSyntaxErrorException: ORA-00933: SQL command not properly ended
+
+2018-08-30 15:41:42 WARN  Main:12 - 450: oracle.jdbc.driver.T4CTTIoer
+2018-08-30 15:41:42 WARN  Main:12 - 399: oracle.jdbc.driver.T4CTTIoer
+2018-08-30 15:41:42 WARN  Main:12 - 1017: oracle.jdbc.driver.T4C8Oall
+2018-08-30 15:41:42 WARN  Main:12 - 655: oracle.jdbc.driver.T4CTTIfun
+2018-08-30 15:41:42 WARN  Main:12 - 249: oracle.jdbc.driver.T4CTTIfun
+2018-08-30 15:41:42 WARN  Main:12 - 566: oracle.jdbc.driver.T4C8Oall
+2018-08-30 15:41:42 WARN  Main:12 - 202: oracle.jdbc.driver.T4CStatement
+2018-08-30 15:41:42 WARN  Main:12 - 45: oracle.jdbc.driver.T4CStatement
+2018-08-30 15:41:42 WARN  Main:12 - 766: oracle.jdbc.driver.T4CStatement
+2018-08-30 15:41:42 WARN  Main:12 - 897: oracle.jdbc.driver.OracleStatement
+2018-08-30 15:41:42 WARN  Main:12 - 1034: oracle.jdbc.driver.OracleStatement
+2018-08-30 15:41:42 WARN  Main:12 - 1244: oracle.jdbc.driver.OracleStatement
+2018-08-30 15:41:42 WARN  Main:12 - 420: oracle.jdbc.driver.OracleStatementWrapper
+2018-08-30 15:41:42 WARN  Main:12 - 45: com.revature.driver.Main
+2018-08-30 15:41:42 WARN  Main:12 - 35: com.revature.driver.Main
+2018-08-30 15:41:42 WARN  Main:12 - 23: com.revature.driver.Main
+2018-08-30 15:42:03 TRACE Main:43 - select * from login where username ='paulm'--' and pswd=''
+2018-08-30 15:42:03 TRACE Main:47 - User found!
+2018-08-30 15:44:47 TRACE Main:45 - select * from login where username =? and pswd=?
+2018-08-30 15:44:47 TRACE Main:51 - User found!
+2018-08-30 15:44:56 TRACE Main:45 - select * from login where username =? and pswd=?
+2018-08-30 16:01:51 TRACE GenreOracle:28 - Retrieving genre with id = 3
+2018-08-30 16:01:53 TRACE GenreOracle:36 - 3 | Fiction
+2018-08-30 16:01:53 TRACE GenreOracle:44 - Method returning: Genre [id=3, genre=Fiction]
+2018-08-31 09:15:18 TRACE GenreOracle:74 - Retrieving genres
+2018-08-31 09:15:21 TRACE GenreOracle:81 - 1 | Fantasy
+2018-08-31 09:15:21 TRACE GenreOracle:81 - 3 | Fiction
+2018-08-31 09:15:21 TRACE GenreOracle:81 - 5 | Historical Romance
+2018-08-31 09:15:21 TRACE GenreOracle:81 - 2 | Non-Fiction
+2018-08-31 09:15:21 TRACE GenreOracle:81 - 4 | Sci-Fi
+2018-08-31 09:15:21 TRACE GenreOracle:90 - Method returning: [Genre [id=3, genre=Fiction], Genre [id=1, genre=Fantasy], Genre [id=2, genre=Non-Fiction], Genre [id=4, genre=Sci-Fi], Genre [id=5, genre=Historical Romance]]
+2018-08-31 09:31:30 TRACE GenreOracle:96 - Retrieving genres
+2018-08-31 09:31:31 TRACE GenreOracle:105 - 1 | Fantasy
+2018-08-31 09:31:32 TRACE GenreOracle:114 - Method returning: [Genre [id=1, genre=Fantasy]]
+2018-08-31 09:32:39 TRACE GenreOracle:30 - Retrieving genre with id = 1
+2018-08-31 09:32:41 TRACE GenreOracle:38 - 1 | Fantasy
+2018-08-31 09:32:41 TRACE GenreOracle:46 - Method returning: Genre [id=1, genre=Fantasy]
+2018-08-31 09:32:41 TRACE GenreOracle:120 - Updating Genre to Genre [id=1, genre=fantasy]
+2018-08-31 09:32:43 TRACE GenreOracle:130 - Updated 1 rows.
+2018-08-31 09:32:43 TRACE GenreOracle:135 - Genre updated successfully. Committing.
+2018-08-31 09:32:43 TRACE GenreOracle:148 - Method returning: Genre [id=1, genre=fantasy]
+2018-08-31 09:33:19 TRACE GenreOracle:30 - Retrieving genre with id = 1
+2018-08-31 09:33:21 TRACE GenreOracle:38 - 1 | fantasy
+2018-08-31 09:33:21 TRACE GenreOracle:46 - Method returning: Genre [id=1, genre=fantasy]
+2018-08-31 09:33:21 TRACE GenreOracle:120 - Updating Genre to Genre [id=1, genre=Fantasy]
+2018-08-31 09:33:22 TRACE GenreOracle:130 - Updated 1 rows.
+2018-08-31 09:33:22 TRACE GenreOracle:135 - Genre updated successfully. Committing.
+2018-08-31 09:33:22 TRACE GenreOracle:148 - Method returning: Genre [id=1, genre=Fantasy]
+2018-08-31 09:41:42 TRACE GenreOracle:26 - Inserting a genre into the database.
+2018-08-31 09:41:44 TRACE GenreOracle:32 - insert into genre(genre) values(?)
+2018-08-31 09:41:45 TRACE GenreOracle:42 - Inserted genre successfully
+2018-08-31 09:42:03 TRACE GenreOracle:26 - Inserting a genre into the database.
+2018-08-31 09:42:04 TRACE GenreOracle:32 - insert into genre(genre) values(?)
+2018-08-31 09:42:05 TRACE GenreOracle:42 - Inserted genre successfully
+2018-08-31 10:16:03 TRACE AuthorOracle:94 - Getting author with firstname =J.K. and lastname=Rowling
+2018-08-31 10:16:03 TRACE AuthorOracle:102 - Author found.
+2018-08-31 10:55:03 TRACE GenreOracle:67 - Retrieving genre with id = 1
+2018-08-31 10:55:04 TRACE GenreOracle:75 - 1 | Fantasy
+2018-08-31 10:55:04 TRACE GenreOracle:83 - Method returning: Genre [id=1, genre=Fantasy]
+2018-08-31 10:55:05 TRACE AuthorOracle:69 - Getting author with id: 1
+2018-08-31 10:55:05 TRACE AuthorOracle:76 - Author found.
+2018-08-31 10:55:05 TRACE BookOracle:26 - adding book to the database: Book [id=1, isbn10=1111111111, isbn13=1234567890-123, title=Harry Potter and the Prisoner of Azkaban, authors=[Author [id=1, first=J.K., last=Rowling, about=One of the richest people in the world.]], price=56.0, stock=2, cover=null, genres=[Genre [id=1, genre=Fantasy]]]
+2018-08-31 10:55:06 TRACE BookOracle:45 - Book created
+2018-08-31 10:55:06 TRACE BookOracle:340 - Inserting authors into book_author
+2018-08-31 10:55:06 TRACE BookOracle:317 - Inserting genres into book_genre
+2018-08-31 12:34:10 TRACE BookOracle:132 - retrieving all books from database.
+2018-08-31 12:34:12 TRACE AuthorOracle:143 - Getting all authors by book
+2018-08-31 12:34:12 TRACE GenreOracle:133 - Retrieving genres
+2018-08-31 12:34:13 TRACE GenreOracle:142 - 1 | Fantasy
+2018-08-31 12:34:13 TRACE GenreOracle:151 - Method returning: [Genre [id=1, genre=Fantasy]]
+2018-08-31 12:34:14 TRACE AuthorOracle:143 - Getting all authors by book
+2018-08-31 12:34:14 TRACE GenreOracle:133 - Retrieving genres
+2018-08-31 12:34:15 TRACE GenreOracle:142 - 1 | Fantasy
+2018-08-31 12:34:15 TRACE GenreOracle:151 - Method returning: [Genre [id=1, genre=Fantasy]]
+2018-08-31 12:34:16 TRACE AuthorOracle:143 - Getting all authors by book
+2018-08-31 12:34:16 TRACE GenreOracle:133 - Retrieving genres
+2018-08-31 12:34:17 TRACE GenreOracle:142 - 1 | Fantasy
+2018-08-31 12:34:17 TRACE GenreOracle:151 - Method returning: [Genre [id=1, genre=Fantasy]]
+2018-08-31 12:34:17 TRACE AuthorOracle:143 - Getting all authors by book
+2018-08-31 12:34:18 TRACE GenreOracle:133 - Retrieving genres
+2018-08-31 12:34:18 TRACE GenreOracle:142 - 1 | Fantasy
+2018-08-31 12:34:18 TRACE GenreOracle:151 - Method returning: [Genre [id=1, genre=Fantasy]]
+2018-08-31 12:34:19 TRACE AuthorOracle:143 - Getting all authors by book
+2018-08-31 12:34:19 TRACE GenreOracle:133 - Retrieving genres
+2018-08-31 12:34:20 TRACE GenreOracle:142 - 1 | Fantasy
+2018-08-31 12:34:20 TRACE GenreOracle:151 - Method returning: [Genre [id=1, genre=Fantasy]]
+2018-08-31 13:48:34 TRACE UserOracle:99 - Retrieve user from database.
+2018-08-31 13:48:36 TRACE UserOracle:114 - User found.
+2018-08-31 13:48:37 TRACE CustomerOracle:72 - This is a customer
+2018-08-31 13:48:38 TRACE AddressOracle:70 - retrieving address information
+2018-08-31 13:48:38 TRACE AddressOracle:77 - address found
+2018-08-31 13:48:38 TRACE BookOracle:194 - retrieving all books from database.
+2018-08-31 13:48:39 INFO  PurchaseOracle:326 - Retrieve purchase from database.
+2018-08-31 13:48:39 TRACE PurchaseOracle:327 - Customer [address=Address [id=2, lineOne=1 Fantasy Lane, lineTwo=null, city=Detroit, state=MI, zip=48127], readingList=[]]
+2018-08-31 13:48:39 TRACE PurchaseOracle:328 - OPEN
+2018-08-31 13:48:40 TRACE PurchaseServiceOracle:55 - Customer [address=Address [id=2, lineOne=1 Fantasy Lane, lineTwo=null, city=Detroit, state=MI, zip=48127], readingList=[]]
+2018-08-31 13:48:40 TRACE PurchaseServiceOracle:56 - 
+2018-08-31 13:48:40 TRACE PurchaseOracle:90 - Adding purchase to database.
+2018-08-31 13:48:40 TRACE PurchaseOracle:91 - Purchase [id=0, cust=Customer [address=Address [id=2, lineOne=1 Fantasy Lane, lineTwo=null, city=Detroit, state=MI, zip=48127], readingList=[]], total=0.0, status=OPEN, invoiceLines=null]
+2018-08-31 13:48:41 TRACE PurchaseOracle:104 - purchase created.
+2018-08-31 13:48:41 TRACE Main:66 - new purchase created: Purchase [id=3, cust=Customer [address=Address [id=2, lineOne=1 Fantasy Lane, lineTwo=null, city=Detroit, state=MI, zip=48127], readingList=[]], total=0.0, status=OPEN, invoiceLines=null]
+2018-08-31 13:48:41 TRACE BookOracle:132 - retrieving all books from database.
+2018-08-31 13:48:43 TRACE AuthorOracle:143 - Getting all authors by book
+2018-08-31 13:48:43 TRACE GenreOracle:133 - Retrieving genres
+2018-08-31 13:48:43 TRACE GenreOracle:142 - 1 | Fantasy
+2018-08-31 13:48:43 TRACE GenreOracle:151 - Method returning: [Genre [id=1, genre=Fantasy]]
+2018-08-31 13:48:44 TRACE AuthorOracle:143 - Getting all authors by book
+2018-08-31 13:48:44 TRACE GenreOracle:133 - Retrieving genres
+2018-08-31 13:48:45 TRACE GenreOracle:142 - 1 | Fantasy
+2018-08-31 13:48:45 TRACE GenreOracle:151 - Method returning: [Genre [id=1, genre=Fantasy]]
+2018-08-31 13:48:46 TRACE AuthorOracle:143 - Getting all authors by book
+2018-08-31 13:48:46 TRACE GenreOracle:133 - Retrieving genres
+2018-08-31 13:48:47 TRACE GenreOracle:142 - 1 | Fantasy
+2018-08-31 13:48:47 TRACE GenreOracle:151 - Method returning: [Genre [id=1, genre=Fantasy]]
+2018-08-31 13:48:48 TRACE AuthorOracle:143 - Getting all authors by book
+2018-08-31 13:48:48 TRACE GenreOracle:133 - Retrieving genres
+2018-08-31 13:48:48 TRACE GenreOracle:142 - 1 | Fantasy
+2018-08-31 13:48:49 TRACE GenreOracle:151 - Method returning: [Genre [id=1, genre=Fantasy]]
+2018-08-31 13:48:49 TRACE AuthorOracle:143 - Getting all authors by book
+2018-08-31 13:48:49 TRACE GenreOracle:133 - Retrieving genres
+2018-08-31 13:48:50 TRACE GenreOracle:142 - 1 | Fantasy
+2018-08-31 13:48:50 TRACE GenreOracle:151 - Method returning: [Genre [id=1, genre=Fantasy]]
+2018-08-31 13:48:52 TRACE PurchaseOracle:44 - Purchase: 3	Book: 21	Quantity: 1
+2018-08-31 13:48:53 TRACE PurchaseOracle:138 - Purcahse found.
+2018-08-31 13:48:53 TRACE BookOracle:70 - Retrieving book from database.
+2018-08-31 13:48:53 TRACE BookOracle:79 - Book found!
+2018-08-31 13:48:54 TRACE AuthorOracle:143 - Getting all authors by book
+2018-08-31 13:48:54 TRACE GenreOracle:133 - Retrieving genres
+2018-08-31 13:48:55 TRACE GenreOracle:142 - 1 | Fantasy
+2018-08-31 13:48:55 TRACE GenreOracle:151 - Method returning: [Genre [id=1, genre=Fantasy]]
+2018-08-31 13:48:55 TRACE UserOracle:99 - Retrieve user from database.
+2018-08-31 13:48:56 TRACE CustomerServiceOracle:41 - No customer found
+2018-08-31 13:48:57 TRACE PurchaseOracle:44 - Purchase: 3	Book: 21	Quantity: 1
+2018-08-31 13:48:57 TRACE PurchaseOracle:44 - Purchase: 3	Book: 3	Quantity: 1
+2018-08-31 13:48:58 TRACE PurchaseOracle:138 - Purcahse found.
+2018-08-31 13:48:58 TRACE BookOracle:70 - Retrieving book from database.
+2018-08-31 13:48:59 TRACE BookOracle:79 - Book found!
+2018-08-31 13:48:59 TRACE AuthorOracle:143 - Getting all authors by book
+2018-08-31 13:48:59 TRACE GenreOracle:133 - Retrieving genres
+2018-08-31 13:49:00 TRACE GenreOracle:142 - 1 | Fantasy
+2018-08-31 13:49:00 TRACE GenreOracle:151 - Method returning: [Genre [id=1, genre=Fantasy]]
+2018-08-31 13:49:00 TRACE BookOracle:70 - Retrieving book from database.
+2018-08-31 13:49:01 TRACE BookOracle:79 - Book found!
+2018-08-31 13:49:02 TRACE AuthorOracle:143 - Getting all authors by book
+2018-08-31 13:49:02 TRACE GenreOracle:133 - Retrieving genres
+2018-08-31 13:49:03 TRACE GenreOracle:142 - 1 | Fantasy
+2018-08-31 13:49:03 TRACE GenreOracle:151 - Method returning: [Genre [id=1, genre=Fantasy]]
+2018-08-31 13:49:03 TRACE UserOracle:99 - Retrieve user from database.
+2018-08-31 13:49:04 TRACE CustomerServiceOracle:41 - No customer found

@@ -1,29 +1,29 @@
 package com.revature.beans;
 
-public class User {
+public class Login {
 	private int id;
 	private String username;
 	private String password;
-	private String first;
-	private String last;
-	public User() {
+	private Employee employee_id;
+	private int admin;
+	public Login() {
 		super();
 	}
-	public User(int id) {
+	public Login(int id) {
 		this.id = id;
 	}
-	public User(int id, String username, String password) {
+	public Login(int id, String username, String password) {
 		this.id = id;
 		this.username = username;
 		this.password = password;
 	}
-	public User(int id, String username, String password, String first, String last) {
+	public Login(int id, String username, String password, Employee employee_id, int admin) {
 		super();
 		this.id = id;
 		this.username = username;
 		this.password = password;
-		this.first = first;
-		this.last = last;
+		this.employee_id = employee_id;
+		this.admin = admin;
 	}
 	public int getId() {
 		return id;
@@ -43,25 +43,24 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public String getFirst() {
-		return first;
+	public Employee getEmployee_id() {
+		return employee_id;
 	}
-	public void setFirst(String first) {
-		this.first = first;
+	public void setEmployee_id(Employee employee_id) {
+		this.employee_id = employee_id;
 	}
-	public String getLast() {
-		return last;
+	public int getadmin() {
+		return admin;
 	}
-	public void setLast(String last) {
-		this.last = last;
+	public void setadmin(int admin) {
+		this.admin = admin;
 	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((first == null) ? 0 : first.hashCode());
+		result = prime * result + ((employee_id == null) ? 0 : employee_id.hashCode());
 		result = prime * result + id;
-		result = prime * result + ((last == null) ? 0 : last.hashCode());
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
 		result = prime * result + ((username == null) ? 0 : username.hashCode());
 		return result;
@@ -74,18 +73,13 @@ public class User {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		User other = (User) obj;
-		if (first == null) {
-			if (other.first != null)
+		Login other = (Login) obj;
+		if (employee_id == null) {
+			if (other.employee_id != null)
 				return false;
-		} else if (!first.equals(other.first))
+		} else if (!employee_id.equals(other.employee_id))
 			return false;
 		if (id != other.id)
-			return false;
-		if (last == null) {
-			if (other.last != null)
-				return false;
-		} else if (!last.equals(other.last))
 			return false;
 		if (password == null) {
 			if (other.password != null)
@@ -101,7 +95,7 @@ public class User {
 	}
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", username=" + username + ", password=" + password + ", first=" + first + ", last="
-				+ last + "]";
+		return "User [id=" + id + ", username=" + username + ", password=" + password + ", employee_id=" + employee_id + ", admin="
+				+ admin + "]";
 	}
 }

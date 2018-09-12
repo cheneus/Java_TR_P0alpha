@@ -21,6 +21,7 @@ import com.revature.data.AuthorDAO;
 import com.revature.data.BookAppDAOFactory;
 import com.revature.data.BookDAO;
 import com.revature.data.GenreDAO;
+import com.revature.data.TRAppDAOFactory;
 import com.revature.services.BookService;
 import com.revature.services.BookServiceOracle;
 import com.revature.services.CustomerService;
@@ -32,7 +33,7 @@ import com.revature.utils.LogUtil;
 
 public class Main {
 	private static ConnectionUtil cu = ConnectionUtil.getInstance();
-	private static BookAppDAOFactory bf = BookAppDAOFactory.getInstance();
+	private static TRAppDAOFactory tf = TRAppDAOFactory.getInstance();
 	private static Logger log = Logger.getLogger(Main.class);
 	
 	public static void main(String[] args) {

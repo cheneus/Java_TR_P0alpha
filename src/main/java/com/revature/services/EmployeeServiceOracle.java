@@ -3,26 +3,24 @@ package com.revature.services;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
-
 import com.revature.beans.Employee;
-import com.revature.beans.User;
-import com.revature.data.BookAppDAOFactory;
+import com.revature.beans.Login;
+import com.revature.data.TRAppDAOFactory;
 import com.revature.data.EmployeeDAO;
 import com.revature.data.EmployeeOracle;
-import com.revature.data.UserDAO;
-import com.revature.data.UserOracle;
+import com.revature.data.LoginDAO;
 
 public class EmployeeServiceOracle implements EmployeeService {
 	private Logger log = Logger.getLogger(EmployeeServiceOracle.class);
-	private BookAppDAOFactory bf = BookAppDAOFactory.getInstance();
-	private UserDAO ud = bf.getUserDAO();
-	private EmployeeDAO ed = bf.getEmployeeDAO();
+	private TRAppDAOFactory tf = TRAppDAOFactory.getInstance();
+	private LoginDAO logind = tf.getLoginDAO();
+	private EmployeeDAO empd = tf.getEmployeeDAO();
 	
 	@Override
 	public Employee getEmployee(String username, String password) {
 		Employee emp = new Employee(0, username, password, null, null, null, null);
-		emp = (Employee) ud.getUser(emp);
-		emp = ed.getEmployee(emp);
+		emp = (Employee) logind.getUser(emp);
+		emp = empd.getEmployee(emp);
 		if(emp.getId()==0)
 		{
 			log.trace("No employee found");
@@ -40,8 +38,8 @@ public class EmployeeServiceOracle implements EmployeeService {
 	public Employee getEmployeeById(int i) {
 		log.trace("retrieving employee by id: "+i);
 		Employee emp = new Employee(i, null, null, null, null, null, null);
-		emp = (Employee) ud.getUserById(emp);
-		emp = ed.getEmployee(emp);
+		emp = (Employee) logind.getUserById(emp);
+		emp = empd.getEmployee(emp);
 		if(emp.getId()==0)
 		{
 			log.trace("No employee found");
@@ -57,10 +55,10 @@ public class EmployeeServiceOracle implements EmployeeService {
 
 	@Override
 	public Set<Employee> getEmployees() {
-		Set<Employee> empList = ed.getEmployees();
+		Set<Employee> empList = empd.getEmployees();
 		for(Employee e : empList)
 		{
-			ud.getUserById(e);
+			logind.getUserById(e);
 			e.setSupervisor(getEmployeeById(e.getSupervisor().getId()));
 		}
 		return empList;
@@ -68,27 +66,27 @@ public class EmployeeServiceOracle implements EmployeeService {
 
 	@Override
 	public void deleteEmployee(Employee emp) {
-		ed.deleteEmployee(emp);
+		empd.deleteEmployee(emp);
 
 	}
 
 	@Override
 	public void updateEmployee(Employee emp) {
-		ud.updateUser(emp);
+		logind.updateUser(emp);
 		if(emp.getSupervisor().getFirst()!=null)
-			ed.updateEmployee(emp.getSupervisor());
-		ed.updateEmployee(emp);
+			empd.updateEmployee(emp.getSupervisor());
+		empd.updateEmployee(emp);
 
 	}
 
 	@Override
 	public void addEmployee(Employee emp) {
-		User u = ud.getUser(ud.getUser(emp.getUsername(), emp.getPassword()));
+		User u = logind.getUser(logind.getUser(emp.getUsername(), emp.getPassword()));
 		if(u==null)
 		{
-			ud.addUser(emp);
+			logind.addUser(emp);
 		}
-		Employee supervisor = ed.getEmployee(emp.getSupervisor());
+		Employee supervisor = empd.getEmployee(emp.getSupervisor());
 		if(supervisor!=null)
 		{
 			emp.setSupervisor(supervisor);

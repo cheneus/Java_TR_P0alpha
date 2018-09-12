@@ -6,7 +6,7 @@ public class TuitionReimbursementForm {
 	private int id;
 	private Date dateOfEvent;
 	private Date timeOfEvent;
-	private Date dateSubmitted;
+	private Date date_submitted;
 	private EventLocation locationId;
 	private EventType eventId;
 	private String Description;
@@ -16,14 +16,14 @@ public class TuitionReimbursementForm {
 	private Status status;
 	private String event_related_attachments;
 	
-	public TuitionReimbursementForm(int id, Date dateOfEvent, Date timeOfEvent, Date dateSubmitted,
+	public TuitionReimbursementForm(int id, Date dateOfEvent, Date timeOfEvent, Date date_submitted,
 			EventLocation locationId, EventType eventId, String description, double cost, GradeFormat grade_format_id,
 			Employee submitted_by, Status status, String event_related_attachments) {
 		super();
 		this.id = id;
 		this.dateOfEvent = dateOfEvent;
 		this.timeOfEvent = timeOfEvent;
-		this.dateSubmitted = dateSubmitted;
+		this.date_submitted = date_submitted;
 		this.locationId = locationId;
 		this.eventId = eventId;
 		Description = description;
@@ -51,11 +51,11 @@ public class TuitionReimbursementForm {
 	public void setTimeOfEvent(Date timeOfEvent) {
 		this.timeOfEvent = timeOfEvent;
 	}
-	public Date getDateSubmitted() {
-		return dateSubmitted;
+	public Date getdate_submitted() {
+		return date_submitted;
 	}
-	public void setDateSubmitted(Date dateSubmitted) {
-		this.dateSubmitted = dateSubmitted;
+	public void setdate_submitted(Date date_submitted) {
+		this.date_submitted = date_submitted;
 	}
 	public EventLocation getLocationId() {
 		return locationId;

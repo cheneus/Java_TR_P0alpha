@@ -1,5 +1,7 @@
 package com.revature.data;
 
+import java.util.Set;
+
 import com.revature.beans.GradeStatus;
 
 public interface GradeStatusDAO {
@@ -37,4 +39,5 @@ public interface GradeStatusDAO {
 	 * @param GradeStatus the GradeStatus to be updated
 	 */
 	public void updateGradeStatus(GradeStatus GradeStatus);
+	Set<GradeStatus> getGradeStatus();
 }

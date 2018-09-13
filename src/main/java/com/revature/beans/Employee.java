@@ -146,4 +146,8 @@ public class Employee {
 	public String toString() {
 		return "Employee [supervisor=" + supervisor + ", title=" + title + "]";
 	}
+	public void setAddress(int i) {
+		// TODO Auto-generated method stub
+		
+	}
 }

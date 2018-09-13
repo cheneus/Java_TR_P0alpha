@@ -14,224 +14,205 @@ import com.revature.utils.ConnectionUtil;
 import com.revature.utils.LogUtil;
 
 public class GradeFormatOracle implements GradeFormatDAO {
-	private static Logger log = Logger.getLogger(GradeFormatOracle.class);
 	private static ConnectionUtil cu = ConnectionUtil.getInstance();
+	private static Logger log = Logger.getLogger(GradeFormatOracle.class);
+
 	@Override
-	public int addGradeFormat(GradeFormat a) {
-		int key =0;
-		log.trace("Adding GradeFormat to database.");
-		log.trace(a);
+	public int addGradeFormat(GradeFormat ev) {
+		int key = 0;
+		
+		log.trace("Inserting a GradeFormat into the database.");
 		Connection conn = cu.getConnection();
-		try{
+		try {
 			conn.setAutoCommit(false);
-			String sql = "insert into GradeFormat (firstname,lastname,aboutblurb) values(?,?,?)";
-			String[] keys = {"id"};
-			PreparedStatement pstm = conn.prepareStatement(sql, keys);
-			pstm.setString(1,a.getFirst());
-			pstm.setString(2, a.getLast());
-			pstm.setString(3, a.getAbout());
+			String sql = "insert into GradeFormat(name) values(?)";
+			String[] keys = { "id" };
+			log.trace(sql);
+			PreparedStatement stmt = conn.prepareStatement(sql, keys);
+			stmt.setString(1, ev.getName());
 			
-			pstm.executeUpdate();
-			ResultSet rs = pstm.getGeneratedKeys();
-			
-			if(rs.next())
-			{
-				log.trace("GradeFormat created.");
-				key = rs.getInt(1);
-				a.setId(key);
-				conn.commit();
-			}
-			else
-			{
-				log.trace("GradeFormat not created.");
+			int number = stmt.executeUpdate();
+			ResultSet rs = stmt.getGeneratedKeys();
+			if(number!=1) {
+				log.warn("We didn't insert only one GradeFormat, or any GradeFormats at all.");
 				conn.rollback();
+			} else {
+				log.trace("Inserted GradeFormat successfully");
+				if(rs.next()) {
+					key = rs.getInt(1);
+					ev.setId(key);
+					conn.commit();
+				} else {
+					log.trace("GradeFormat not created");
+					ev.setId(0);
+					conn.rollback();
+				}
 			}
-		}
-		catch(Exception e)
-		{
-			LogUtil.rollback(e,conn,GradeFormatOracle.class);
-		}
-		finally {
+		} catch(Exception e) {
+			LogUtil.rollback(e, conn, GradeFormatOracle.class);
+		} finally {
 			try {
 				conn.close();
 			} catch (SQLException e) {
-				LogUtil.logException(e,GradeFormatOracle.class);
+				LogUtil.logException(e, GradeFormatOracle.class);
 			}
 		}
+		
 		return key;
 	}
-	@Override
-	public GradeFormat getGradeFormat(int id) {
-		GradeFormat a = null;
-		try(Connection conn = cu.getConnection())
-		{
-			log.trace("Getting GradeFormat with id: "+id);
-			String sql = "Select firstname, lastname, aboutblurb from GradeFormat where id=?";
-			PreparedStatement pstm = conn.prepareStatement(sql);
-			pstm.setInt(1, id);
-			ResultSet rs = pstm.executeQuery();
-			if(rs.next())
-			{
-				log.trace("GradeFormat found.");
-				a = new GradeFormat();
-				a.setId(id);
-				a.setAbout(rs.getString("aboutblurb"));
-				a.setFirst(rs.getString("firstname"));
-				a.setLast(rs.getString("lastname"));
 
-			}
-		} catch (Exception e) {
-			LogUtil.logException(e,GradeFormatOracle.class);
-		}
-		return a;
-	}
-	@Override
-	public GradeFormat getGradeFormatByName(String firstname, String lastname) {
-		GradeFormat a = null;
-		try(Connection conn = cu.getConnection())
-		{
-			log.trace("Getting GradeFormat with firstname ="+firstname+" and lastname="+lastname);
-			String sql = "Select id, aboutblurb from GradeFormat where firstname=? and lastname=?";
-			PreparedStatement pstm = conn.prepareStatement(sql);
-			pstm.setString(1, firstname);
-			pstm.setString(2, lastname);
-			ResultSet rs = pstm.executeQuery();
-			if(rs.next())
-			{
-				log.trace("GradeFormat found.");
-				a = new GradeFormat();
-				a.setId(rs.getInt("id"));
-				a.setAbout(rs.getString("aboutblurb"));
-				a.setFirst(firstname);
-				a.setLast(lastname);
-
-			}
-		} catch (Exception e) {
-			LogUtil.logException(e,GradeFormatOracle.class);
-		}
-		return a;
-	}
-	@Override
-	public Set<GradeFormat> getGradeFormats() {
-		Set<GradeFormat> GradeFormats = new HashSet<GradeFormat>();
-		try(Connection conn = cu.getConnection())
-		{
-			log.trace("Getting all GradeFormats");
-			String sql = "Select id, firstname, lastname, aboutblurb from GradeFormat";
-			PreparedStatement pstm = conn.prepareStatement(sql);
-			ResultSet rs = pstm.executeQuery();
-			while(rs.next())
-			{
-				GradeFormat a = new GradeFormat();
-				a.setId(rs.getInt("id"));
-				a.setAbout(rs.getString("aboutblurb"));
-				a.setFirst(rs.getString("firstname"));
-				a.setLast(rs.getString("lastname"));
-				GradeFormats.add(a);
-			}
-		} catch (Exception e) {
-			LogUtil.logException(e,GradeFormatOracle.class);
-		}
-		return GradeFormats;
-	}
-	@Override
-	public Set<GradeFormat> getGradeFormatsByBook(Book b) {
-		Set<GradeFormat> GradeFormats = new HashSet<GradeFormat>();
-		try(Connection conn = cu.getConnection())
-		{
-			log.trace("Getting all GradeFormats by book");
-			String sql = "Select id, firstname, lastname, aboutblurb from GradeFormat join book_GradeFormat"
-					+ " on GradeFormat.id=book_GradeFormat.GradeFormat_id where book_id=?";
-			PreparedStatement pstm = conn.prepareStatement(sql);
-			pstm.setInt(1, b.getId());
-			ResultSet rs = pstm.executeQuery();
-			while(rs.next())
-			{
-				GradeFormat a = new GradeFormat();
-				a.setId(rs.getInt("id"));
-				a.setAbout(rs.getString("aboutblurb"));
-				a.setFirst(rs.getString("firstname"));
-				a.setLast(rs.getString("lastname"));
-				GradeFormats.add(a);
-			}
-		} catch (Exception e) {
-			LogUtil.logException(e,GradeFormatOracle.class);
-		}
-		return GradeFormats;
-	}
-	@Override
-	public void updateGradeFormat(GradeFormat a) {
-		Connection conn = cu.getConnection();
-		try	{
-			conn.setAutoCommit(false);
-			String sql = "update GradeFormat set firstname=?, lastname=?, aboutblurb=? where id=?";
-			PreparedStatement pstm = conn.prepareStatement(sql);
-			
-			pstm.setString(1, a.getFirst());
-			pstm.setString(2, a.getLast());
-			pstm.setString(3, a.getAbout());
-			pstm.setInt(4, a.getId());
-			
-			int result = pstm.executeUpdate();
-			
-			if(result == 1)
-			{
-				log.trace("GradeFormat updated");
-				conn.commit();
-			}
-			else {
-				log.trace("GradeFormat update failed");
-				conn.rollback();
-			}
-		} catch(Exception e) {
-			LogUtil.rollback(e, conn, GradeFormatOracle.class);
-		} finally {
-			try {
-				conn.close();
-			} catch (SQLException e) {
-				LogUtil.logException(e,GradeFormatOracle.class);
-			}
-		}
-	}
-	@Override
-	public void deleteGradeFormat(GradeFormat a) {
-		log.trace("Deleting GradeFormat: "+a);
-		Connection conn = cu.getConnection();
-		try	{
-			conn.setAutoCommit(false);
-			String sql = "delete from GradeFormat where id=?";
-			PreparedStatement pstm = conn.prepareStatement(sql);
-			pstm.setInt(1, a.getId());
-			
-			int result = pstm.executeUpdate();
-			
-			if(result == 1)
-			{
-				log.trace("GradeFormat deleted");
-				conn.commit();
-			}
-			else {
-				log.trace("GradeFormat delete failed");
-				conn.rollback();
-			}
-		} catch(Exception e) {
-			LogUtil.rollback(e, conn, GradeFormatOracle.class);
-		} finally {
-			try {
-				conn.close();
-			} catch (SQLException e) {
-				LogUtil.logException(e,GradeFormatOracle.class);
-			}
-		}
-	}
-	@Override
-	public GradeFormat getGradeFormat(GradeFormat GradeFormat) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 	@Override
 	public GradeFormat getGradeFormatById(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		log.trace("Retrieving GradeFormat with id = " + id);
+		GradeFormat ev = null;
+		try (Connection conn = cu.getConnection()) {
+			String sql = "select name from GradeFormat where id =?";
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, id);
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				log.trace(rs.getInt(1) + " | " + rs.getString(2));
+				ev = new GradeFormat();
+				ev.setId(rs.getInt("id"));
+				ev.setName(rs.getString("name"));
+			}
+		} catch (SQLException e) {
+			LogUtil.logException(e, GradeFormatOracle.class);
+		}
+		log.trace("Method returning: " + ev);
+		return ev;
+	}
+
+	@Override
+	public GradeFormat getGradeFormat(GradeFormat ev) {
+		log.trace("Retrieving GradeFormat with GradeFormat= " + ev);
+		GradeFormat g = null;
+		try (Connection conn = cu.getConnection()) {
+			String sql = "select id, name from GradeFormat where GradeFormat =?";
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setString(1, ev.getName());
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				log.trace(rs.getInt(1) + " | " + rs.getString(2));
+				g = new GradeFormat();
+				g.setId(rs.getInt("id"));
+				g.setName(rs.getString("GradeFormat"));
+			}
+		} catch (SQLException e) {
+			LogUtil.logException(e, GradeFormatOracle.class);
+		}
+		log.trace("Method returning: " + g);
+		return g;
+	}
+
+	@Override
+	public Set<GradeFormat> getGradeFormats() {
+		log.trace("Retrieving GradeFormats");
+		Set<GradeFormat> GradeFormats = new HashSet<GradeFormat>();
+		try (Connection conn = cu.getConnection()) {
+			String sql = "select id, name from GradeFormat";
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				log.trace(rs.getInt(1) + " | " + rs.getString(2));
+				GradeFormat g = new GradeFormat();
+				g.setId(rs.getInt("id"));
+				g.setName(rs.getString("name"));
+				GradeFormats.add(g);
+			}
+		} catch (SQLException e) {
+			LogUtil.logException(e, GradeFormatOracle.class);
+		}
+		log.trace("Method returning: " + GradeFormats);
+		return GradeFormats;
+	}
+
+//	@Override
+//	public Set<GradeFormat> getGradeFormatsByBook(Book b) {
+//		log.trace("Retrieving GradeFormats");
+//		Set<GradeFormat> GradeFormats = new HashSet<GradeFormat>();
+//		try (Connection conn = cu.getConnection()) {
+//			String sql = "select g.id, g.GradeFormat from GradeFormat g join book_GradeFormat bg on bg.GradeFormat_id ="
+//					+ "g.id where bg.book_id = ?";
+//			PreparedStatement stmt = conn.prepareStatement(sql);
+//			stmt.setInt(1, b.getId());
+//			ResultSet rs = stmt.executeQuery();
+//			while (rs.next()) {
+//				log.trace(rs.getInt(1) + " | " + rs.getString(2));
+//				GradeFormat g = new GradeFormat();
+//				g.setId(rs.getInt("id"));
+//				g.setGradeFormat(rs.getString("GradeFormat"));
+//				GradeFormats.add(g);
+//			}
+//		} catch (SQLException e) {
+//			LogUtil.logException(e, GradeFormatOracle.class);
+//		}
+//		log.trace("Method returning: " + GradeFormats);
+//		return GradeFormats;
+//	}
+
+	@Override
+	public void updateGradeFormat(GradeFormat g) {
+		log.trace("Updating GradeFormat to "+ g);
+		Connection conn = cu.getConnection();
+        try {
+        	// JDBC automatically commits data. Lets stop it.
+        	conn.setAutoCommit(false);
+            String sql = "update GradeFormat set GradeFormat = ? where id = ?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(2, g.getId());
+            stmt.setString(1, g.getName());
+            int rs = stmt.executeUpdate();
+            log.trace("Updated "+rs+" rows.");
+            if(rs!=1) {
+            	log.warn("GradeFormat update failure. Rolling back.");
+            	conn.rollback();
+            } else {
+            	log.trace("GradeFormat updated successfully. Committing.");
+            	conn.commit();
+            }
+            
+        } catch (SQLException e) {
+            LogUtil.rollback(e, conn, GradeFormatOracle.class);
+        } finally {
+        	try {
+				conn.close();
+			} catch (SQLException e) {
+				LogUtil.logException(e, GradeFormatOracle.class);
+			}
+        }
+        log.trace("Method returning: " + g);
+	}
+
+	@Override
+	public void deleteGradeFormat(GradeFormat ev) {
+		log.trace("Deleting GradeFormat: "+ ev);
+		Connection conn = cu.getConnection();
+        try {
+        	// JDBC automatically commits data. Lets stop it.
+        	conn.setAutoCommit(false);
+            String sql = "delete from GradeFormat where id = ?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, ev.getId());
+            int rs = stmt.executeUpdate();
+            log.trace("Deleted "+rs+" rows.");
+            if(rs!=1) {
+            	log.warn("GradeFormat delete failure. Rolling back.");
+            	conn.rollback();
+            } else {
+            	log.trace("GradeFormat deleted successfully. Committing.");
+            	conn.commit();
+            }
+            
+        } catch (SQLException e) {
+            LogUtil.rollback(e, conn, GradeFormatOracle.class);
+        } finally {
+        	try {
+				conn.close();
+			} catch (SQLException e) {
+				LogUtil.logException(e, GradeFormatOracle.class);
+			}
+        }
+        log.trace("Method returning: " + null);
 	}
 }

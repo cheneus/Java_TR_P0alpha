@@ -1,5 +1,7 @@
 package com.revature.data;
 
+import java.util.Set;
+
 import com.revature.beans.GradeFormat;
 
 public interface GradeFormatDAO {
@@ -37,4 +39,5 @@ public interface GradeFormatDAO {
 	 * @param GradeFormat the GradeFormat to be updated
 	 */
 	public void updateGradeFormat(GradeFormat GradeFormat);
+	Set<GradeFormat> getGradeFormats();
 }

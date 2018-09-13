@@ -21,12 +21,12 @@ public class InfoRequestOracle implements InfoRequestDAO {
 	private ConnectionUtil cu = ConnectionUtil.getInstance();
 	
 	@Override
-	public void addInfoReq(InfoRequest InfoRequest) {
+	public int addInfoReq(InfoRequest InfoRequest) {
 		Connection conn = cu.getConnection();
 		try {
 			log.trace("Inserting InfoRequest into db");
 			conn.setAutoCommit(false);
-			String sql = "insert into emp (id, sup_id, title) values (?, ?, ?)";
+			String sql = "insert into info_request (title, form_ref, requestor_id, requestee_id, response, open) values (?,?,?,?,?,?)";
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setInt(1,InfoRequest.getId());
 			ps.setInt(2, InfoRequest.getSupervisor().getId());

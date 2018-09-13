@@ -1,5 +1,7 @@
 package com.revature.data;
 
+import java.util.Set;
+
 import com.revature.beans.EventType;
 
 public interface EventTypeDAO {
@@ -37,4 +39,5 @@ public interface EventTypeDAO {
 	 * @param EventType the EventType to be updated
 	 */
 	public void updateEventType(EventType ev);
+	Set<EventType> getEventTypes();
 }

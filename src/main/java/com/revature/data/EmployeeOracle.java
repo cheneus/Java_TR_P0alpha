@@ -25,7 +25,7 @@ public class EmployeeOracle implements EmployeeDAO {
 		try {
 			log.trace("Inserting employee into db");
 			conn.setAutoCommit(false);
-			String sql = "insert into emp (id, sup_id, title) values (?, ?, ?)";
+			String sql = "insert into emp (id, supervisor, title) values (?, ?, ?)";
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setInt(1,employee.getId());
 			ps.setInt(2, employee.getSupervisor().getId());
@@ -73,18 +73,24 @@ public class EmployeeOracle implements EmployeeDAO {
 				{
 					log.trace("null supervisor");
 				} else {
-					emp.setSupervisor(new Employee(rs.getInt("sup_id")));
+					emp.setSupervisor(new Employee(rs.getInt("supervisor")));
 				}
 				emp.setTitle(rs.getString("title"));
 			}
 			else
 			{
 				log.trace("This is not a employee");
-				emp.setFirst(null);
-				emp.setLast(null);
+				emp.setFirstname(null);
+				emp.setLastname(null);
 				emp.setId(0);
-				emp.setPassword(null);
-				emp.setUsername(null);
+				emp.setBirthDate(null);
+				emp.setHireDate(null);
+				emp.setDept_id(null);
+				emp.setAddress(0);
+				emp.setReimbursement_balance(0);
+				emp.setPhone(null);
+				emp.setEmail(null);
+				
 			}
 		}
 		catch(Exception e)

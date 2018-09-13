@@ -9,22 +9,22 @@ import java.util.Set;
 
 import org.apache.log4j.Logger;
 
-import com.revature.beans.Department;
+import com.revature.beans.GradeStatus;
 import com.revature.utils.ConnectionUtil;
 import com.revature.utils.LogUtil;
 
-public class DepartmentOracle implements DepartmentDAO {
-	private static Logger log = Logger.getLogger(DepartmentOracle.class);
+public class GradeStatusOracle implements GradeStatusDAO {
+	private static Logger log = Logger.getLogger(GradeStatusOracle.class);
 	private static ConnectionUtil cu = ConnectionUtil.getInstance();
 	@Override
-	public int addDepartment(Department a) {
+	public int addGradeStatus(GradeStatus a) {
 		int key =0;
-		log.trace("Adding Department to database.");
+		log.trace("Adding GradeStatus to database.");
 		log.trace(a);
 		Connection conn = cu.getConnection();
 		try{
 			conn.setAutoCommit(false);
-			String sql = "insert into Department (firstname,lastname,aboutblurb) values(?,?,?)";
+			String sql = "insert into GradeStatus (firstname,lastname,aboutblurb) values(?,?,?)";
 			String[] keys = {"id"};
 			PreparedStatement pstm = conn.prepareStatement(sql, keys);
 			pstm.setString(1,a.getFirst());
@@ -36,44 +36,44 @@ public class DepartmentOracle implements DepartmentDAO {
 			
 			if(rs.next())
 			{
-				log.trace("Department created.");
+				log.trace("GradeStatus created.");
 				key = rs.getInt(1);
 				a.setId(key);
 				conn.commit();
 			}
 			else
 			{
-				log.trace("Department not created.");
+				log.trace("GradeStatus not created.");
 				conn.rollback();
 			}
 		}
 		catch(Exception e)
 		{
-			LogUtil.rollback(e,conn,DepartmentOracle.class);
+			LogUtil.rollback(e,conn,GradeStatusOracle.class);
 		}
 		finally {
 			try {
 				conn.close();
 			} catch (SQLException e) {
-				LogUtil.logException(e,DepartmentOracle.class);
+				LogUtil.logException(e,GradeStatusOracle.class);
 			}
 		}
 		return key;
 	}
 	@Override
-	public Department getDepartment(int id) {
-		Department a = null;
+	public GradeStatus getGradeStatus(int id) {
+		GradeStatus a = null;
 		try(Connection conn = cu.getConnection())
 		{
-			log.trace("Getting Department with id: "+id);
-			String sql = "Select firstname, lastname, aboutblurb from Department where id=?";
+			log.trace("Getting GradeStatus with id: "+id);
+			String sql = "Select firstname, lastname, aboutblurb from GradeStatus where id=?";
 			PreparedStatement pstm = conn.prepareStatement(sql);
 			pstm.setInt(1, id);
 			ResultSet rs = pstm.executeQuery();
 			if(rs.next())
 			{
-				log.trace("Department found.");
-				a = new Department();
+				log.trace("GradeStatus found.");
+				a = new GradeStatus();
 				a.setId(id);
 				a.setAbout(rs.getString("aboutblurb"));
 				a.setFirst(rs.getString("firstname"));
@@ -81,25 +81,25 @@ public class DepartmentOracle implements DepartmentDAO {
 
 			}
 		} catch (Exception e) {
-			LogUtil.logException(e,DepartmentOracle.class);
+			LogUtil.logException(e,GradeStatusOracle.class);
 		}
 		return a;
 	}
 	@Override
-	public Department getDepartmentByName(String firstname, String lastname) {
-		Department a = null;
+	public GradeStatus getGradeStatusByName(String firstname, String lastname) {
+		GradeStatus a = null;
 		try(Connection conn = cu.getConnection())
 		{
-			log.trace("Getting Department with firstname ="+firstname+" and lastname="+lastname);
-			String sql = "Select id, aboutblurb from Department where firstname=? and lastname=?";
+			log.trace("Getting GradeStatus with firstname ="+firstname+" and lastname="+lastname);
+			String sql = "Select id, aboutblurb from GradeStatus where firstname=? and lastname=?";
 			PreparedStatement pstm = conn.prepareStatement(sql);
 			pstm.setString(1, firstname);
 			pstm.setString(2, lastname);
 			ResultSet rs = pstm.executeQuery();
 			if(rs.next())
 			{
-				log.trace("Department found.");
-				a = new Department();
+				log.trace("GradeStatus found.");
+				a = new GradeStatus();
 				a.setId(rs.getInt("id"));
 				a.setAbout(rs.getString("aboutblurb"));
 				a.setFirst(firstname);
@@ -107,64 +107,64 @@ public class DepartmentOracle implements DepartmentDAO {
 
 			}
 		} catch (Exception e) {
-			LogUtil.logException(e,DepartmentOracle.class);
+			LogUtil.logException(e,GradeStatusOracle.class);
 		}
 		return a;
 	}
 	@Override
-	public Set<Department> getDepartments() {
-		Set<Department> Departments = new HashSet<Department>();
+	public Set<GradeStatus> getGradeStatuss() {
+		Set<GradeStatus> GradeStatuss = new HashSet<GradeStatus>();
 		try(Connection conn = cu.getConnection())
 		{
-			log.trace("Getting all Departments");
-			String sql = "Select id, firstname, lastname, aboutblurb from Department";
+			log.trace("Getting all GradeStatuss");
+			String sql = "Select id, firstname, lastname, aboutblurb from GradeStatus";
 			PreparedStatement pstm = conn.prepareStatement(sql);
 			ResultSet rs = pstm.executeQuery();
 			while(rs.next())
 			{
-				Department a = new Department();
+				GradeStatus a = new GradeStatus();
 				a.setId(rs.getInt("id"));
 				a.setAbout(rs.getString("aboutblurb"));
 				a.setFirst(rs.getString("firstname"));
 				a.setLast(rs.getString("lastname"));
-				Departments.add(a);
+				GradeStatuss.add(a);
 			}
 		} catch (Exception e) {
-			LogUtil.logException(e,DepartmentOracle.class);
+			LogUtil.logException(e,GradeStatusOracle.class);
 		}
-		return Departments;
+		return GradeStatuss;
 	}
 	@Override
-	public Set<Department> getDepartmentsByBook(Book b) {
-		Set<Department> Departments = new HashSet<Department>();
+	public Set<GradeStatus> getGradeStatussByBook(Book b) {
+		Set<GradeStatus> GradeStatuss = new HashSet<GradeStatus>();
 		try(Connection conn = cu.getConnection())
 		{
-			log.trace("Getting all Departments by book");
-			String sql = "Select id, firstname, lastname, aboutblurb from Department join book_Department"
-					+ " on Department.id=book_Department.Department_id where book_id=?";
+			log.trace("Getting all GradeStatuss by book");
+			String sql = "Select id, firstname, lastname, aboutblurb from GradeStatus join book_GradeStatus"
+					+ " on GradeStatus.id=book_GradeStatus.GradeStatus_id where book_id=?";
 			PreparedStatement pstm = conn.prepareStatement(sql);
 			pstm.setInt(1, b.getId());
 			ResultSet rs = pstm.executeQuery();
 			while(rs.next())
 			{
-				Department a = new Department();
+				GradeStatus a = new GradeStatus();
 				a.setId(rs.getInt("id"));
 				a.setAbout(rs.getString("aboutblurb"));
 				a.setFirst(rs.getString("firstname"));
 				a.setLast(rs.getString("lastname"));
-				Departments.add(a);
+				GradeStatuss.add(a);
 			}
 		} catch (Exception e) {
-			LogUtil.logException(e,DepartmentOracle.class);
+			LogUtil.logException(e,GradeStatusOracle.class);
 		}
-		return Departments;
+		return GradeStatuss;
 	}
 	@Override
-	public void updateDepartment(Department a) {
+	public void updateGradeStatus(GradeStatus a) {
 		Connection conn = cu.getConnection();
 		try	{
 			conn.setAutoCommit(false);
-			String sql = "update Department set firstname=?, lastname=?, aboutblurb=? where id=?";
+			String sql = "update GradeStatus set firstname=?, lastname=?, aboutblurb=? where id=?";
 			PreparedStatement pstm = conn.prepareStatement(sql);
 			
 			pstm.setString(1, a.getFirst());
@@ -176,30 +176,30 @@ public class DepartmentOracle implements DepartmentDAO {
 			
 			if(result == 1)
 			{
-				log.trace("Department updated");
+				log.trace("GradeStatus updated");
 				conn.commit();
 			}
 			else {
-				log.trace("Department update failed");
+				log.trace("GradeStatus update failed");
 				conn.rollback();
 			}
 		} catch(Exception e) {
-			LogUtil.rollback(e, conn, DepartmentOracle.class);
+			LogUtil.rollback(e, conn, GradeStatusOracle.class);
 		} finally {
 			try {
 				conn.close();
 			} catch (SQLException e) {
-				LogUtil.logException(e,DepartmentOracle.class);
+				LogUtil.logException(e,GradeStatusOracle.class);
 			}
 		}
 	}
 	@Override
-	public void deleteDepartment(Department a) {
-		log.trace("Deleting Department: "+a);
+	public void deleteGradeStatus(GradeStatus a) {
+		log.trace("Deleting GradeStatus: "+a);
 		Connection conn = cu.getConnection();
 		try	{
 			conn.setAutoCommit(false);
-			String sql = "delete from Department where id=?";
+			String sql = "delete from GradeStatus where id=?";
 			PreparedStatement pstm = conn.prepareStatement(sql);
 			pstm.setInt(1, a.getId());
 			
@@ -207,38 +207,21 @@ public class DepartmentOracle implements DepartmentDAO {
 			
 			if(result == 1)
 			{
-				log.trace("Department deleted");
+				log.trace("GradeStatus deleted");
 				conn.commit();
 			}
 			else {
-				log.trace("Department delete failed");
+				log.trace("GradeStatus delete failed");
 				conn.rollback();
 			}
 		} catch(Exception e) {
-			LogUtil.rollback(e, conn, DepartmentOracle.class);
+			LogUtil.rollback(e, conn, GradeStatusOracle.class);
 		} finally {
 			try {
 				conn.close();
 			} catch (SQLException e) {
-				LogUtil.logException(e,DepartmentOracle.class);
+				LogUtil.logException(e,GradeStatusOracle.class);
 			}
 		}
 	}
-	@Override
-	public Department getDepartmentById(int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
-	public Department getDepartment(String Department) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
-	public int getDepartmentHead(int id) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-	
-
 }

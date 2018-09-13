@@ -7,6 +7,9 @@ public class EventLocation {
 	private String city;
 	private String state;
 	private String zip;
+	public EventLocation() {
+		super();
+	}
 	
 	public EventLocation(int id, String lineOne, String lineTwo, String city, String state, String zip) {
 		super();

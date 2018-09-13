@@ -3,6 +3,15 @@ package com.revature.beans;
 public class Status {
 	private int id;
 	private String name;
+	
+	public Status() {
+		super();
+	}
+	public Status(int id) {
+		super();
+		this.id = id;
+	}
+	
 	public Status(int id, String name) {
 		super();
 		this.id = id;

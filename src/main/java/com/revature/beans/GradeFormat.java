@@ -3,6 +3,15 @@ package com.revature.beans;
 public class GradeFormat {
 	private int id;
 	private String name;
+	
+	public GradeFormat() {
+		super();
+	}
+	public GradeFormat(int id) {
+		super();
+		this.id = id;
+	}
+	
 	public GradeFormat(int id, String name) {
 		super();
 		this.id = id;

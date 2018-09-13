@@ -4,6 +4,15 @@ public class Submission {
 	private int id;
 	private String type;
 	private String attachment;
+	
+	public Submission() {
+		super();
+	}
+	public Submission(int id) {
+		super();
+		this.id = id;
+	}
+	
 	public Submission(int id, String type, String attachment) {
 		super();
 		this.id = id;

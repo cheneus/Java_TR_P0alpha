@@ -15,6 +15,14 @@ public class Employee {
 	private int reimbursement_balance;
 	private String phone;
 	private String email;
+	
+	public Employee() {
+		super();
+	}
+	public Employee(int id) {
+		super();
+		this.id = id;
+	}
 
 	public Employee(int id, String lastname, String firstname, String title, Employee supervisor, Date birthDate,
 			Date hireDate, Department dept_id, Address address, int reimbursement_balance, String phone, String email) {

@@ -10,6 +10,10 @@ public class EventLocation {
 	public EventLocation() {
 		super();
 	}
+	public EventLocation(int id) {
+		super();
+		this.id = id;
+	}
 	
 	public EventLocation(int id, String lineOne, String lineTwo, String city, String state, String zip) {
 		super();

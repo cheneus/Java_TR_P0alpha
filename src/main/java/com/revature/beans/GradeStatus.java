@@ -3,6 +3,15 @@ package com.revature.beans;
 public class GradeStatus {
 	private int id;
 	private String name;
+	
+	public GradeStatus() {
+		super();
+	}
+	public GradeStatus(int id) {
+		super();
+		this.id = id;
+	}
+	
 	public GradeStatus(int id, String name) {
 		super();
 		this.id = id;

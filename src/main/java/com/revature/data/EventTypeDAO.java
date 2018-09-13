@@ -9,14 +9,14 @@ public interface EventTypeDAO {
 	 * @param EventType the EventType object to be inserted
 	 * @return the id of the EventType object inserted
 	 */
-	public int addEventType(EventType EventType);
+	public int addEventType(EventType ev);
 	/**
 	 * returns a login object from the database
 	 * 
 	 * @param u previously created EventType object for updating with EventType information
 	 * @return the EventType from the database that matches the EventTypename and password
 	 */
-	public EventType getEventType(EventType EventType);
+	public EventType getEventType(EventType ev);
 	/**
 	 * returns a login object from the database
 	 * 
@@ -29,12 +29,12 @@ public interface EventTypeDAO {
 	 * 
 	 * @param EventType the EventType to be deleted
 	 */
-	public void deleteEventType(EventType EventType);
+	public void deleteEventType(EventType ev);
 	
 	/**
 	 * updates a EventType in the database
 	 * 
 	 * @param EventType the EventType to be updated
 	 */
-	public void updateEventType(EventType EventType);
+	public void updateEventType(EventType ev);
 }

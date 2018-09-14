@@ -9,9 +9,9 @@ import java.util.Set;
 
 import org.apache.log4j.Logger;
 
-import com.revature.beans.Address;
-import com.revature.beans.Customer;
+import com.revature.beans.Employee;
 import com.revature.beans.Login;
+import com.revature.driver.Main;
 import com.revature.utils.ConnectionUtil;
 import com.revature.utils.LogUtil;
 
@@ -27,13 +27,13 @@ public class LoginOracle implements LoginDAO {
 		Connection conn = cu.getConnection();
 		try{
 			conn.setAutoCommit(false);
-			String sql = "insert into login (username, password, customer_id, login_type) values(?,?,?,?)";
+			String sql = "insert into login (username, password, employee_id, admin) values(?,?,?,?)";
 			String[] keys = {"id"};
 			PreparedStatement pstm = conn.prepareStatement(sql, keys);
 			pstm.setString(1,login.getUsername());
 			pstm.setString(2, login.getPassword());
-			pstm.setInt(3, login.getCust_id().getId());
-			pstm.setInt(4, 3);
+			pstm.setInt(3, login.getEmployee_id().getId());
+			pstm.setInt(4, 0);
 			
 			pstm.executeUpdate();
 			ResultSet rs = pstm.getGeneratedKeys();
@@ -67,8 +67,27 @@ public class LoginOracle implements LoginDAO {
 
 	@Override
 	public Login getLogin(String username, String password) {
-		// TODO Auto-generated method stub
-		return null;
+		Login u = null;
+
+		try (Connection conn = cu.getConnection()) {
+			String sql = "select id,username,password,admin from login where username =? and password=?";
+			log.trace(sql);
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setString(1, username);
+			stmt.setString(2, password);
+			ResultSet rs = stmt.executeQuery();
+			if (rs.next()) {
+				log.trace("User found!");
+				u = new Login();
+				u.setId(rs.getInt("id"));
+				u.setUsername(rs.getString("username"));
+				u.setPassword(rs.getString("password"));
+				u.setAdmin(rs.getInt("admin"));
+			}
+		} catch (SQLException e) {
+			LogUtil.logException(e, Main.class);
+		}
+		return u;
 	}
 
 	@Override
@@ -83,17 +102,17 @@ public class LoginOracle implements LoginDAO {
 			while(rs.next())
 			{
 				Login log = new Login();
-				log.setCust_id(new Customer(rs.getInt("id")));
+				log.setEmployee_id(new Employee(rs.getInt("id")));
 				log.setPassword(rs.getString("password"));
 				log.setUsername(rs.getString("username"));
-				log.setLogin_type(rs.getString("login_type"));
+				log.setAdmin(rs.getInt("admin"));
 				log.setId(rs.getInt("id"));
 				logList.add(log);
 			}
 		}
 		catch(Exception e)
 		{
-			LogUtil.logException(e,CustomerOracle.class);
+			LogUtil.logException(e,Login.class);
 		}
 		return logList;
 	}

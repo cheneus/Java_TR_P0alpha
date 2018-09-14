@@ -9,8 +9,9 @@ import java.util.Set;
 
 import org.apache.log4j.Logger;
 
+import com.revature.beans.Employee;
 import com.revature.beans.InfoRequest;
-import com.revature.beans.InfoRequest;
+import com.revature.beans.TuitionReimbursementForm;
 import com.revature.exceptions.NullArgumentException;
 import com.revature.utils.ConnectionUtil;
 import com.revature.utils.LogUtil;
@@ -23,23 +24,32 @@ public class InfoRequestOracle implements InfoRequestDAO {
 	@Override
 	public int addInfoReq(InfoRequest InfoRequest) {
 		Connection conn = cu.getConnection();
+		log.trace("Adding InfoRequest to database.");
+		log.trace(InfoRequest);
+		int key = 0;
 		try {
 			log.trace("Inserting InfoRequest into db");
 			conn.setAutoCommit(false);
-			String sql = "insert into info_request (title, form_ref, requestor_id, requestee_id, response, open) values (?,?,?,?,?,?)";
-			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setInt(1,InfoRequest.getId());
-			ps.setInt(2, InfoRequest.getSupervisor().getId());
-			ps.setString(3, InfoRequest.getTitle());
-			int result = ps.executeUpdate();
-			if(result!=1)
+			String sql = "insert into info_request (title, form_ref, requestor_id, requestee_id) values (?,?,?,?)";
+			PreparedStatement pstm = conn.prepareStatement(sql, key);
+			pstm.setString(1,InfoRequest.getTitle());
+			pstm.setInt(2, InfoRequest.getForm_ref().getId());
+			pstm.setInt(3, InfoRequest.getRequestor_id().getId());
+			pstm.setInt(4, InfoRequest.getRequestee_id().getId());
+			pstm.setString(3, InfoRequest.getTitle());
+			int result = pstm.executeUpdate();
+			ResultSet rs = pstm.getGeneratedKeys();
+			if(rs.next())
 			{
-				log.warn("Insertion of InfoRequest failed.");
-				conn.rollback();
-			}
-			else {
-				log.trace("Successful insertion of InfoRequest");
+				log.trace("Info Request created.");
+				key = rs.getInt(1);
+				InfoRequest.setId(key);
 				conn.commit();
+			}
+			else
+			{
+				log.trace("Info Request not created.");
+				conn.rollback();
 			}
 		}
 		catch(Exception e)
@@ -53,75 +63,94 @@ public class InfoRequestOracle implements InfoRequestDAO {
 				LogUtil.logException(e,InfoRequestOracle.class);
 			}
 		}
+		return 0;
 	}
 
 	@Override
-	public InfoRequest getInfoReq(InfoRequest emp) {
-		if(emp==null)
+	public InfoRequest getInfoReq(InfoRequest InfoRequest) {
+		Connection conn = cu.getConnection();
+		log.trace("getting InfoRequest to database.");
+		log.trace(InfoRequest);
+		
+		if(InfoRequest==null)
 		{
-			throw new NullArgumentException("emp can't be null");
+			throw new NullArgumentException("InfoRequest can't be null");
 		}
-		try(Connection conn = cu.getConnection())
-		{
-			String sql = "select ID, sup_id, title from emp where id=?";
+		try {
+			String sql = "select title, form_ref,requestor_id, requestee_id, response, open from InfoRequest where id=?";
 			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setInt(1, emp.getId());
+			ps.setInt(1, InfoRequest.getId());
 			ResultSet rs = ps.executeQuery();
-			if(rs.next())
-			{
+			if(rs.next()) {
 				log.trace("This is a InfoRequest");
-				if(rs.getObject("sup_id")==null)
+				if(rs.getInt("open")==0)
 				{
-					log.trace("null supervisor");
+					log.trace("this request has been fullfilled");
 				} else {
-					emp.setSupervisor(new InfoRequest(rs.getInt("sup_id")));
+					log.trace("this request still waiting for a response");
 				}
-				emp.setTitle(rs.getString("title"));
+				Employee em1 = new Employee();
+				Employee em2 = new Employee();
+				TuitionReimbursementForm tr = new TuitionReimbursementForm();
+				em1.setId(rs.getInt("requestor_id"));
+				em2.setId(rs.getInt("requestee_id"));
+				tr.setId(rs.getInt("form_ref"));
+				InfoRequest.setTitle(rs.getString("title"));
+				InfoRequest.setForm_ref(tr);
+				InfoRequest.setRequestor_id(em1);
+				InfoRequest.setRequestee_id(em2);
+				InfoRequest.setResponse(rs.getString("response"));
+				InfoRequest.setOpen(rs.getInt("open"));
 			}
 			else
 			{
 				log.trace("This is not a InfoRequest");
-				emp.setFirst(null);
-				emp.setLast(null);
-				emp.setId(0);
-				emp.setPassword(null);
-				emp.setUsername(null);
+				InfoRequest.setId(0);
+				InfoRequest.setTitle(null);
+				InfoRequest.setForm_ref(null);
+				InfoRequest.setRequestor_id(null);
+				InfoRequest.setRequestee_id(null);
+				InfoRequest.setResponse(null);
+				InfoRequest.setOpen(0);
 			}
 		}
 		catch(Exception e)
 		{
 			LogUtil.logException(e,InfoRequestOracle.class);
 		}
-		return emp;
+		return InfoRequest;
 	}
 
 	@Override
 	public Set<InfoRequest> getInfoReq() {
-		Set<InfoRequest> empList = new HashSet<InfoRequest>();
+		Set<InfoRequest> InfoRequestList = new HashSet<InfoRequest>();
 		try(Connection conn = cu.getConnection())
 		{
-			String sql = "Select id, sup_id, title from emp";
+			String sql = "Select id, title, form_ref,requestor_id, requestee_id, response, open from InfoRequest";
 			PreparedStatement pstm = conn.prepareStatement(sql);
 			ResultSet rs = pstm.executeQuery();
 			while(rs.next())
 			{
-				InfoRequest emp = new InfoRequest();
-				if(rs.getObject("sup_id")==null)
-				{
-					log.trace("null supervisor");
-				} else {
-					emp.setSupervisor(new InfoRequest(rs.getInt("sup_id")));
-				}
-				emp.setTitle(rs.getString("title"));
-				emp.setId(rs.getInt("id"));
-				empList.add(emp);
+				InfoRequest InfoRequest = new InfoRequest();
+				Employee em1 = new Employee();
+				Employee em2 = new Employee();
+				TuitionReimbursementForm tr = new TuitionReimbursementForm();
+				em1.setId(rs.getInt("requestor_id"));
+				em2.setId(rs.getInt("requestee_id"));
+				tr.setId(rs.getInt("form_ref"));
+				InfoRequest.setTitle(rs.getString("title"));
+				InfoRequest.setForm_ref(tr);
+				InfoRequest.setRequestor_id(em1);
+				InfoRequest.setRequestee_id(em2);
+				InfoRequest.setResponse(rs.getString("response"));
+				InfoRequest.setOpen(rs.getInt("open"));
 			}
 		}
 		catch(Exception e)
 		{
 			LogUtil.logException(e,InfoRequestOracle.class);
 		}
-		return empList;
+		return InfoRequestList;
 	}
 	@Override
 	public void updateInfoReq(InfoRequest InfoRequest)
@@ -130,10 +159,10 @@ public class InfoRequestOracle implements InfoRequestDAO {
 		try(Connection conn = cu.getConnection()){
 			conn.setAutoCommit(false);
 			
-			String sql = "update emp set sup_id = ?, title = ? where id = ?";
+			String sql = "update InfoRequest set response=? open=? where id = ?";
 			PreparedStatement pstm = conn.prepareStatement(sql);
-			pstm.setInt(1, InfoRequest.getSupervisor().getId());
-			pstm.setString(2, InfoRequest.getTitle());
+			pstm.setString(1, InfoRequest.getResponse());
+			pstm.setInt(2, InfoRequest.getOpen());
 			pstm.setInt(3, InfoRequest.getId());
 			int number = pstm.executeUpdate();
 			if(number!=1)
@@ -154,12 +183,12 @@ public class InfoRequestOracle implements InfoRequestDAO {
 	}
 
 	@Override
-	public void deleteInfoRequest(InfoRequest InfoRequest) {
+	public void deleteInfoReq(InfoRequest InfoRequest) {
 		log.trace("Removing InfoRequest from database.");
 		try(Connection conn = cu.getConnection()){
 			conn.setAutoCommit(false);
 			
-			String sql = "delete from emp where id = ?";
+			String sql = "delete from InfoRequest where id = ?";
 			PreparedStatement pstm = conn.prepareStatement(sql);
 			pstm.setInt(1, InfoRequest.getId());
 			int number = pstm.executeUpdate();
@@ -178,6 +207,12 @@ public class InfoRequestOracle implements InfoRequestDAO {
 		{
 			LogUtil.logException(e,InfoRequestOracle.class);
 		}
+	}
+
+	@Override
+	public InfoRequest getInfoReqById(int id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 

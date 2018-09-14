@@ -6,6 +6,20 @@ public class TuitionReimbursementType {
 	private String name;
 	private int rate;
 	
+	public TuitionReimbursementType() {
+		super();
+	}
+	public TuitionReimbursementType(int id) {
+		super();
+		this.id = id;
+	}
+	
+	public TuitionReimbursementType(int id, String name, int rate) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.rate = rate;
+	}
 	public int getId() {
 		return id;
 	}

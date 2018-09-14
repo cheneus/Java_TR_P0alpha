@@ -49,10 +49,10 @@ public class Login {
 	public void setEmployee_id(Employee employee_id) {
 		this.employee_id = employee_id;
 	}
-	public int getadmin() {
+	public int getAdmin() {
 		return admin;
 	}
-	public void setadmin(int admin) {
+	public void setAdmin(int admin) {
 		this.admin = admin;
 	}
 	@Override

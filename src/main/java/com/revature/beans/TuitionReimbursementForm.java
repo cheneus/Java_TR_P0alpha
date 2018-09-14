@@ -16,6 +16,14 @@ public class TuitionReimbursementForm {
 	private Status status;
 	private String event_related_attachments;
 	
+	public TuitionReimbursementForm() {
+		super();
+	}
+	public TuitionReimbursementForm(int id) {
+		super();
+		this.id = id;
+	}
+	
 	public TuitionReimbursementForm(int id, Date dateOfEvent, Date timeOfEvent, Date date_submitted,
 			EventLocation locationId, EventType eventId, String description, double cost, GradeFormat grade_format_id,
 			Employee submitted_by, Status status, String event_related_attachments) {

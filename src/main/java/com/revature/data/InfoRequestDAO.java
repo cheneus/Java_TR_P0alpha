@@ -1,5 +1,7 @@
 package com.revature.data;
 
+import java.util.Set;
+
 import com.revature.beans.InfoRequest;
 
 public interface InfoRequestDAO {
@@ -15,6 +17,7 @@ public interface InfoRequestDAO {
 	 * @param InfoRequest the InfoRequest to be updated
 	 */
 	public void updateInfoReq(InfoRequest InfoRequest);
+	public Set<InfoRequest> getInfoReq();
 	
 	
 }

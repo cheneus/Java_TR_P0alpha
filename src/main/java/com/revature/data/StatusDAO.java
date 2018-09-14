@@ -1,5 +1,7 @@
 package com.revature.data;
 
+import java.util.Set;
+
 import com.revature.beans.Status;
 
 public interface StatusDAO {
@@ -37,4 +39,5 @@ public interface StatusDAO {
 	 * @param Status the Status to be updated
 	 */
 	public void updateStatus(Status Status);
+	Set<Status> getStatuss();
 }

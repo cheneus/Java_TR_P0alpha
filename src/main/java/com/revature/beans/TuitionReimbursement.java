@@ -15,6 +15,14 @@ public class TuitionReimbursement {
 	private TuitionReimbursementType type_id;
 	private Submission submission;
 	
+	public TuitionReimbursement() {
+		super();
+	}
+	public TuitionReimbursement(int id) {
+		super();
+		this.id = id;
+	}
+	
 	public TuitionReimbursement(int id, Status status, double amount_reimbursed, Date date_received, String reason,
 			TuitionReimbursementForm form_ref, GradeStatus grade_stat, Employee approved_by, String remarks,
 			TuitionReimbursementType type_id, Submission submission) {

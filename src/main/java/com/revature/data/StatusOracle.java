@@ -7,217 +7,213 @@ import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.apache.log4j.Logger;
+
 import com.revature.beans.Status;
-import com.revature.beans.Status;
+import com.revature.utils.ConnectionUtil;
 import com.revature.utils.LogUtil;
 
 public class StatusOracle implements StatusDAO {
-	public int addStatus(Status a) {
-		int key =0;
-		log.trace("Adding Status to database.");
-		log.trace(a);
+	private static ConnectionUtil cu = ConnectionUtil.getInstance();
+	private static Logger log = Logger.getLogger(StatusOracle.class);
+
+	@Override
+	public int addStatus(Status ev) {
+		int key = 0;
+		
+		log.trace("Inserting a Status into the database.");
 		Connection conn = cu.getConnection();
-		try{
+		try {
 			conn.setAutoCommit(false);
-			String sql = "insert into Status (firstname,lastname,aboutblurb) values(?,?,?)";
-			String[] keys = {"id"};
-			PreparedStatement pstm = conn.prepareStatement(sql, keys);
-			pstm.setString(1,a.getFirst());
-			pstm.setString(2, a.getLast());
-			pstm.setString(3, a.getAbout());
+			String sql = "insert into Status(name) values(?)";
+			String[] keys = { "id" };
+			log.trace(sql);
+			PreparedStatement stmt = conn.prepareStatement(sql, keys);
+			stmt.setString(1, ev.getName());
 			
-			pstm.executeUpdate();
-			ResultSet rs = pstm.getGeneratedKeys();
-			
-			if(rs.next())
-			{
-				log.trace("Status created.");
-				key = rs.getInt(1);
-				a.setId(key);
-				conn.commit();
-			}
-			else
-			{
-				log.trace("Status not created.");
+			int number = stmt.executeUpdate();
+			ResultSet rs = stmt.getGeneratedKeys();
+			if(number!=1) {
+				log.warn("We didn't insert only one Status, or any Statuss at all.");
 				conn.rollback();
+			} else {
+				log.trace("Inserted Status successfully");
+				if(rs.next()) {
+					key = rs.getInt(1);
+					ev.setId(key);
+					conn.commit();
+				} else {
+					log.trace("Status not created");
+					ev.setId(0);
+					conn.rollback();
+				}
 			}
-		}
-		catch(Exception e)
-		{
-			LogUtil.rollback(e,conn,StatusOracle.class);
-		}
-		finally {
+		} catch(Exception e) {
+			LogUtil.rollback(e, conn, StatusOracle.class);
+		} finally {
 			try {
 				conn.close();
 			} catch (SQLException e) {
-				LogUtil.logException(e,StatusOracle.class);
+				LogUtil.logException(e, StatusOracle.class);
 			}
 		}
+		
 		return key;
 	}
-	@Override
-	public Status getStatus(int id) {
-		Status a = null;
-		try(Connection conn = cu.getConnection())
-		{
-			log.trace("Getting Status with id: "+id);
-			String sql = "Select firstname, lastname, aboutblurb from Status where id=?";
-			PreparedStatement pstm = conn.prepareStatement(sql);
-			pstm.setInt(1, id);
-			ResultSet rs = pstm.executeQuery();
-			if(rs.next())
-			{
-				log.trace("Status found.");
-				a = new Status();
-				a.setId(id);
-				a.setAbout(rs.getString("aboutblurb"));
-				a.setFirst(rs.getString("firstname"));
-				a.setLast(rs.getString("lastname"));
 
-			}
-		} catch (Exception e) {
-			LogUtil.logException(e,StatusOracle.class);
-		}
-		return a;
-	}
 	@Override
-	public Status getStatusByName(String firstname, String lastname) {
-		Status a = null;
-		try(Connection conn = cu.getConnection())
-		{
-			log.trace("Getting Status with firstname ="+firstname+" and lastname="+lastname);
-			String sql = "Select id, aboutblurb from Status where firstname=? and lastname=?";
-			PreparedStatement pstm = conn.prepareStatement(sql);
-			pstm.setString(1, firstname);
-			pstm.setString(2, lastname);
-			ResultSet rs = pstm.executeQuery();
-			if(rs.next())
-			{
-				log.trace("Status found.");
-				a = new Status();
-				a.setId(rs.getInt("id"));
-				a.setAbout(rs.getString("aboutblurb"));
-				a.setFirst(firstname);
-				a.setLast(lastname);
-
+	public Status getStatusById(int id) {
+		log.trace("Retrieving Status with id = " + id);
+		Status ev = null;
+		try (Connection conn = cu.getConnection()) {
+			String sql = "select name from Status where id =?";
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, id);
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				log.trace(rs.getInt(1) + " | " + rs.getString(2));
+				ev = new Status();
+				ev.setId(rs.getInt("id"));
+				ev.setName(rs.getString("name"));
 			}
-		} catch (Exception e) {
-			LogUtil.logException(e,StatusOracle.class);
+		} catch (SQLException e) {
+			LogUtil.logException(e, StatusOracle.class);
 		}
-		return a;
+		log.trace("Method returning: " + ev);
+		return ev;
 	}
+
+	@Override
+	public Status getStatus(Status ev) {
+		log.trace("Retrieving Status with Status= " + ev);
+		Status g = null;
+		try (Connection conn = cu.getConnection()) {
+			String sql = "select id, name from Status where Status =?";
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setString(1, ev.getName());
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				log.trace(rs.getInt(1) + " | " + rs.getString(2));
+				g = new Status();
+				g.setId(rs.getInt("id"));
+				g.setName(rs.getString("Status"));
+			}
+		} catch (SQLException e) {
+			LogUtil.logException(e, StatusOracle.class);
+		}
+		log.trace("Method returning: " + g);
+		return g;
+	}
+
 	@Override
 	public Set<Status> getStatuss() {
+		log.trace("Retrieving Statuss");
 		Set<Status> Statuss = new HashSet<Status>();
-		try(Connection conn = cu.getConnection())
-		{
-			log.trace("Getting all Statuss");
-			String sql = "Select id, firstname, lastname, aboutblurb from Status";
-			PreparedStatement pstm = conn.prepareStatement(sql);
-			ResultSet rs = pstm.executeQuery();
-			while(rs.next())
-			{
-				Status a = new Status();
-				a.setId(rs.getInt("id"));
-				a.setAbout(rs.getString("aboutblurb"));
-				a.setFirst(rs.getString("firstname"));
-				a.setLast(rs.getString("lastname"));
-				Statuss.add(a);
+		try (Connection conn = cu.getConnection()) {
+			String sql = "select id, name from Status";
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				log.trace(rs.getInt(1) + " | " + rs.getString(2));
+				Status g = new Status();
+				g.setId(rs.getInt("id"));
+				g.setName(rs.getString("name"));
+				Statuss.add(g);
 			}
-		} catch (Exception e) {
-			LogUtil.logException(e,StatusOracle.class);
+		} catch (SQLException e) {
+			LogUtil.logException(e, StatusOracle.class);
 		}
+		log.trace("Method returning: " + Statuss);
 		return Statuss;
 	}
+
+//	@Override
+//	public Set<Status> getStatussByBook(Book b) {
+//		log.trace("Retrieving Statuss");
+//		Set<Status> Statuss = new HashSet<Status>();
+//		try (Connection conn = cu.getConnection()) {
+//			String sql = "select g.id, g.Status from Status g join book_Status bg on bg.Status_id ="
+//					+ "g.id where bg.book_id = ?";
+//			PreparedStatement stmt = conn.prepareStatement(sql);
+//			stmt.setInt(1, b.getId());
+//			ResultSet rs = stmt.executeQuery();
+//			while (rs.next()) {
+//				log.trace(rs.getInt(1) + " | " + rs.getString(2));
+//				Status g = new Status();
+//				g.setId(rs.getInt("id"));
+//				g.setStatus(rs.getString("Status"));
+//				Statuss.add(g);
+//			}
+//		} catch (SQLException e) {
+//			LogUtil.logException(e, StatusOracle.class);
+//		}
+//		log.trace("Method returning: " + Statuss);
+//		return Statuss;
+//	}
+
 	@Override
-	public Set<Status> getStatussByBook(Book b) {
-		Set<Status> Statuss = new HashSet<Status>();
-		try(Connection conn = cu.getConnection())
-		{
-			log.trace("Getting all Statuss by book");
-			String sql = "Select id, firstname, lastname, aboutblurb from Status join book_Status"
-					+ " on Status.id=book_Status.Status_id where book_id=?";
-			PreparedStatement pstm = conn.prepareStatement(sql);
-			pstm.setInt(1, b.getId());
-			ResultSet rs = pstm.executeQuery();
-			while(rs.next())
-			{
-				Status a = new Status();
-				a.setId(rs.getInt("id"));
-				a.setAbout(rs.getString("aboutblurb"));
-				a.setFirst(rs.getString("firstname"));
-				a.setLast(rs.getString("lastname"));
-				Statuss.add(a);
-			}
-		} catch (Exception e) {
-			LogUtil.logException(e,StatusOracle.class);
-		}
-		return Statuss;
-	}
-	@Override
-	public void updateStatus(Status a) {
+	public void updateStatus(Status g) {
+		log.trace("Updating Status to "+ g);
 		Connection conn = cu.getConnection();
-		try	{
-			conn.setAutoCommit(false);
-			String sql = "update Status set firstname=?, lastname=?, aboutblurb=? where id=?";
-			PreparedStatement pstm = conn.prepareStatement(sql);
-			
-			pstm.setString(1, a.getFirst());
-			pstm.setString(2, a.getLast());
-			pstm.setString(3, a.getAbout());
-			pstm.setInt(4, a.getId());
-			
-			int result = pstm.executeUpdate();
-			
-			if(result == 1)
-			{
-				log.trace("Status updated");
-				conn.commit();
-			}
-			else {
-				log.trace("Status update failed");
-				conn.rollback();
-			}
-		} catch(Exception e) {
-			LogUtil.rollback(e, conn, StatusOracle.class);
-		} finally {
-			try {
+        try {
+        	// JDBC automatically commits data. Lets stop it.
+        	conn.setAutoCommit(false);
+            String sql = "update Status set Status = ? where id = ?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(2, g.getId());
+            stmt.setString(1, g.getName());
+            int rs = stmt.executeUpdate();
+            log.trace("Updated "+rs+" rows.");
+            if(rs!=1) {
+            	log.warn("Status update failure. Rolling back.");
+            	conn.rollback();
+            } else {
+            	log.trace("Status updated successfully. Committing.");
+            	conn.commit();
+            }
+            
+        } catch (SQLException e) {
+            LogUtil.rollback(e, conn, StatusOracle.class);
+        } finally {
+        	try {
 				conn.close();
 			} catch (SQLException e) {
-				LogUtil.logException(e,StatusOracle.class);
+				LogUtil.logException(e, StatusOracle.class);
 			}
-		}
+        }
+        log.trace("Method returning: " + g);
 	}
+
 	@Override
-	public void deleteStatus(Status a) {
-		log.trace("Deleting Status: "+a);
+	public void deleteStatus(Status s) {
+		log.trace("Deleting Status: "+ s);
 		Connection conn = cu.getConnection();
-		try	{
-			conn.setAutoCommit(false);
-			String sql = "delete from Status where id=?";
-			PreparedStatement pstm = conn.prepareStatement(sql);
-			pstm.setInt(1, a.getId());
-			
-			int result = pstm.executeUpdate();
-			
-			if(result == 1)
-			{
-				log.trace("Status deleted");
-				conn.commit();
-			}
-			else {
-				log.trace("Status delete failed");
-				conn.rollback();
-			}
-		} catch(Exception e) {
-			LogUtil.rollback(e, conn, StatusOracle.class);
-		} finally {
-			try {
+        try {
+        	// JDBC automatically commits data. Lets stop it.
+        	conn.setAutoCommit(false);
+            String sql = "delete from Status where id = ?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, s.getId());
+            int rs = stmt.executeUpdate();
+            log.trace("Deleted "+rs+" rows.");
+            if(rs!=1) {
+            	log.warn("Status delete failure. Rolling back.");
+            	conn.rollback();
+            } else {
+            	log.trace("Status deleted successfully. Committing.");
+            	conn.commit();
+            }
+            
+        } catch (SQLException e) {
+            LogUtil.rollback(e, conn, StatusOracle.class);
+        } finally {
+        	try {
 				conn.close();
 			} catch (SQLException e) {
-				LogUtil.logException(e,StatusOracle.class);
+				LogUtil.logException(e, StatusOracle.class);
 			}
-		}
+        }
+        log.trace("Method returning: " + null);
 	}
 
 }

@@ -7,14 +7,15 @@ import com.revature.beans.TuitionReimbursementForm;
 
 public interface TuitionReimbursementFormDAO {
 	// create
-	public int addTuitionReimbursementForm(TuitionReimbursementForm b);
+	public int addTuitionReimbursementForm(TuitionReimbursementForm tr);
 	// read
-	public TuitionReimbursementForm getTuitionReimbursementForm(int i);
-	public TuitionReimbursementForm getTuitionReimbursementFormByIsbn(String isbn);
+	public TuitionReimbursementForm getTuitionReimbursementForm(TuitionReimbursementForm tr);
+	public TuitionReimbursementForm getTuitionReimbursementFormByID(int i);
 	public Set<TuitionReimbursementForm> getTuitionReimbursementForms();
 	public Set<TuitionReimbursementForm> getTuitionReimbursementFormsByStatus(Status s);
 	// update
-	public void updateTuitionReimbursementForm(TuitionReimbursementForm b);
+	public void updateTuitionReimbursementForm(TuitionReimbursementForm tr);
 	// delete
-	public void deleteTuitionReimbursementForm(TuitionReimbursementForm b);
+	public void deleteTuitionReimbursementForm(TuitionReimbursementForm tr);
+	Set<TuitionReimbursementForm> getTuitionReimbursementFormsByPendingStatus();
 }

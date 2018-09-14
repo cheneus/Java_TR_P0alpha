@@ -34,7 +34,7 @@ public class StatusOracle implements StatusDAO {
 			int number = stmt.executeUpdate();
 			ResultSet rs = stmt.getGeneratedKeys();
 			if(number!=1) {
-				log.warn("We didn't insert only one Status, or any Statuss at all.");
+				log.warn("We didn't insert only one Status, or any Status at all.");
 				conn.rollback();
 			} else {
 				log.trace("Inserted Status successfully");

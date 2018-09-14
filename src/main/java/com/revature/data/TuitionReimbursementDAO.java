@@ -7,14 +7,17 @@ import com.revature.beans.TuitionReimbursement;
 
 public interface TuitionReimbursementDAO {
 	// create
-	public int addTuitionReimbursement(TuitionReimbursement b);
+	public int addTuitionReimbursement(TuitionReimbursement tr);
 	// read
-	public TuitionReimbursement getTuitionReimbursement(int i);
-	public TuitionReimbursement getTuitionReimbursementByIsbn(String isbn);
+	public TuitionReimbursement getTuitionReimbursement(TuitionReimbursement tr);
+//	public TuitionReimbursement getTuitionReimbursementByIsbn(String isbn);
 	public Set<TuitionReimbursement> getTuitionReimbursements();
 	public Set<TuitionReimbursement> getTuitionReimbursementsByStatus(Status s);
+	public Set<TuitionReimbursement> getTuitionReimbursementsByPendingStatus();
+	public TuitionReimbursement getTuitionReimbursementByID(int i);
 	// update
-	public void updateTuitionReimbursement(TuitionReimbursement b);
+	public void updateTuitionReimbursement(TuitionReimbursement tr);
 	// delete
-	public void deleteTuitionReimbursement(TuitionReimbursement b);
+	public void deleteTuitionReimbursement(TuitionReimbursement tr);
+
 }

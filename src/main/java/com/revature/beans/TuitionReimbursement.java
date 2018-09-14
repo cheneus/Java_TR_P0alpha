@@ -6,14 +6,13 @@ public class TuitionReimbursement {
 	private int id;
 	private Status status;
 	private double amount_reimbursed;
-	private Date date_received;
 	private String reason;
 	private TuitionReimbursementForm form_ref;
 	private GradeStatus grade_stat;
 	private Employee approved_by;
 	private String remarks;
 	private TuitionReimbursementType type_id;
-	private Submission submission;
+//	private Submission submission;
 	
 	public TuitionReimbursement() {
 		super();
@@ -25,7 +24,8 @@ public class TuitionReimbursement {
 	
 	public TuitionReimbursement(int id, Status status, double amount_reimbursed, Date date_received, String reason,
 			TuitionReimbursementForm form_ref, GradeStatus grade_stat, Employee approved_by, String remarks,
-			TuitionReimbursementType type_id, Submission submission) {
+			TuitionReimbursementType type_id) {
+//			Submission submission) {
 		super();
 		this.id = id;
 		this.status = status;
@@ -37,7 +37,7 @@ public class TuitionReimbursement {
 		this.approved_by = approved_by;
 		this.remarks = remarks;
 		this.type_id = type_id;
-		this.submission = submission;
+//		this.submission = submission;
 	}
 	public int getId() {
 		return id;
@@ -57,11 +57,12 @@ public class TuitionReimbursement {
 	public void setAmount_reimbursed(double amount_reimbursed) {
 		this.amount_reimbursed = amount_reimbursed;
 	}
-	public Date getTime_submitted() {
+	private Date date_received;
+	public Date getDate_received() {
 		return date_received;
 	}
-	public void setTime_submitted(Date time_submitted) {
-		this.date_received = time_submitted;
+	public void setDate_received(Date date_received) {
+		this.date_received = date_received;
 	}
 	public String getReason() {
 		return reason;
@@ -99,12 +100,12 @@ public class TuitionReimbursement {
 	public void setType_id(TuitionReimbursementType type_id) {
 		this.type_id = type_id;
 	}
-	public Submission getSubmission() {
-		return submission;
-	}
-	public void setSubmission(Submission submission) {
-		this.submission = submission;
-	}
+//	public Submission getSubmission() {
+//		return submission;
+//	}
+//	public void setSubmission(Submission submission) {
+//		this.submission = submission;
+//	}
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -123,6 +124,6 @@ public class TuitionReimbursement {
 	}
 	@Override
 	public String toString() {
-		return "Employee []";
+		return "TutionReimbursement []";
 	}
 }

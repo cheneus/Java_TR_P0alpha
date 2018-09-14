@@ -90,7 +90,7 @@ public class LoginOracle implements LoginDAO {
 		return u;
 	}
 	
-	public int getLogin(Login login) {
+	public int getEmpIdLogin(Login login) {
 		Login u = null;
 		int emp_id = 0;
 		try (Connection conn = cu.getConnection()) {
@@ -142,11 +142,6 @@ public class LoginOracle implements LoginDAO {
 		return logList;
 	}
 
-	@Override
-	public Login getLoginById(Login l) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public void deleteLogin(Login login) {
@@ -158,6 +153,31 @@ public class LoginOracle implements LoginDAO {
 	public void updateLogin(Login login) {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public Login getLogin(Login login) {
+		Login u = null;
+		int emp_id = 0;
+		try (Connection conn = cu.getConnection()) {
+			String sql = "select id,admin, employee_id from login where username =? and password=?";
+			log.trace(sql);
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setString(1, login.getUsername());
+			stmt.setString(2, login.getPassword());
+			ResultSet rs = stmt.executeQuery();
+			if (rs.next()) {
+				log.trace("User found!");
+				u = new Login();
+				u.setId(rs.getInt("id"));
+				u.setUsername(rs.getString("username"));
+				u.setPassword(rs.getString("password"));
+				u.setAdmin(rs.getInt("admin"));
+			}
+		} catch (SQLException e) {
+			LogUtil.logException(e, Main.class);
+		}
+		return u;
 	}
 
 }

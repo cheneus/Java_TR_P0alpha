@@ -34,7 +34,7 @@ public interface LoginService {
 	 * @param u previously created Login object for updating with Login information
 	 * @return the Login from the database that matches the Loginname and password
 	 */
-	public Login getLoginById(Login l);
+	public Login getLogin(Login l);
 	/**
 	 * deletes a Login from the database
 	 * 

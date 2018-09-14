@@ -1,0 +1,51 @@
+2018-09-14 11:23:37 ERROR ConnectionUtil:10 - class java.lang.ClassNotFoundException: oracle.jdbc.driver.OracleDriver
+2018-09-14 11:23:37 WARN  ConnectionUtil:12 - 582: jdk.internal.loader.BuiltinClassLoader
+2018-09-14 11:23:37 WARN  ConnectionUtil:12 - 190: jdk.internal.loader.ClassLoaders$AppClassLoader
+2018-09-14 11:23:37 WARN  ConnectionUtil:12 - 499: java.lang.ClassLoader
+2018-09-14 11:23:37 WARN  ConnectionUtil:12 - -2: java.lang.Class
+2018-09-14 11:23:37 WARN  ConnectionUtil:12 - 291: java.lang.Class
+2018-09-14 11:23:37 WARN  ConnectionUtil:12 - 34: com.revature.utils.ConnectionUtil
+2018-09-14 11:23:37 WARN  ConnectionUtil:12 - 179: com.revature.driver.Main
+2018-09-14 11:23:37 WARN  ConnectionUtil:12 - 25: com.revature.driver.Main
+2018-09-14 11:23:56 ERROR ConnectionUtil:10 - class java.lang.ClassNotFoundException: oracle.jdbc.driver.OracleDriver
+2018-09-14 11:23:56 WARN  ConnectionUtil:12 - 582: jdk.internal.loader.BuiltinClassLoader
+2018-09-14 11:23:56 WARN  ConnectionUtil:12 - 190: jdk.internal.loader.ClassLoaders$AppClassLoader
+2018-09-14 11:23:56 WARN  ConnectionUtil:12 - 499: java.lang.ClassLoader
+2018-09-14 11:23:56 WARN  ConnectionUtil:12 - -2: java.lang.Class
+2018-09-14 11:23:56 WARN  ConnectionUtil:12 - 291: java.lang.Class
+2018-09-14 11:23:56 WARN  ConnectionUtil:12 - 34: com.revature.utils.ConnectionUtil
+2018-09-14 11:23:56 WARN  ConnectionUtil:12 - 174: com.revature.driver.Main
+2018-09-14 11:23:56 WARN  ConnectionUtil:12 - 20: com.revature.driver.Main
+2018-09-14 11:25:06 ERROR ConnectionUtil:10 - class java.lang.ClassNotFoundException: oracle.jdbc.driver.OracleDriver
+2018-09-14 11:25:06 WARN  ConnectionUtil:12 - 582: jdk.internal.loader.BuiltinClassLoader
+2018-09-14 11:25:06 WARN  ConnectionUtil:12 - 190: jdk.internal.loader.ClassLoaders$AppClassLoader
+2018-09-14 11:25:06 WARN  ConnectionUtil:12 - 499: java.lang.ClassLoader
+2018-09-14 11:25:06 WARN  ConnectionUtil:12 - -2: java.lang.Class
+2018-09-14 11:25:06 WARN  ConnectionUtil:12 - 291: java.lang.Class
+2018-09-14 11:25:06 WARN  ConnectionUtil:12 - 34: com.revature.utils.ConnectionUtil
+2018-09-14 11:25:06 WARN  ConnectionUtil:12 - 174: com.revature.driver.Main
+2018-09-14 11:25:06 WARN  ConnectionUtil:12 - 20: com.revature.driver.Main
+2018-09-14 11:25:49 ERROR ConnectionUtil:10 - class java.lang.ClassNotFoundException: oracle.jdbc.driver.OracleDriver
+2018-09-14 11:25:49 WARN  ConnectionUtil:12 - 582: jdk.internal.loader.BuiltinClassLoader
+2018-09-14 11:25:49 WARN  ConnectionUtil:12 - 190: jdk.internal.loader.ClassLoaders$AppClassLoader
+2018-09-14 11:25:49 WARN  ConnectionUtil:12 - 499: java.lang.ClassLoader
+2018-09-14 11:25:49 WARN  ConnectionUtil:12 - -2: java.lang.Class
+2018-09-14 11:25:49 WARN  ConnectionUtil:12 - 291: java.lang.Class
+2018-09-14 11:25:49 WARN  ConnectionUtil:12 - 34: com.revature.utils.ConnectionUtil
+2018-09-14 11:25:49 WARN  ConnectionUtil:12 - 174: com.revature.driver.Main
+2018-09-14 11:25:49 WARN  ConnectionUtil:12 - 20: com.revature.driver.Main
+2018-09-14 11:26:07 ERROR ConnectionUtil:10 - class java.lang.ClassNotFoundException: oracle.jdbc.driver.OracleDriver
+2018-09-14 11:26:07 WARN  ConnectionUtil:12 - 582: jdk.internal.loader.BuiltinClassLoader
+2018-09-14 11:26:07 WARN  ConnectionUtil:12 - 190: jdk.internal.loader.ClassLoaders$AppClassLoader
+2018-09-14 11:26:07 WARN  ConnectionUtil:12 - 499: java.lang.ClassLoader
+2018-09-14 11:26:07 WARN  ConnectionUtil:12 - -2: java.lang.Class
+2018-09-14 11:26:07 WARN  ConnectionUtil:12 - 291: java.lang.Class
+2018-09-14 11:26:07 WARN  ConnectionUtil:12 - 34: com.revature.utils.ConnectionUtil
+2018-09-14 11:26:07 WARN  ConnectionUtil:12 - 174: com.revature.driver.Main
+2018-09-14 11:26:07 WARN  ConnectionUtil:12 - 20: com.revature.driver.Main
+2018-09-14 11:26:47 TRACE Main:179 - 1 | admin 200
+2018-09-14 11:26:47 TRACE Main:179 - 2 | 1525 W Estes
+2018-09-14 11:26:47 TRACE Main:179 - 3 | 505 W Walton
+2018-09-14 11:26:47 TRACE Main:179 - 4 | 200 E Jackson
+2018-09-14 11:26:47 TRACE Main:179 - 5 | 2200 E BlackHawk Ave
+2018-09-14 11:26:47 TRACE Main:179 - 6 | 300 W Carrion

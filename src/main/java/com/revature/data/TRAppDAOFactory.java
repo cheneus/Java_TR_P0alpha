@@ -91,7 +91,7 @@ public class TRAppDAOFactory {
 		default: throw new RuntimeException("Could not determine DAO type");
 		}
 	}
-	public TuitionReimbursementTypeDAO getTuitionReimbursemenTypeDAO() {
+	public TuitionReimbursementTypeDAO getTuitionReimbursementTypeDAO() {
 		switch(TYPE) {
 		case "Oracle": return new TuitionReimbursementTypeOracle();
 		default: throw new RuntimeException("Could not determine DAO type");

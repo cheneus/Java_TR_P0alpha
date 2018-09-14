@@ -39,21 +39,7 @@ public class EmployeeServiceOracle implements EmployeeService {
 
 	@Override
 	public Employee getEmployeeById(int i) {
-		log.trace("retrieving employee by id: "+i);
-		Employee emp = new Employee(i, null, null, null, null, null, null);
-		emp = (Employee) ud.getLoginById(emp);
-		emp = ed.getEmployee(emp);
-		if(emp.getId()==0)
-		{
-			log.trace("No employee found");
-			return null;
-		}
-		if(emp.getSupervisor()!=null)
-		{
-			log.trace("Retrieving supervisor");
-			emp.setSupervisor(getEmployeeById(emp.getSupervisor().getId()));
-		}
-		return emp;
+		return null;
 	}
 
 	@Override
@@ -61,7 +47,6 @@ public class EmployeeServiceOracle implements EmployeeService {
 		Set<Employee> empList = ed.getEmployees();
 		for(Employee e : empList)
 		{
-			ud.getLoginById(e);
 			e.setSupervisor(getEmployeeById(e.getSupervisor().getId()));
 		}
 		return empList;
@@ -74,9 +59,8 @@ public class EmployeeServiceOracle implements EmployeeService {
 	}
 
 	@Override
-	public void updateEmployee(Employee emp) {O
-		ud.updateLogin(emp);
-		if(emp.getSupervisor().getFirst()!=null)
+	public void updateEmployee(Employee emp) {
+		if(emp.getSupervisor().getFirstname()!=null)
 			ed.updateEmployee(emp.getSupervisor());
 		ed.updateEmployee(emp);
 
@@ -84,16 +68,7 @@ public class EmployeeServiceOracle implements EmployeeService {
 
 	@Override
 	public void addEmployee(Employee emp) {
-		Login u = ud.getLogin(ud.getLogin(emp.getLoginname(), emp.getPassword()));
-		if(u==null)
-		{
-			ud.addLogin(emp);
-		}
-		Employee supervisor = ed.getEmployee(emp.getSupervisor());
-		if(supervisor!=null)
-		{
-			emp.setSupervisor(supervisor);
-		}
+		ed.addEmployee(emp);
 	}
 
 }

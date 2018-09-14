@@ -10,7 +10,6 @@ public interface TuitionReimbursementFormService {
 	public int addTuitionReimbursementForm(TuitionReimbursementForm b);
 	// read
 	public TuitionReimbursementForm getTuitionReimbursementForm(int i);
-	public TuitionReimbursementForm getTuitionReimbursementFormByIsbn(String isbn);
 	public Set<TuitionReimbursementForm> getTuitionReimbursementForms();
 	public Set<TuitionReimbursementForm> getTuitionReimbursementFormsByStatus(Status s);
 	// update

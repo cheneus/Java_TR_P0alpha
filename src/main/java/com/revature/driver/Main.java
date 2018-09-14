@@ -14,14 +14,13 @@ import org.apache.log4j.Logger;
 import com.revature.beans.Author;
 import com.revature.beans.Book;
 import com.revature.beans.Customer;
-import com.revature.beans.Department;
+import com.revature.beans.Genre;
 import com.revature.beans.Purchase;
 import com.revature.beans.User;
 import com.revature.data.AuthorDAO;
 import com.revature.data.BookAppDAOFactory;
 import com.revature.data.BookDAO;
 import com.revature.data.GenreDAO;
-import com.revature.data.TRAppDAOFactory;
 import com.revature.services.BookService;
 import com.revature.services.BookServiceOracle;
 import com.revature.services.CustomerService;
@@ -33,7 +32,7 @@ import com.revature.utils.LogUtil;
 
 public class Main {
 	private static ConnectionUtil cu = ConnectionUtil.getInstance();
-	private static TRAppDAOFactory tf = TRAppDAOFactory.getInstance();
+	private static BookAppDAOFactory bf = BookAppDAOFactory.getInstance();
 	private static Logger log = Logger.getLogger(Main.class);
 	
 	public static void main(String[] args) {
@@ -83,7 +82,7 @@ public class Main {
 		Book b = new Book();
 		b.setId(1);
 		//System.out.println(gd.getGenresByBook(b));
-		Department g = gd.getGenre(1);
+		Genre g = gd.getGenre(1);
 //		g.setGenre("Fantasy");
 //		gd.updateGenre(g);
 		
@@ -99,7 +98,7 @@ public class Main {
 		HashSet<Author> authors = new HashSet<Author>();
 		authors.add(a);
 		b.setAuthors(authors);
-		HashSet<Department> genres = new HashSet<Department>();
+		HashSet<Genre> genres = new HashSet<Genre>();
 		genres.add(g);
 		b.setGenres(genres);
 		b.setPrice(56.0);
@@ -170,15 +169,15 @@ public class Main {
 		return u;
 	}
 
-	private static Department getGenre(int id) {
-		Department g = null;
+	private static Genre getGenre(int id) {
+		Genre g = null;
 		try (Connection conn = cu.getConnection()) {
 			String sql = "select id, genre from genre where id ="+id;
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 			while(rs.next()) {
 				log.trace(rs.getInt(1)+" | "+rs.getString(2));
-				g = new Department();
+				g = new Genre();
 				g.setId(rs.getInt("id"));
 				g.setGenre(rs.getString("genre"));
 			}

@@ -12,7 +12,7 @@ public class Employee {
 	private Date hireDate;
 	private Department dept_id;
 	private Address address;
-	private int reimbursement_balance;
+	private double reimbursement_balance;
 	private String phone;
 	private String email;
 	
@@ -83,11 +83,11 @@ public class Employee {
 	public void setAddress(Address address) {
 		this.address = address;
 	}
-	public int getReimbursement_balance() {
+	public double getReimbursement_balance() {
 		return reimbursement_balance;
 	}
-	public void setReimbursement_balance(int reimbursement_balance) {
-		this.reimbursement_balance = reimbursement_balance;
+	public void setReimbursement_balance(double d) {
+		this.reimbursement_balance = d;
 	}
 	public String getPhone() {
 		return phone;

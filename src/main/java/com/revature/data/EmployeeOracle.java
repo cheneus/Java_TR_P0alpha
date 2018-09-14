@@ -9,6 +9,7 @@ import java.util.Set;
 
 import org.apache.log4j.Logger;
 
+import com.revature.beans.Department;
 import com.revature.beans.Employee;
 import com.revature.exceptions.NullArgumentException;
 import com.revature.utils.ConnectionUtil;
@@ -62,9 +63,64 @@ public class EmployeeOracle implements EmployeeDAO {
 		}
 		try(Connection conn = cu.getConnection())
 		{
-			String sql = "select ID, sup_id, title from emp where id=?";
+			String sql = "select id, lastname,firstname, title, supervisor,birthdate, hiredate, dept_id, address, reimbursement_balance, phone,email from employee where id=?";
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setInt(1, emp.getId());
+			ResultSet rs = ps.executeQuery();
+			if(rs.next())
+			{
+				log.trace("This is a employee");
+				if(rs.getObject("supervisor")==null)
+				{
+					log.trace("null supervisor");
+				} else {
+					emp.setSupervisor(new Employee(rs.getInt("supervisor")));
+				}
+				Department dept = new Department();
+				dept.setId(rs.getInt("dept_id"));
+				emp.setId(rs.getInt("id"));
+				emp.setFirstname(rs.getString("firstname"));
+				emp.setLastname(rs.getString("lastname"));
+				emp.setTitle(rs.getString("title"));
+				emp.setBirthDate(rs.getDate("birthdate"));
+				emp.setHireDate(rs.getDate("hiredate"));
+				emp.setDept_id(dept);
+				emp.setAddress(rs.getInt("address"));
+				emp.setReimbursement_balance(rs.getDouble("reimbursement_balance"));
+				emp.setPhone(rs.getString("phone"));
+				emp.setEmail(rs.getString("email"));
+			}
+			else
+			{
+				log.trace("This is not a employee");
+				emp.setFirstname(null);
+				emp.setLastname(null);
+				emp.setId(0);
+				emp.setBirthDate(null);
+				emp.setTitle(null);
+				emp.setHireDate(null);
+				emp.setDept_id(null);
+				emp.setAddress(0);
+				emp.setReimbursement_balance(0);
+				emp.setPhone(null);
+				emp.setEmail(null);
+				
+			}
+		}
+		catch(Exception e)
+		{
+			LogUtil.logException(e,EmployeeOracle.class);
+		}
+		return emp;
+	}
+	
+	public Employee getEmployeeById(int i) {
+		Employee emp = new Employee();
+		try(Connection conn = cu.getConnection())
+		{
+			String sql = "select id, lastname,firstname, title, supervisor,birthdate, hiredate, dept_id, address, reimbursement_balance, phone,email from employee where id=?";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, i);
 			ResultSet rs = ps.executeQuery();
 			if(rs.next())
 			{

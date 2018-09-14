@@ -4,7 +4,7 @@ import java.util.Set;
 
 import org.apache.log4j.Logger;
 
-import com.revature.beans.Department;
+import com.revature.beans.Genre;
 import com.revature.data.BookAppDAOFactory;
 import com.revature.data.GenreDAO;
 
@@ -14,23 +14,23 @@ public class GenreServiceOracle implements GenreService {
 	private GenreDAO gd = bf.getGenreDAO();
 	
 	@Override
-	public Set<Department> getGenres() {
+	public Set<Genre> getGenres() {
 		return gd.getGenres();
 	}
 	@Override
-	public Department getGenreById(int i) {
+	public Genre getGenreById(int i) {
 		return gd.getGenre(i);
 	}
 	@Override
-	public void updateGenre(Department g) {
+	public void updateGenre(Genre g) {
 		gd.updateGenre(g);
 	}
 	@Override
-	public void deleteGenre(Department g) {
+	public void deleteGenre(Genre g) {
 		gd.deleteGenre(g);
 	}
 	@Override
-	public void addGenre(Department g) {
+	public void addGenre(Genre g) {
 		gd.addGenre(g);
 	}
 }

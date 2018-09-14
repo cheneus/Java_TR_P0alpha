@@ -70,7 +70,7 @@ public class LoginOracle implements LoginDAO {
 		Login u = null;
 
 		try (Connection conn = cu.getConnection()) {
-			String sql = "select id,username,password,admin from login where username =? and password=?";
+			String sql = "select id,username,password,admin, employee_id from login where username =? and password=?";
 			log.trace(sql);
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setString(1, username);
@@ -88,6 +88,31 @@ public class LoginOracle implements LoginDAO {
 			LogUtil.logException(e, Main.class);
 		}
 		return u;
+	}
+	
+	public int getLogin(Login login) {
+		Login u = null;
+		int emp_id = 0;
+		try (Connection conn = cu.getConnection()) {
+			String sql = "select id,admin, employee_id from login where username =? and password=?";
+			log.trace(sql);
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setString(1, login.getUsername());
+			stmt.setString(2, login.getPassword());
+			ResultSet rs = stmt.executeQuery();
+			if (rs.next()) {
+				log.trace("User found!");
+				u = new Login();
+				u.setId(rs.getInt("id"));
+				u.setUsername(rs.getString("username"));
+				u.setPassword(rs.getString("password"));
+				u.setAdmin(rs.getInt("admin"));
+				emp_id = rs.getInt("employee_id");
+			}
+		} catch (SQLException e) {
+			LogUtil.logException(e, Main.class);
+		}
+		return emp_id;
 	}
 
 	@Override

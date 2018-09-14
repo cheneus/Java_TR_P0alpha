@@ -10,13 +10,13 @@ public interface DepartmentDAO {
 	// Usually a DAO is going to have CRUD methods.
 	
 	// create - Insert
-	int addDepartment(Department g);
+	int addDepartment(Department dept);
 	// read - Select
 	Department getDepartmentById(int id);
 	Department getDepartment(String Department);
 	int getDepartmentHead(int id);
 	// update - Update
-	void updateDepartment(Department g);
+	void updateDepartment(Department dept);
 	// delete - Delete
-	void deleteDepartment(Department g);
+	void deleteDepartment(Department dept);
 }

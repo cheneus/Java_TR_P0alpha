@@ -7,7 +7,7 @@ import org.apache.log4j.Logger;
 import com.revature.beans.Author;
 import com.revature.beans.Book;
 import com.revature.beans.Customer;
-import com.revature.beans.Department;
+import com.revature.beans.Genre;
 import com.revature.data.AuthorDAO;
 import com.revature.data.BookAppDAOFactory;
 import com.revature.data.BookDAO;
@@ -52,9 +52,9 @@ public class BookServiceOracle implements BookService {
 		}
 
 		// check: are the genres in the db?
-		Set<Department> genres = b.getGenres();
+		Set<Genre> genres = b.getGenres();
 
-		for (Department g : genres) {
+		for (Genre g : genres) {
 			if (gd.getGenre(g.getId()) != null) {
 				gd.updateGenre(g);
 			} else {
@@ -87,8 +87,8 @@ public class BookServiceOracle implements BookService {
 		log.trace("authors added");
 		// check to see if genres are in db.
 		if (b.getGenres() != null) {
-			Set<Department> genres = b.getGenres();
-			for (Department g : genres) {
+			Set<Genre> genres = b.getGenres();
+			for (Genre g : genres) {
 				if (gd.getGenre(g.getId()) != null) {
 					gd.updateGenre(g);
 				} else {

@@ -54,7 +54,8 @@ public class RequestDelegate implements FrontControllerDelegate {
 
 	private void addCorsHeader(String requestURI, HttpServletResponse response) {
 		log.trace("adding headers");
-		response.addHeader("Access-Control-Allow-Origin", "http://localhost:4200");
+		response.addHeader("Access-Control-Allow-Origin", "http://localhost:8080");
+//		response.addHeader("Access-Control-Allow-Origin", "http://localhost:4200");
 		response.addHeader("Vary", "Origin");
 		//if I don't care about getting my cookie, this will work
 		//response.addHeader("Access-Control-Allow-Origin", "*");

@@ -9,6 +9,7 @@ import java.util.Set;
 
 import org.apache.log4j.Logger;
 
+import com.revature.beans.Address;
 import com.revature.beans.Department;
 import com.revature.beans.Employee;
 import com.revature.exceptions.NullArgumentException;
@@ -78,6 +79,8 @@ public class EmployeeOracle implements EmployeeDAO {
 				}
 				Department dept = new Department();
 				dept.setId(rs.getInt("dept_id"));
+				Address add = new Address();
+				add.setId(rs.getInt("address"));
 				emp.setId(rs.getInt("id"));
 				emp.setFirstname(rs.getString("firstname"));
 				emp.setLastname(rs.getString("lastname"));
@@ -85,7 +88,7 @@ public class EmployeeOracle implements EmployeeDAO {
 				emp.setBirthDate(rs.getDate("birthdate"));
 				emp.setHireDate(rs.getDate("hiredate"));
 				emp.setDept_id(dept);
-				emp.setAddress(rs.getInt("address"));
+				emp.setAddress(add);
 				emp.setReimbursement_balance(rs.getDouble("reimbursement_balance"));
 				emp.setPhone(rs.getString("phone"));
 				emp.setEmail(rs.getString("email"));

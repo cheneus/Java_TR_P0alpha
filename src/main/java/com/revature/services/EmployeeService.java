@@ -6,6 +6,7 @@ import com.revature.beans.Employee;
 
 public interface EmployeeService {
 	public Employee getEmployee(String username, String password);
+	public Employee getEmployee(Employee emp);
 	public Employee getEmployeeById(int i);
 	public Set<Employee> getEmployees();
 	public void deleteEmployee(Employee emp);

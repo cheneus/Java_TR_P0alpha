@@ -10,8 +10,8 @@ import com.revature.data.TRAppDAOFactory;
 
 public class LoginServiceOracle implements LoginService {
 	private Logger log = Logger.getLogger(LoginServiceOracle.class);
-	private TRAppDAOFactory bf = TRAppDAOFactory.getInstance();
-	private LoginDAO dd = bf.getLoginDAO();
+	private TRAppDAOFactory tf = TRAppDAOFactory.getInstance();
+	private LoginDAO dd = tf.getLoginDAO();
 	@Override
 	public int addLogin(Login login) {
 		dd.addLogin(login);
@@ -28,8 +28,8 @@ public class LoginServiceOracle implements LoginService {
 	}
 	@Override
 	public Login getLogin(String username, String password) {
-		// TODO Auto-generated method stub
-		return null;
+		return dd.getLogin(username, password);
+		
 	}
 	@Override
 	public Set<Login> getLogins() {

@@ -130,9 +130,58 @@ public class TuitionReimbursementOracle implements TuitionReimbursementDAO {
 	}
 
 	@Override
-	public TuitionReimbursement getTuitionReimbursementByID(int i) {
-		// TODO Auto-generated method stub
-		return null;
+	public TuitionReimbursement getTuitionReimbursementById(int i) {
+		TuitionReimbursement tr = null;
+		try(Connection conn = cu.getConnection())
+		{
+			String sql = "select amount_reimbursed, date_received, reason, form_ref, grade_stat, approved_by, remarks, type_id, status from TuitionReimbursement where id=?";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, i);
+			ResultSet rs = ps.executeQuery();
+			if(rs.next())
+			{
+				TuitionReimbursementForm tf = new TuitionReimbursementForm();
+				TuitionReimbursementType tfy = new TuitionReimbursementType();
+				GradeStatus gs = new GradeStatus();
+				Employee em = new Employee();
+				Status s = new Status();
+				
+				tf.setId(rs.getInt("form_ref"));
+				tfy.setId(rs.getInt("type_if"));
+				gs.setId(rs.getInt("grade_stat"));
+				em.setId(rs.getInt("apporved_by"));
+				s.setId(rs.getInt("status"));
+				
+				tr.setStatus(s);
+				tr.setAmount_reimbursed(rs.getDouble("cost"));
+				tr.setDate_received(rs.getDate("date_received"));
+				tr.setReason(rs.getString("reason"));
+				tr.setForm_ref(tf);
+				tr.setGrade_stat(gs);
+				tr.setApproved_by(em);
+				tr.setRemarks(rs.getString("remarks"));
+				tr.setType_id(tfy);
+			}
+			else
+			{
+				log.trace("This is not a TuitionReimbursement");
+				tr.setId(0);
+				tr.setStatus(null);
+				tr.setAmount_reimbursed(0);
+				tr.setDate_received(null);
+				tr.setReason(null);
+				tr.setForm_ref(null);
+				tr.setGrade_stat(null);
+				tr.setApproved_by(null);
+				tr.setRemarks(null);
+				tr.setType_id(null);	
+			}
+		}
+		catch(Exception e)
+		{
+			LogUtil.logException(e,TuitionReimbursementOracle.class);
+		}
+		return tr;
 	}
 
 	@Override

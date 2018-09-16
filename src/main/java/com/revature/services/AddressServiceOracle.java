@@ -31,9 +31,14 @@ public class AddressServiceOracle implements AddressService {
 	}
 
 	@Override
-	public Address getAddress(int id) {
-		ad.getAddress(id);
-		return null;
+	public Address getAddress(Address a) {
+		return ad.getAddress(a);
+
 	}
 
+	@Override
+	public Address getAddressById(int i) {
+		return ad.getAddressById(i);
+
+	}
 }

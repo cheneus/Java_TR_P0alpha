@@ -18,8 +18,8 @@ public interface AddressDAO {
 	 * @return the Address from the database that matches the id,
 	 * null if no Address with said id exists.
 	 */
-	public Address getAddress(int id);
-	
+	public Address getAddress(Address a);
+	public Address getAddressById(int i);
 	/**
 	 * deletes a Address from the database
 	 * 

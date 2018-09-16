@@ -10,11 +10,10 @@ public interface TuitionReimbursementDAO {
 	public int addTuitionReimbursement(TuitionReimbursement tr);
 	// read
 	public TuitionReimbursement getTuitionReimbursement(TuitionReimbursement tr);
-//	public TuitionReimbursement getTuitionReimbursementByIsbn(String isbn);
 	public Set<TuitionReimbursement> getTuitionReimbursements();
 	public Set<TuitionReimbursement> getTuitionReimbursementsByStatus(Status s);
 	public Set<TuitionReimbursement> getTuitionReimbursementsByPendingStatus();
-	public TuitionReimbursement getTuitionReimbursementByID(int i);
+	public TuitionReimbursement getTuitionReimbursementById(int i);
 	// update
 	public void updateTuitionReimbursement(TuitionReimbursement tr);
 	// delete

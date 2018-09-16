@@ -9,9 +9,11 @@ public interface TuitionReimbursementTypeDAO {
 	public int addTuitionReimbursementType(TuitionReimbursementType tr);
 	// read;
 	public TuitionReimbursementType getTuitionReimbursementTypes(TuitionReimbursementType tr);
+	public TuitionReimbursementType getTuitionReimbursementTypesById(int i);
 	// update
 	public void updateTuitionReimbursementType(TuitionReimbursementType tr);
 	// delete
 	public void deleteTuitionReimbursementType(TuitionReimbursementType tr);
 	public Set<TuitionReimbursementType> getTuitionReimbursementTypes();
+	
 }

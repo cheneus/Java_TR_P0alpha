@@ -63,20 +63,19 @@ public class AddressOracle implements AddressDAO {
 	}
 
 	@Override
-	public Address getAddress(int id) {
-		Address a = null;
+	public Address getAddress(Address a) {
+//		Address a = null;
 		try(Connection conn = cu.getConnection())
 		{
 			log.trace("retrieving address information");
 			String sql = "select lineone, linetwo, city, state, zip from address where id=?";
 			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setInt(1, id);
+			ps.setInt(1, a.getId());
 			ResultSet rs = ps.executeQuery();
 			if(rs.next())
 			{
 				log.trace("address found");
-				a = new Address();
-				a.setId(id);
+//				a = new Address();
 				a.setLineOne(rs.getString("lineone"));
 				a.setLineTwo(rs.getString("linetwo"));
 				a.setCity(rs.getString("city"));
@@ -89,6 +88,32 @@ public class AddressOracle implements AddressDAO {
 		return a;
 	}
 
+	@Override
+	public Address getAddressById(int i) {
+		Address a = null;
+		try(Connection conn = cu.getConnection())
+		{
+			log.trace("retrieving address information");
+			String sql = "select lineone, linetwo, city, state, zip from address where id=?";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, i);
+			ResultSet rs = ps.executeQuery();
+			if(rs.next())
+			{
+				log.trace("address found");
+				a = new Address();
+				a.setLineOne(rs.getString("lineone"));
+				a.setLineTwo(rs.getString("linetwo"));
+				a.setCity(rs.getString("city"));
+				a.setState(rs.getString("state"));
+				a.setZip(rs.getString("zip"));
+			}
+		} catch (Exception e) {
+			LogUtil.logException(e,AddressOracle.class);
+		}
+		return a;
+	}
+	
 	@Override
 	public void deleteAddress(Address address) {
 		log.trace("Removing address from database.");

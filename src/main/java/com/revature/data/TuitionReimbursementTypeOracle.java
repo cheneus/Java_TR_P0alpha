@@ -82,6 +82,28 @@ public class TuitionReimbursementTypeOracle implements TuitionReimbursementTypeD
 		log.trace("Method returning: " + g);
 		return g;
 	}
+	
+	@Override
+	public TuitionReimbursementType getTuitionReimbursementTypesById(int i) {
+		log.trace("Retrieving TuitionReimbursementType with TuitionReimbursementType= " + i);
+		TuitionReimbursementType g = null;
+		try (Connection conn = cu.getConnection()) {
+			String sql = "select id, name from TuitionReimbursementType where TuitionReimbursementType =?";
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, i);
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				log.trace(rs.getInt(1) + " | " + rs.getString(2));
+				g = new TuitionReimbursementType();
+				g.setId(rs.getInt("id"));
+				g.setName(rs.getString("TuitionReimbursementType"));
+			}
+		} catch (SQLException e) {
+			LogUtil.logException(e, TuitionReimbursementTypeOracle.class);
+		}
+		log.trace("Method returning: " + g);
+		return g;
+	}
 
 	@Override
 	public Set<TuitionReimbursementType> getTuitionReimbursementTypes() {

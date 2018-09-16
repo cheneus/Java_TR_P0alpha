@@ -1,5 +1,7 @@
 package com.revature.services;
 
+import java.util.Set;
+
 import com.revature.beans.TuitionReimbursementType;
 
 public interface TuitionReimbursementTypeService {
@@ -11,4 +13,6 @@ public interface TuitionReimbursementTypeService {
 	public void updateTuitionReimbursementType(TuitionReimbursementType tr);
 	// delete
 	public void deleteTuitionReimbursementType(TuitionReimbursementType tr);
+	public TuitionReimbursementType getTuitionReimbursementTypeById(int i);
+	public Set<TuitionReimbursementType> getTuitionReimbursementTypes();
 }

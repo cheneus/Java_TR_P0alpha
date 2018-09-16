@@ -1,5 +1,7 @@
 package com.revature.services;
 
+import java.util.Set;
+
 import org.apache.log4j.Logger;
 
 import com.revature.beans.TuitionReimbursementType;
@@ -12,8 +14,7 @@ public class TuitionReimbursementTypeServiceOracle implements TuitionReimburseme
 	private TuitionReimbursementTypeDAO dd = bf.getTuitionReimbursementTypeDAO();
 	@Override
 	public int addTuitionReimbursementType(TuitionReimbursementType ev) {
-		dd.addTuitionReimbursementType(ev);
-		return 0;
+		return dd.addTuitionReimbursementType(ev);
 	}
 	@Override
 	public void updateTuitionReimbursementType(TuitionReimbursementType ev) {
@@ -25,9 +26,18 @@ public class TuitionReimbursementTypeServiceOracle implements TuitionReimburseme
 		dd.deleteTuitionReimbursementType(ev);
 	}
 	@Override
+	public Set<TuitionReimbursementType> getTuitionReimbursementTypes() {
+		return dd.getTuitionReimbursementTypes();
+	}
+	@Override
+	public TuitionReimbursementType getTuitionReimbursementTypeById(int i) {
+		return dd.getTuitionReimbursementTypesById(i);
+	}
+	
+	@Override
 	public TuitionReimbursementType getTuitionReimbursementTypes(TuitionReimbursementType tr) {
-		dd.getTuitionReimbursementTypes(tr);
-		return null;
+		return dd.getTuitionReimbursementTypes(tr);
+		
 	}
 	
 }

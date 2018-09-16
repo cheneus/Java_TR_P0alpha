@@ -1,5 +1,7 @@
 package com.revature.services;
 
+import java.util.Set;
+
 import com.revature.beans.GradeStatus;
 
 public interface GradeStatusService {
@@ -17,6 +19,7 @@ public interface GradeStatusService {
 	 * @return the GradeStatus from the database that matches the GradeStatusname and password
 	 */
 	public GradeStatus getGradeStatus(GradeStatus GradeStatus);
+	public Set<GradeStatus> getGradeStatus();
 	/**
 	 * returns a login object from the database
 	 * 

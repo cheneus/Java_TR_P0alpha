@@ -106,8 +106,8 @@ public class StatusOracle implements StatusDAO {
 	}
 
 	@Override
-	public Set<Status> getStatuss() {
-		log.trace("Retrieving Statuss");
+	public Set<Status> getStatus() {
+		log.trace("Retrieving Status");
 		Set<Status> Statuss = new HashSet<Status>();
 		try (Connection conn = cu.getConnection()) {
 			String sql = "select id, name from Status";

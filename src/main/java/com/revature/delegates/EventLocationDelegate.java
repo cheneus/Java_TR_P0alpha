@@ -3,7 +3,6 @@ package com.revature.delegates;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -47,13 +46,13 @@ public class EventLocationDelegate implements FrontControllerDelegate {
 				EventLocation a = om.readValue(sb.toString(), EventLocation.class);
 				log.trace(a);
 				try {
-					log.trace("adding book to database");
+					log.trace("adding Event Location to database");
 					as.addEventLocation(a);
 					log.trace(a);
 					resp.setStatus(HttpServletResponse.SC_CREATED);
 					resp.getWriter().write(om.writeValueAsString(a));
 				} catch(Exception e) {
-					LogUtil.logException(e, BookDelegate.class);
+					LogUtil.logException(e, EventLocationDelegate.class);
 					resp.sendError(HttpServletResponse.SC_CONFLICT);
 				}
 				break;

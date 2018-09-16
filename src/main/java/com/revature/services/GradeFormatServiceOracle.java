@@ -1,5 +1,7 @@
 package com.revature.services;
 
+import java.util.Set;
+
 import org.apache.log4j.Logger;
 
 import com.revature.beans.GradeFormat;
@@ -33,6 +35,11 @@ public class GradeFormatServiceOracle implements GradeFormatService {
 	@Override
 	public void deleteGradeFormat(GradeFormat ev) {
 		dd.deleteGradeFormat(ev);
+	}
+	@Override
+	public Set<GradeFormat> getGradeFormats() {
+		// TODO Auto-generated method stub
+		return dd.getGradeFormats();
 	}
 	
 }

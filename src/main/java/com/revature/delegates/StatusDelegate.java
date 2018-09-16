@@ -13,6 +13,7 @@ import org.apache.log4j.Logger;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.revature.beans.GradeStatus;
 import com.revature.beans.Status;
 import com.revature.services.StatusService;
 import com.revature.services.StatusServiceOracle;
@@ -30,7 +31,7 @@ public class StatusDelegate implements FrontControllerDelegate {
 		if(path==null) {
 			switch(req.getMethod()) {
 			case "GET": 
-				getAllStatuss(req, resp);
+				getAllStatus(req, resp);
 				break;
 			case "POST":
 				BufferedReader bf = req.getReader();
@@ -94,11 +95,10 @@ public class StatusDelegate implements FrontControllerDelegate {
 		}
 	}
 
-	private void getAllStatuss(HttpServletRequest req, HttpServletResponse resp) throws JsonProcessingException, IOException {
+	private void getAllStatus(HttpServletRequest req, HttpServletResponse resp) throws JsonProcessingException, IOException {
 		log.trace("Retrieving a list of all Statuss");
-		int id = Integer.parseInt(req.getParameter("id"));
-		Status Statuss = as.getStatusById(id);
-		resp.getWriter().write(om.writeValueAsString(Statuss));
+		Set<Status> stat = as.getStatus();
+		resp.getWriter().write(om.writeValueAsString(stat));
 	}
 
 }

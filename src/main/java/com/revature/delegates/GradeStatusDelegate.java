@@ -13,6 +13,7 @@ import org.apache.log4j.Logger;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.revature.beans.GradeFormat;
 import com.revature.beans.GradeStatus;
 import com.revature.services.GradeStatusService;
 import com.revature.services.GradeStatusServiceOracle;
@@ -30,7 +31,7 @@ public class GradeStatusDelegate implements FrontControllerDelegate {
 		if(path==null) {
 			switch(req.getMethod()) {
 			case "GET": 
-				getAllGradeStatuss(req, resp);
+				getAllGradeStatus(req, resp);
 				break;
 			case "POST":
 				BufferedReader bf = req.getReader();
@@ -94,11 +95,10 @@ public class GradeStatusDelegate implements FrontControllerDelegate {
 		}
 	}
 
-	private void getAllGradeStatuss(HttpServletRequest req, HttpServletResponse resp) throws JsonProcessingException, IOException {
+	private void getAllGradeStatus(HttpServletRequest req, HttpServletResponse resp) throws JsonProcessingException, IOException {
 		log.trace("Retrieving a list of all GradeStatuss");
-		int id = Integer.parseInt(req.getParameter("id"));
-		GradeStatus GradeStatuss = as.getGradeStatusById(id);
-		resp.getWriter().write(om.writeValueAsString(GradeStatuss));
+		Set<GradeStatus> GradeStatus = as.getGradeStatus();
+		resp.getWriter().write(om.writeValueAsString(GradeStatus));
 	}
 
 }

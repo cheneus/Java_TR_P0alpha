@@ -96,8 +96,7 @@ public class GradeFormatDelegate implements FrontControllerDelegate {
 
 	private void getAllGradeFormats(HttpServletRequest req, HttpServletResponse resp) throws JsonProcessingException, IOException {
 		log.trace("Retrieving a list of all GradeFormats");
-		int id = Integer.parseInt(req.getParameter("id"));
-		GradeFormat GradeFormats = as.getGradeFormatById(id);
+		Set<GradeFormat> GradeFormats = as.getGradeFormats();
 		resp.getWriter().write(om.writeValueAsString(GradeFormats));
 	}
 

@@ -39,5 +39,5 @@ public interface StatusDAO {
 	 * @param Status the Status to be updated
 	 */
 	public void updateStatus(Status Status);
-	Set<Status> getStatuss();
+	Set<Status> getStatus();
 }

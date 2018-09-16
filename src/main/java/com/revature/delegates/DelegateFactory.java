@@ -20,10 +20,10 @@ public class DelegateFactory {
 		case "eventtype": return new EventTypeDelegate();
 		case "gradeformat": return new GradeFormatDelegate();
 		case "gradestatus": return new GradeStatusDelegate();
-		case "inforeq": return new InfoReqDelegate();
+//		case "inforeq": return new InfoReqDelegate();
 		case "status": return new StatusDelegate();
-		case "tr": return new TRDelegate();
-		case "trf": return new TRFDelegate();
+//		case "tr": return new TRDelegate();
+//		case "trf": return new TRFDelegate();
 		case "trt": return new TRTDelegate();
 		case "login": return new LoginDelegate();
 		case "purchases":

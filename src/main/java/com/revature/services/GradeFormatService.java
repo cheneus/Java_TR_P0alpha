@@ -1,5 +1,7 @@
 package com.revature.services;
 
+import java.util.Set;
+
 import com.revature.beans.GradeFormat;
 
 public interface GradeFormatService {
@@ -17,6 +19,7 @@ public interface GradeFormatService {
 	 * @return the GradeFormat from the database that matches the GradeFormatname and password
 	 */
 	public GradeFormat getGradeFormat(GradeFormat GradeFormat);
+	public Set<GradeFormat> getGradeFormats();
 	/**
 	 * returns a login object from the database
 	 * 

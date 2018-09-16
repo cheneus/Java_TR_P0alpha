@@ -1,5 +1,7 @@
 package com.revature.services;
 
+import java.util.Set;
+
 import com.revature.beans.EventType;
 
 public interface EventTypeService {
@@ -24,6 +26,7 @@ public interface EventTypeService {
 	 * @return the EventType from the database that matches the EventTypename and password
 	 */
 	public EventType getEventTypeById(int id);
+	public Set<EventType> getEventTypes();
 	/**
 	 * deletes a EventType from the database
 	 * 

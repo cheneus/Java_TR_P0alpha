@@ -26,7 +26,7 @@ public class EventTypeOracle implements EventTypeDAO {
 		Connection conn = cu.getConnection();
 		try {
 			conn.setAutoCommit(false);
-			String sql = "insert into EventType(name) values(?)";
+			String sql = "insert into Event_Type(name) values(?)";
 			String[] keys = { "id" };
 			log.trace(sql);
 			PreparedStatement stmt = conn.prepareStatement(sql, keys);
@@ -35,7 +35,7 @@ public class EventTypeOracle implements EventTypeDAO {
 			int number = stmt.executeUpdate();
 			ResultSet rs = stmt.getGeneratedKeys();
 			if(number!=1) {
-				log.warn("We didn't insert only one EventType, or any EventTypes at all.");
+				log.warn("We didn't insert only one Event Type, or any EventTypes at all.");
 				conn.rollback();
 			} else {
 				log.trace("Inserted EventType successfully");
@@ -67,7 +67,7 @@ public class EventTypeOracle implements EventTypeDAO {
 		log.trace("Retrieving EventType with id = " + id);
 		EventType ev = null;
 		try (Connection conn = cu.getConnection()) {
-			String sql = "select name from EventType where id =?";
+			String sql = "select name from Event_Type where id =?";
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, id);
 			ResultSet rs = stmt.executeQuery();
@@ -86,10 +86,10 @@ public class EventTypeOracle implements EventTypeDAO {
 
 	@Override
 	public EventType getEventType(EventType ev) {
-		log.trace("Retrieving EventType with EventType= " + ev);
+		log.trace("Retrieving EventType with Event_Type= " + ev);
 		EventType g = null;
 		try (Connection conn = cu.getConnection()) {
-			String sql = "select id, name from EventType where EventType =?";
+			String sql = "select id, name from Event_Type where EventType =?";
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setString(1, ev.getName());
 			ResultSet rs = stmt.executeQuery();
@@ -111,14 +111,14 @@ public class EventTypeOracle implements EventTypeDAO {
 		log.trace("Retrieving EventTypes");
 		Set<EventType> EventTypes = new HashSet<EventType>();
 		try (Connection conn = cu.getConnection()) {
-			String sql = "select id, name from EventType";
+			String sql = "select id, name from Event_Type";
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			ResultSet rs = stmt.executeQuery();
 			while (rs.next()) {
 				log.trace(rs.getInt(1) + " | " + rs.getString(2));
 				EventType g = new EventType();
 				g.setId(rs.getInt("id"));
-				g.setName(rs.getString("EventType"));
+				g.setName(rs.getString("name"));
 				EventTypes.add(g);
 			}
 		} catch (SQLException e) {
@@ -159,7 +159,7 @@ public class EventTypeOracle implements EventTypeDAO {
         try {
         	// JDBC automatically commits data. Lets stop it.
         	conn.setAutoCommit(false);
-            String sql = "update EventType set name = ? where id = ?";
+            String sql = "update Event_Type set name = ? where id = ?";
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setInt(2, g.getId());
             stmt.setString(1, g.getName());
@@ -192,7 +192,7 @@ public class EventTypeOracle implements EventTypeDAO {
         try {
         	// JDBC automatically commits data. Lets stop it.
         	conn.setAutoCommit(false);
-            String sql = "delete from EventType where id = ?";
+            String sql = "delete from Event_Type where id = ?";
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setInt(1, ev.getId());
             int rs = stmt.executeUpdate();

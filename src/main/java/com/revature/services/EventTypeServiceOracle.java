@@ -1,5 +1,7 @@
 package com.revature.services;
 
+import java.util.Set;
+
 import org.apache.log4j.Logger;
 
 import com.revature.beans.EventType;
@@ -21,6 +23,10 @@ public class EventTypeServiceOracle implements EventTypeService {
 	public EventType getEventTypeById(int id) {
 		dd.getEventTypeById(id);
 		return null;
+	}
+	
+	public Set<EventType> getEventTypes() {
+		return dd.getEventTypes();
 	}
 
 	@Override

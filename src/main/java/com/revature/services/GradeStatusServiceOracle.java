@@ -1,5 +1,7 @@
 package com.revature.services;
 
+import java.util.Set;
+
 import org.apache.log4j.Logger;
 
 import com.revature.beans.GradeStatus;
@@ -33,6 +35,11 @@ public class GradeStatusServiceOracle implements GradeStatusService {
 	@Override
 	public void deleteGradeStatus(GradeStatus ev) {
 		dd.deleteGradeStatus(ev);
+	}
+	@Override
+	public Set<GradeStatus> getGradeStatus() {
+		// TODO Auto-generated method stub
+		return dd.getGradeStatus();
 	}
 	
 }

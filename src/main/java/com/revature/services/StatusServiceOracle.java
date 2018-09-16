@@ -1,5 +1,7 @@
 package com.revature.services;
 
+import java.util.Set;
+
 import org.apache.log4j.Logger;
 
 import com.revature.beans.Status;
@@ -24,6 +26,9 @@ public class StatusServiceOracle implements StatusService {
 	public Status getStatus(Status Status) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	public Set<Status> getStatus() {
+		return dd.getStatuss();
 	}
 	@Override
 	public void updateStatus(Status ev) {

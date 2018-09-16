@@ -1,5 +1,7 @@
 package com.revature.services;
 
+import java.util.Set;
+
 import com.revature.beans.Status;
 
 public interface StatusService {
@@ -17,6 +19,7 @@ public interface StatusService {
 	 * @return the Status from the database that matches the Statusname and password
 	 */
 	public Status getStatus(Status Status);
+	public Set<Status> getStatus();
 	/**
 	 * returns a login object from the database
 	 * 

@@ -96,8 +96,7 @@ public class EventTypeDelegate implements FrontControllerDelegate {
 
 	private void getAllEventTypes(HttpServletRequest req, HttpServletResponse resp) throws JsonProcessingException, IOException {
 		log.trace("Retrieving a list of all EventTypes");
-		int id = Integer.parseInt(req.getParameter("id"));
-		EventType EventTypes = as.getEventTypeById(id);
+		Set<EventType> EventTypes = as.getEventTypes();
 		resp.getWriter().write(om.writeValueAsString(EventTypes));
 	}
 

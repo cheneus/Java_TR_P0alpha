@@ -43,7 +43,7 @@ public class TuitionReimbursementFormServiceOracle implements TuitionReimburseme
 	}
 
 	@Override
-	public TuitionReimbursementForm getTuitionReimbursementForm(int i) {
+	public TuitionReimbursementForm getTuitionReimbursementFormById(int i) {
 		// TODO Auto-generated method stub
 		return null;
 	}

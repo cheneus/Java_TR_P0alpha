@@ -28,7 +28,7 @@ public class StatusServiceOracle implements StatusService {
 		return null;
 	}
 	public Set<Status> getStatus() {
-		return dd.getStatuss();
+		return dd.getStatus();
 	}
 	@Override
 	public void updateStatus(Status ev) {

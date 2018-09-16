@@ -1,5 +1,7 @@
 package com.revature.services;
 
+import java.util.Set;
+
 import org.apache.log4j.Logger;
 
 import com.revature.beans.InfoRequest;
@@ -38,5 +40,9 @@ public class InfoRequestServiceOracle implements InfoRequestService {
 	public void updateInfoReq(InfoRequest InfoRequest) {
 		infod.updateInfoReq(InfoRequest);
 		
+	}
+	@Override
+	public Set<InfoRequest> getInfoReq() {
+		return infod.getInfoReq();
 	}
 }

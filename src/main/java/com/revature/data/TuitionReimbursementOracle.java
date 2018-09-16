@@ -131,10 +131,10 @@ public class TuitionReimbursementOracle implements TuitionReimbursementDAO {
 
 	@Override
 	public TuitionReimbursement getTuitionReimbursementById(int i) {
-		TuitionReimbursement tr = null;
+		TuitionReimbursement tr = new TuitionReimbursement();
 		try(Connection conn = cu.getConnection())
 		{
-			String sql = "select amount_reimbursed, date_received, reason, form_ref, grade_stat, approved_by, remarks, type_id, status from TuitionReimbursement where id=?";
+			String sql = "select id, amount_reimbursed, date_received, reason, form_ref, grade_stat, approved_by, remarks, type_id, status from TuitionReimbursement where id=?";
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setInt(1, i);
 			ResultSet rs = ps.executeQuery();
@@ -145,13 +145,12 @@ public class TuitionReimbursementOracle implements TuitionReimbursementDAO {
 				GradeStatus gs = new GradeStatus();
 				Employee em = new Employee();
 				Status s = new Status();
-				
 				tf.setId(rs.getInt("form_ref"));
 				tfy.setId(rs.getInt("type_if"));
 				gs.setId(rs.getInt("grade_stat"));
 				em.setId(rs.getInt("apporved_by"));
 				s.setId(rs.getInt("status"));
-				
+				tr.setId(i);
 				tr.setStatus(s);
 				tr.setAmount_reimbursed(rs.getDouble("cost"));
 				tr.setDate_received(rs.getDate("date_received"));

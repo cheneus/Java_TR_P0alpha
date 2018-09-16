@@ -129,9 +129,60 @@ public class TuitionReimbursementFormOracle implements TuitionReimbursementFormD
 	}
 
 	@Override
-	public TuitionReimbursementForm getTuitionReimbursementFormByID(int i) {
-		// TODO Auto-generated method stub
-		return null;
+	public TuitionReimbursementForm getTuitionReimbursementFormById(int i) {
+		TuitionReimbursementForm tr = null;
+		try(Connection conn = cu.getConnection())
+		{
+			String sql = "select id, date_of_event, time_of_event, location_id, event_id, description, cost, grade_format_id, submitted_by, event_related_attachments, status, date_submmitted from TuitionReimbursementForm where id=?";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, i);
+			ResultSet rs = ps.executeQuery();
+			if(rs.next())
+			{
+				tr = new TuitionReimbursementForm();
+				EventLocation lo = new EventLocation();
+				Employee em = new Employee();
+				GradeFormat gf = new GradeFormat();
+				EventType ev = new EventType();
+				Status s = new Status();
+				lo.setId(rs.getInt("location_id"));
+				em.setId(rs.getInt("submitted_by"));
+				gf.setId(rs.getInt("grade_format_id"));
+				ev.setId(rs.getInt("event_id"));
+				tr.setId(rs.getInt("id"));
+				tr.setDateOfEvent(rs.getDate("date_of_event"));
+				tr.setTimeOfEvent(rs.getDate("time_of_event"));
+				tr.setLocationId(lo);
+				tr.setEventId(ev);
+				tr.setDescription(rs.getString("description"));
+				tr.setCost(rs.getDouble("cost"));
+				tr.setGrade_format_id(gf);
+				tr.setSubmitted_by(em);
+				tr.setStatus(s);
+				tr.setEvent_related_attachments(rs.getString("event_related_attachment"));
+			
+			}
+			else
+			{
+				log.trace("This is not a TuitionReimbursementForm");
+				tr.setDateOfEvent(rs.getDate(null));
+				tr.setTimeOfEvent(rs.getDate(null));
+				tr.setLocationId(null);
+				tr.setEventId(null);
+				tr.setDescription(null);
+				tr.setCost(rs.getDouble(null));
+				tr.setGrade_format_id(null);
+				tr.setSubmitted_by(null);
+				tr.setStatus(null);
+				tr.setEvent_related_attachments(rs.getString(null));
+				tr.setId(0);
+			}
+		}
+		catch(Exception e)
+		{
+			LogUtil.logException(e,TuitionReimbursementFormOracle.class);
+		}
+		return tr;
 	}
 
 	@Override

@@ -10,7 +10,7 @@ public interface TuitionReimbursementFormDAO {
 	public int addTuitionReimbursementForm(TuitionReimbursementForm tr);
 	// read
 	public TuitionReimbursementForm getTuitionReimbursementForm(TuitionReimbursementForm tr);
-	public TuitionReimbursementForm getTuitionReimbursementFormByID(int i);
+	public TuitionReimbursementForm getTuitionReimbursementFormById(int i);
 	public Set<TuitionReimbursementForm> getTuitionReimbursementForms();
 	public Set<TuitionReimbursementForm> getTuitionReimbursementFormsByStatus(Status s);
 	// update

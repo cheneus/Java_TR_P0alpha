@@ -7,7 +7,9 @@ public class TuitionReimbursementForm {
 	private Date dateOfEvent;
 	private Date timeOfEvent;
 	private Date date_submitted;
-	private EventLocation locationId;
+	private String event_address;
+	private String event_city;
+	private String event_state;
 	private EventType eventId;
 	private String Description;
 	private double cost;
@@ -25,14 +27,17 @@ public class TuitionReimbursementForm {
 	}
 	
 	public TuitionReimbursementForm(int id, Date dateOfEvent, Date timeOfEvent, Date date_submitted,
-			EventLocation locationId, EventType eventId, String description, double cost, GradeFormat grade_format_id,
-			Employee submitted_by, Status status, String event_related_attachments) {
+			String event_address, String event_city, String event_state, EventType eventId, String description,
+			double cost, GradeFormat grade_format_id, Employee submitted_by, Status status,
+			String event_related_attachments) {
 		super();
 		this.id = id;
 		this.dateOfEvent = dateOfEvent;
 		this.timeOfEvent = timeOfEvent;
 		this.date_submitted = date_submitted;
-		this.locationId = locationId;
+		this.event_address = event_address;
+		this.event_city = event_city;
+		this.event_state = event_state;
 		this.eventId = eventId;
 		Description = description;
 		this.cost = cost;
@@ -65,11 +70,30 @@ public class TuitionReimbursementForm {
 	public void setdate_submitted(Date date_submitted) {
 		this.date_submitted = date_submitted;
 	}
-	public EventLocation getLocationId() {
-		return locationId;
+
+	public Date getDate_submitted() {
+		return date_submitted;
 	}
-	public void setLocationId(EventLocation locationId) {
-		this.locationId = locationId;
+	public void setDate_submitted(Date date_submitted) {
+		this.date_submitted = date_submitted;
+	}
+	public String getEvent_address() {
+		return event_address;
+	}
+	public void setEvent_address(String event_address) {
+		this.event_address = event_address;
+	}
+	public String getEvent_city() {
+		return event_city;
+	}
+	public void setEvent_city(String event_city) {
+		this.event_city = event_city;
+	}
+	public String getEvent_state() {
+		return event_state;
+	}
+	public void setEvent_state(String event_state) {
+		this.event_state = event_state;
 	}
 	public EventType getEventId() {
 		return eventId;

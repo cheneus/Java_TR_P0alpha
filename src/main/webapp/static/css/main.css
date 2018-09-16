@@ -29,3 +29,37 @@ body {
   .text_center {text-align: center;}
   .center {margin: auto 0px;}
   .float_left {float: left;}
+/* 
+  header, main, footer {
+    padding-left: 300px;
+  }
+
+  @media only screen and (max-width : 992px) {
+    header, main, footer {
+      padding-left: 0;
+    }
+  } */
+
+  .loginPg {
+    padding-left:0;
+  }
+
+  .heading-secondary {
+    font-size: 3.5rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    display: inline-block;
+    background-image: linear-gradient(to right, #FF420E, #F98866);
+    -webkit-background-clip: text;
+    letter-spacing: 2px;
+    color: transparent;
+    transition: all .2s; }
+    @media (max-width: 56.25em) {
+      .heading-secondary {
+        font-size: 2.5rem; } }
+    @media (max-width: 37.5em) {
+      .heading-secondary {
+        font-size: 2rem; } }
+    .heading-secondary:hover {
+      transform: skewY(2deg) skewX(8deg) scale(1.1);
+      text-shadow: 0.5rem 1rem 2rem rgba(0, 0, 0, 0.2); }

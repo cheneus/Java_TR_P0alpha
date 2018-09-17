@@ -344,5 +344,51 @@ public class TuitionReimbursementFormOracle implements TuitionReimbursementFormD
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public Set<TuitionReimbursementForm> getTuitionReimbursementFormsOnView() {
+		Set<TuitionReimbursementForm> trList = new HashSet<TuitionReimbursementForm>();
+		try(Connection conn = cu.getConnection())
+		{
+			String sql = "select * from gettrfname_view";
+			PreparedStatement pstm = conn.prepareStatement(sql);
+			log.trace(sql);
+			ResultSet rs = pstm.executeQuery();
+			log.trace(rs);
+			while(rs.next())
+			{
+				TuitionReimbursementForm tr = new TuitionReimbursementForm();
+				Employee em = new Employee();
+				GradeFormat gf = new GradeFormat();
+				EventType ev = new EventType();
+				Status s = new Status();
+				em.setFirstname(rs.getString("firstname"));
+				em.setFirstname(rs.getString("lastname"));
+				s.setName(rs.getString("status"));
+				ev.setName(rs.getString("event_type"));
+				
+				tr.setDateOfEvent(rs.getDate("date_of_event"));
+				tr.setTimeOfEvent(rs.getDate("time_of_event"));
+				tr.setDate_submitted(rs.getDate("date_submitted"));
+				tr.setEvent_address(rs.getString("event_address"));
+				tr.setEvent_city(rs.getString("event_city"));
+				tr.setEvent_state(rs.getString("event_state"));
+				tr.setEventId(ev);
+				tr.setDescription(rs.getString("description"));
+				tr.setCost(rs.getDouble("cost"));
+				tr.setGrade_format_id(gf);
+				tr.setSubmitted_by(em);
+				tr.setStatus(s);
+				tr.setEvent_related_attachments(rs.getString("event_related_attachments"));
+				tr.setId(rs.getInt("id"));
+				trList.add(tr);
+			}
+		}
+		catch(Exception e)
+		{
+			LogUtil.logException(e,TuitionReimbursementFormOracle.class);
+		}
+		return trList;
+	}
 	
 }

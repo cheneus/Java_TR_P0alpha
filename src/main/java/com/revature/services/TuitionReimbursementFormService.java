@@ -12,6 +12,8 @@ public interface TuitionReimbursementFormService {
 	public TuitionReimbursementForm getTuitionReimbursementFormById(int i);
 	public Set<TuitionReimbursementForm> getTuitionReimbursementForms();
 	public Set<TuitionReimbursementForm> getTuitionReimbursementFormsByStatus(Status s);
+	Set<TuitionReimbursementForm> getTuitionReimbursementFormsByPendingStatus();
+	Set<TuitionReimbursementForm> getTuitionReimbursementFormsOnView();
 	// update
 	public void updateTuitionReimbursementForm(TuitionReimbursementForm b);
 	// delete

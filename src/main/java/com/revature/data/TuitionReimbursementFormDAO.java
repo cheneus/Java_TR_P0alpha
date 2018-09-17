@@ -18,4 +18,5 @@ public interface TuitionReimbursementFormDAO {
 	// delete
 	public void deleteTuitionReimbursementForm(TuitionReimbursementForm tr);
 	Set<TuitionReimbursementForm> getTuitionReimbursementFormsByPendingStatus();
+	Set<TuitionReimbursementForm> getTuitionReimbursementFormsOnView();
 }

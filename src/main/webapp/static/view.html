@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Page Title</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <!-- Compiled and minified JavaScript -->
@@ -13,34 +13,35 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
-    <script src="main.js"></script>
-    <script src="utils.js"></script>
+    <link rel="stylesheet" type="text/css" media="screen" href="css/main.css" />
+    <script src="js/jQuery.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/utils.js"></script>
 </head>
 
 <body>
-    <div class="container">
-        <ul id="slide-out" class="sidenav sidenav-fixed ">
-            <li>
-                <div class="user-view">
-                    <div class="background">
 
-                    </div>
-                    <a href="#user"><img class="circle face-place" src="avatar.png"></a>
-                    <a href="#name"><span class="name">John Doe</span></a>
-                    <a href="#email"><span class="email">jdandturk@gmail.com</span></a>
+    <ul id="slide-out" class="sidenav sidenav-fixed ">
+        <li>
+            <div class="user-view">
+                <div class="background">
+
                 </div>
-            </li>
-            <li><a href="#!">My Info</a></li>
-            <li><a href="#!">View</a></li>
-            <li>
-                <div class="divider"></div>
-            </li>
-            <li><a class="waves-effect" href="#!">Log Out</a></li>
-        </ul>
-        <a href="#" id="slide-out-icon" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-        <!-- SideNav Ends -->
-
+                <a href="#user"><img class="circle face-place" src="avatar.png"></a>
+                <a href="#name"><span class="name">John Doe</span></a>
+                <a href="#email"><span class="email">jdandturk@gmail.com</span></a>
+            </div>
+        </li>
+        <li><a href="#!">My Info</a></li>
+        <li><a href="#!">View</a></li>
+        <li>
+            <div class="divider"></div>
+        </li>
+        <li><a class="waves-effect" href="#!">Log Out</a></li>
+    </ul>
+    <a href="#" id="slide-out" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+    <!-- SideNav Ends -->
+    <div class="container">
         <div class="section"></div>
         <main>
             <!-- loginPg -->
@@ -87,52 +88,52 @@
                 </div>
             </div>
             <!-- end of login pg -->
-            <div id ='mainPg'>
-                    <div class="row">
-                            <div class="col s12 m6">
-                              <div class="card darken-1">
-                                <div class="card-content">
-                                  <span class="card-title">Tuition Reimbursement</span>
-                                  <table class="highlight">
-                                        <thead>
-                                          <tr>
-                                              <th>Name</th>
-                                              <th>Item Name</th>
-                                              <th>Item Price</th>
-                                          </tr>
-                                        </thead>
-                                        <tbody>
-                                          <tr>
-                                            <td>Alvin</td>
-                                            <td>Eclair</td>
-                                            <td>$0.87</td>
-                                          </tr>
-                                          <tr>
-                                            <td>Alan</td>
-                                            <td>Jellybean</td>
-                                            <td>$3.76</td>
-                                          </tr>
-                                          <tr>
-                                            <td>Jonathan</td>
-                                            <td>Lollipop</td>
-                                            <td>$7.00</td>
-                                          </tr>
-                                          <tr>
+            <div id='mainPg'>
+                <div class="row">
+                    <div class="col s12 ">
+                        <div class="card darken-1">
+                            <div class="card-content">
+                                <div id="modal_for_table"></div>
+                                <span class="card-title">Tuition Reimbursement</span>
+                                <table class="highlight" id="trTable">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Item 1</th>
+                                            <th>Item 2</th>
+                                            <th>Item 3</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id='trTable_body'>
+                                        <tr>
                                             <td>Shannon</td>
                                             <td>KitKat</td>
                                             <td>$9.99</td>
-                                          </tr>
-                                        </tbody>
-                                      </table>
-                                </div>
-                                <div class="card-action">
-                                  <a href="#">This is a link</a>
-                                  <a href="#">This is a link</a>
-                                </div>
-                              </div>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
-                          </div>
-                  
+                            <div class="card-action">
+                                <!-- Modal Trigger -->
+                                <a class="waves-effect waves-light modal-trigger" href="#modal1">Modal</a>
+
+                                <!-- Modal Structure -->
+                                <div id="modal1" class="modal">
+                                    <div class="modal-content">
+                                        <h4>Modal Header</h4>
+                                        <p>A bunch of text</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+                                    </div>
+                                </div>
+
+                                <button class="btn" onclick="test()">TEST</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
             <!-- <a href="#!">Create account</a> -->
     </div>

@@ -1,3 +1,5 @@
+var tuitionRF;
+
 var utils = {
   userLogin: function() {
     var user = $('#username').val();
@@ -18,6 +20,10 @@ var utils = {
       )
       .then(function(res) {
         console.log(res.data);
+        $('#loginPg').hide();
+        $('main').css('left-padding','11.5rem')
+        $('#mainPg').show();
+        $('#slide-out').show();
       })
       .catch(function(e) {
         $('#login_feedback').text("Wrong Username/Password");
@@ -25,7 +31,18 @@ var utils = {
         console.log(e);
       });
   },
-  getTR: function() {
-    
+  getTRF: function() {
+    axios
+      .get(
+        'http://localhost:8080/Project1/trf',
+        {
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+        })
+      .then(function(res) {
+        console.log(res.data);
+      })
+      .catch(function(e) {
+        console.log(e);
+      });
   }
 }

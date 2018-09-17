@@ -14,9 +14,8 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
-    <script src="js/main.js"></script>
-    <script src="js/utils.js"></script>
-    <script src="js/jQuery.js"></script>
+    <script src="main.js"></script>
+    <script src="utils.js"></script>
 </head>
 
 <body>
@@ -25,73 +24,123 @@
             <li>
                 <div class="user-view">
                     <div class="background">
-                        <img src="images/office.jpg">
+
                     </div>
-                    <a href="#user"><img class="circle" src="images/yuna.jpg"></a>
-                    <a href="#name"><span class="white-text name">John Doe</span></a>
-                    <a href="#email"><span class="white-text email">jdandturk@gmail.com</span></a>
+                    <a href="#user"><img class="circle face-place" src="avatar.png"></a>
+                    <a href="#name"><span class="name">John Doe</span></a>
+                    <a href="#email"><span class="email">jdandturk@gmail.com</span></a>
                 </div>
             </li>
-            <li><a href="#!"><i class="material-icons">cloud</i>First Link With Icon</a></li>
-            <li><a href="#!">Second Link</a></li>
+            <li><a href="#!">My Info</a></li>
+            <li><a href="#!">View</a></li>
             <li>
                 <div class="divider"></div>
             </li>
-            <li><a class="subheader">Subheader</a></li>
-            <li><a class="waves-effect" href="#!">Third Link With Waves</a></li>
+            <li><a class="waves-effect" href="#!">Log Out</a></li>
         </ul>
         <a href="#" id="slide-out-icon" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
         <!-- SideNav Ends -->
 
         <div class="section"></div>
         <main>
+            <!-- loginPg -->
             <div class="text-center center" id="loginPg">
 
                 <div class="section"></div>
                 <h2 class="heading-secondary">Master Poke-TRS</h2>
                 <h4 class="indigo-text">From Noobie To Master</h4>
-                <div class="">
-                    <div class="z-depth-1 grey lighten-4 row" style="display: inline-block; padding: 32px 48px 0px 48px; border: 1px solid #EEE;">
 
-                        <form class="col s12" method="post">
+                <div class="z-depth-1 grey lighten-4 row" style="display: inline-block; padding: 32px 48px 0px 48px; border: 1px solid #EEE;">
+                    <div id="login_feedback" class="login_feedback card"> </div>
+                    <div class="card"></div>
+                    <form class="col s12" method="post">
+                        <div class='row'>
+                            <div class='col s12'>
+                            </div>
+                        </div>
+
+                        <div class='row'>
+                            <div class='input-field col s12'>
+                                <input class='validate' type='text' name='username' id='username' />
+                                <label for='username'>Enter your username</label>
+                            </div>
+                        </div>
+
+                        <div class='row'>
+                            <div class='input-field col s12'>
+                                <input class='validate' type='password' name='password' id='password' />
+                                <label for='password'>Enter your password</label>
+                            </div>
+                            <label style='float: right;'>
+                                <a class='pink-text' href='#!'><b>Forgot Password?</b></a>
+                            </label>
+                        </div>
+
+                        <br />
+                        <div>
                             <div class='row'>
-                                <div class='col s12'>
-                                </div>
+                                <button type='button' name='btn_login' class='col s12 btn btn-large waves-effect indigo'
+                                    onclick='utils.userLogin()'>Login</button>
                             </div>
-
-                            <div class='row'>
-                                <div class='input-field col s12'>
-                                    <input class='validate' type='text' name='username' id='username' />
-                                    <label for='username'>Enter your username</label>
-                                </div>
-                            </div>
-
-                            <div class='row'>
-                                <div class='input-field col s12'>
-                                    <input class='validate' type='password' name='password' id='password' />
-                                    <label for='password'>Enter your password</label>
-                                </div>
-                                <label style='float: right;'>
-                                    <a class='pink-text' href='#!'><b>Forgot Password?</b></a>
-                                </label>
-                            </div>
-
-                            <br />
-                            <div>
-                                <div class='row'>
-                                    <button type='button' name='btn_login' class='col s12 btn btn-large waves-effect indigo' onclick='utils.userLogin()'>Login</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
+                        </div>
+                    </form>
                 </div>
-                <a href="#!">Create account</a>
             </div>
+            <!-- end of login pg -->
+            <div id ='mainPg'>
+                    <div class="row">
+                            <div class="col s12 m6">
+                              <div class="card darken-1">
+                                <div class="card-content">
+                                  <span class="card-title">Tuition Reimbursement</span>
+                                  <table class="highlight">
+                                        <thead>
+                                          <tr>
+                                              <th>Name</th>
+                                              <th>Item Name</th>
+                                              <th>Item Price</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody>
+                                          <tr>
+                                            <td>Alvin</td>
+                                            <td>Eclair</td>
+                                            <td>$0.87</td>
+                                          </tr>
+                                          <tr>
+                                            <td>Alan</td>
+                                            <td>Jellybean</td>
+                                            <td>$3.76</td>
+                                          </tr>
+                                          <tr>
+                                            <td>Jonathan</td>
+                                            <td>Lollipop</td>
+                                            <td>$7.00</td>
+                                          </tr>
+                                          <tr>
+                                            <td>Shannon</td>
+                                            <td>KitKat</td>
+                                            <td>$9.99</td>
+                                          </tr>
+                                        </tbody>
+                                      </table>
+                                </div>
+                                <div class="card-action">
+                                  <a href="#">This is a link</a>
+                                  <a href="#">This is a link</a>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                  
+            </div>
+            <!-- <a href="#!">Create account</a> -->
+    </div>
 
-            <div class="section"></div>
-            <div class="section"></div>
-        </main>
-        <!-- <div class="section"></div>
+    <div class="section"></div>
+    <div class="section"></div>
+    </main>
+    <!-- <div class="section"></div>
             Modal Trigger
             <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Modal</a>
 

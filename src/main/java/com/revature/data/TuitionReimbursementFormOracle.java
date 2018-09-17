@@ -21,7 +21,7 @@ import com.revature.utils.ConnectionUtil;
 import com.revature.utils.LogUtil;
 
 public class TuitionReimbursementFormOracle implements TuitionReimbursementFormDAO {
-	private Logger log = Logger.getLogger(AddressOracle.class);
+	private Logger log = Logger.getLogger(TuitionReimbursementFormOracle.class);
 	private ConnectionUtil cu = ConnectionUtil.getInstance();
 	@Override
 	public int addTuitionReimbursementForm(TuitionReimbursementForm tr) {
@@ -30,8 +30,8 @@ public class TuitionReimbursementFormOracle implements TuitionReimbursementFormD
 		try {
 			log.trace("Inserting TuitionReimbursementForm into db");
 			conn.setAutoCommit(false);
-			String sql = "insert into TuitionReimbursementForm (date_of_event, time_of_event, event_location,event_city,event_state, event_type, description, cost, grade_format_id, submitted_by, event_related_attachments, status)"
-					+ " values (?,?,?,?,?,?,? ,?,?,?,?)";
+			String sql = "insert into Tuition_Reimbursement_Form (date_of_event, time_of_event, event_location,event_city,event_state, event_type, description, cost, grade_format_id, submitted_by, event_related_attachments, status)"
+					+ " values (?,?,?,?,? ,?,? ,?,?,?,?,?)";
 			PreparedStatement ps = conn.prepareStatement(sql, key);
 			
 			ps.setDate(1,(Date) tr.getDateOfEvent());
@@ -80,7 +80,7 @@ public class TuitionReimbursementFormOracle implements TuitionReimbursementFormD
 		}
 		try(Connection conn = cu.getConnection())
 		{
-			String sql = "select date_of_event, time_of_event, event_location,event_city,event_state, event_type, description, cost, grade_format_id, submitted_by, event_related_attachments, status, date_submmitted from TuitionReimbursementForm where id=?";
+			String sql = "select date_of_event, time_of_event, event_address,event_city,event_state, event_type, description, cost, grade_format_id, submitted_by, event_related_attachments, status, date_submmitted from Tuition_Reimbursement_Form where id=?";
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setInt(1, tr.getId());
 			ResultSet rs = ps.executeQuery();
@@ -94,7 +94,7 @@ public class TuitionReimbursementFormOracle implements TuitionReimbursementFormD
 				lo.setId(rs.getInt("location_id"));
 				em.setId(rs.getInt("submitted_by"));
 				gf.setId(rs.getInt("grade_format_id"));
-				ev.setId(rs.getInt("event_id"));
+				ev.setId(rs.getInt("event_type"));
 				tr.setDateOfEvent(rs.getDate("date_of_event"));
 				tr.setTimeOfEvent(rs.getDate("time_of_event"));
 				tr.setEvent_address(rs.getString("event_address"));
@@ -106,7 +106,7 @@ public class TuitionReimbursementFormOracle implements TuitionReimbursementFormD
 				tr.setGrade_format_id(gf);
 				tr.setSubmitted_by(em);
 				tr.setStatus(s);
-				tr.setEvent_related_attachments(rs.getString("event_related_attachment"));
+				tr.setEvent_related_attachments(rs.getString("event_related_attachments"));
 			
 			}
 			else
@@ -139,7 +139,7 @@ public class TuitionReimbursementFormOracle implements TuitionReimbursementFormD
 		TuitionReimbursementForm tr = new TuitionReimbursementForm();
 		try(Connection conn = cu.getConnection())
 		{
-			String sql = "select id, date_of_event, time_of_event, event_location,event_city,event_state, event_type, description, cost, grade_format_id, submitted_by, event_related_attachments, status, date_submmitted from TuitionReimbursementForm where id=?";
+			String sql = "select id, date_of_event, time_of_event, date_submitted, event_address,event_city,event_state, event_type, description, cost, grade_format_id, submitted_by, event_related_attachments, status, date_submmitted from Tuition_Reimbursement_Form where id=?";
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setInt(1, i);
 			ResultSet rs = ps.executeQuery();
@@ -165,7 +165,7 @@ public class TuitionReimbursementFormOracle implements TuitionReimbursementFormD
 				tr.setGrade_format_id(gf);
 				tr.setSubmitted_by(em);
 				tr.setStatus(s);
-				tr.setEvent_related_attachments(rs.getString("event_related_attachment"));
+				tr.setEvent_related_attachments(rs.getString("event_related_attachments"));
 			
 			}
 			else
@@ -198,23 +198,26 @@ public class TuitionReimbursementFormOracle implements TuitionReimbursementFormD
 		Set<TuitionReimbursementForm> trList = new HashSet<TuitionReimbursementForm>();
 		try(Connection conn = cu.getConnection())
 		{
-			String sql = "select id, date_of_event, time_of_event, location_id, event_id, description, cost, grade_format_id, submitted_by, event_related_attachments, status, date_submmitted from TuitionReimbursementForm";
+			String sql = "select id, date_of_event, time_of_event, date_submitted,event_address,event_city,event_state, event_type, description, cost, grade_format_id, submitted_by, event_related_attachments, status from Tuition_Reimbursement_Form";
 			PreparedStatement pstm = conn.prepareStatement(sql);
+			log.trace(sql);
 			ResultSet rs = pstm.executeQuery();
+			log.trace(rs);
 			while(rs.next())
 			{
 				TuitionReimbursementForm tr = new TuitionReimbursementForm();
-				EventLocation lo = new EventLocation();
 				Employee em = new Employee();
 				GradeFormat gf = new GradeFormat();
 				EventType ev = new EventType();
 				Status s = new Status();
-				lo.setId(rs.getInt("location_id"));
+				
 				em.setId(rs.getInt("submitted_by"));
 				gf.setId(rs.getInt("grade_format_id"));
-				ev.setId(rs.getInt("event_id"));
+				ev.setId(rs.getInt("event_type"));
+				
 				tr.setDateOfEvent(rs.getDate("date_of_event"));
 				tr.setTimeOfEvent(rs.getDate("time_of_event"));
+				tr.setDate_submitted(rs.getDate("date_submitted"));
 				tr.setEvent_address(rs.getString("event_address"));
 				tr.setEvent_city(rs.getString("event_city"));
 				tr.setEvent_state(rs.getString("event_state"));
@@ -224,7 +227,7 @@ public class TuitionReimbursementFormOracle implements TuitionReimbursementFormD
 				tr.setGrade_format_id(gf);
 				tr.setSubmitted_by(em);
 				tr.setStatus(s);
-				tr.setEvent_related_attachments(rs.getString("event_related_attachment"));
+				tr.setEvent_related_attachments(rs.getString("event_related_attachments"));
 				tr.setId(rs.getInt("id"));
 				trList.add(tr);
 			}
@@ -241,7 +244,7 @@ public class TuitionReimbursementFormOracle implements TuitionReimbursementFormD
 		Set<TuitionReimbursementForm> trList = new HashSet<TuitionReimbursementForm>();
 		try(Connection conn = cu.getConnection())
 		{
-			String sql = "select id, date_of_event, time_of_event, location_id, event_id, description, cost, grade_format_id, submitted_by, event_related_attachments, status, date_submmitted from TuitionReimbursementForm where status = 0";
+			String sql = "select id, date_of_event, time_of_event,date_submitted,event_address,event_city,event_state, event_type, description, cost, grade_format_id, submitted_by, event_related_attachments, status from Tuition_Reimbursement_Form where status = 0";
 			PreparedStatement pstm = conn.prepareStatement(sql);
 			ResultSet rs = pstm.executeQuery();
 			while(rs.next())
@@ -255,7 +258,7 @@ public class TuitionReimbursementFormOracle implements TuitionReimbursementFormD
 				lo.setId(rs.getInt("location_id"));
 				em.setId(rs.getInt("submitted_by"));
 				gf.setId(rs.getInt("grade_format_id"));
-				ev.setId(rs.getInt("event_id"));
+				ev.setId(rs.getInt("event_type"));
 				tr.setDateOfEvent(rs.getDate("date_of_event"));
 				tr.setTimeOfEvent(rs.getDate("time_of_event"));
 				tr.setEvent_address(rs.getString("event_address"));
@@ -267,7 +270,7 @@ public class TuitionReimbursementFormOracle implements TuitionReimbursementFormD
 				tr.setGrade_format_id(gf);
 				tr.setSubmitted_by(em);
 				tr.setStatus(s);
-				tr.setEvent_related_attachments(rs.getString("event_related_attachment"));
+				tr.setEvent_related_attachments(rs.getString("event_related_attachments"));
 				tr.setId(rs.getInt("id"));
 				trList.add(tr);
 			}
@@ -285,7 +288,7 @@ public class TuitionReimbursementFormOracle implements TuitionReimbursementFormD
 		try(Connection conn = cu.getConnection()){
 			conn.setAutoCommit(false);
 			
-			String sql = "update TuitionReimbursementForm  set sup_id = ?, title = ? where id = ?";
+			String sql = "update Tuition_Reimbursement_Form  set sup_id = ?, title = ? where id = ?";
 			PreparedStatement pstm = conn.prepareStatement(sql);
 //			pstm.setInt(1, TuitionReimbursementForm.getSupervisor().getId());
 //			pstm.setString(2, TuitionReimbursementForm.getTitle());
@@ -315,7 +318,7 @@ public class TuitionReimbursementFormOracle implements TuitionReimbursementFormD
 		try(Connection conn = cu.getConnection()){
 			conn.setAutoCommit(false);
 			
-			String sql = "delete from tr where id = ?";
+			String sql = "delete from Tuition_Reimbursement_Form  where id = ?";
 			PreparedStatement pstm = conn.prepareStatement(sql);
 			pstm.setInt(1, tr.getId());
 			int number = pstm.executeUpdate();

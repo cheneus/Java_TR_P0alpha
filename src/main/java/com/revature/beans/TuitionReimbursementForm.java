@@ -64,13 +64,6 @@ public class TuitionReimbursementForm {
 	public void setTimeOfEvent(Date timeOfEvent) {
 		this.timeOfEvent = timeOfEvent;
 	}
-	public Date getdate_submitted() {
-		return date_submitted;
-	}
-	public void setdate_submitted(Date date_submitted) {
-		this.date_submitted = date_submitted;
-	}
-
 	public Date getDate_submitted() {
 		return date_submitted;
 	}

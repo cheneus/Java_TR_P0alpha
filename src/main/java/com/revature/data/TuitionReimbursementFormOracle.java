@@ -30,12 +30,12 @@ public class TuitionReimbursementFormOracle implements TuitionReimbursementFormD
 		try {
 			log.trace("Inserting TuitionReimbursementForm into db");
 			conn.setAutoCommit(false);
-			String sql = "insert into Tuition_Reimbursement_Form (date_of_event, time_of_event, event_location,event_city,event_state, event_type, description, cost, grade_format_id, submitted_by, event_related_attachments, status)"
+			String sql = "insert into Tuition_Reimbursement_Form (date_of_event, total_Days, event_location,event_city,event_state, event_type, description, cost, grade_format_id, submitted_by, event_related_attachments, status)"
 					+ " values (?,?,?,?,? ,?,? ,?,?,?,?,?)";
 			PreparedStatement ps = conn.prepareStatement(sql, key);
 			
 			ps.setDate(1,(Date) tr.getDateOfEvent());
-			ps.setDate(2, (Date) tr.getTimeOfEvent());
+			ps.setInt(2, tr.getTotalDays());
 			ps.setString(3, tr.getEvent_address());
 			ps.setString(4, tr.getEvent_city());
 			ps.setString(5, tr.getEvent_state());
@@ -80,7 +80,7 @@ public class TuitionReimbursementFormOracle implements TuitionReimbursementFormD
 		}
 		try(Connection conn = cu.getConnection())
 		{
-			String sql = "select date_of_event, time_of_event, event_address,event_city,event_state, event_type, description, cost, grade_format_id, submitted_by, event_related_attachments, status, date_submmitted from Tuition_Reimbursement_Form where id=?";
+			String sql = "select date_of_event, total_Days, event_address,event_city,event_state, event_type, description, cost, grade_format_id, submitted_by, event_related_attachments, status, date_submmitted from Tuition_Reimbursement_Form where id=?";
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setInt(1, tr.getId());
 			ResultSet rs = ps.executeQuery();
@@ -96,7 +96,7 @@ public class TuitionReimbursementFormOracle implements TuitionReimbursementFormD
 				gf.setId(rs.getInt("grade_format_id"));
 				ev.setId(rs.getInt("event_type"));
 				tr.setDateOfEvent(rs.getDate("date_of_event"));
-				tr.setTimeOfEvent(rs.getDate("time_of_event"));
+				tr.setTotalDays(rs.getInt("totalDays"));
 				tr.setEvent_address(rs.getString("event_address"));
 				tr.setEvent_city(rs.getString("event_city"));
 				tr.setEvent_state(rs.getString("event_state"));
@@ -113,7 +113,7 @@ public class TuitionReimbursementFormOracle implements TuitionReimbursementFormD
 			{
 				log.trace("This is not a TuitionReimbursementForm");
 				tr.setDateOfEvent(rs.getDate(null));
-				tr.setTimeOfEvent(rs.getDate(null));
+				tr.setTotalDays(rs.getInt(null));
 				tr.setEvent_address(null);
 				tr.setEvent_city(null);
 				tr.setEvent_state(null);
@@ -139,7 +139,7 @@ public class TuitionReimbursementFormOracle implements TuitionReimbursementFormD
 		TuitionReimbursementForm tr = new TuitionReimbursementForm();
 		try(Connection conn = cu.getConnection())
 		{
-			String sql = "select id, date_of_event, time_of_event, date_submitted, event_address,event_city,event_state, event_type, description, cost, grade_format_id, submitted_by, event_related_attachments, status, date_submmitted from Tuition_Reimbursement_Form where id=?";
+			String sql = "select id, date_of_event, total_Days, date_submitted, event_address,event_city,event_state, event_type, description, cost, grade_format_id, submitted_by, event_related_attachments, status, date_submmitted from Tuition_Reimbursement_Form where id=?";
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setInt(1, i);
 			ResultSet rs = ps.executeQuery();
@@ -155,7 +155,7 @@ public class TuitionReimbursementFormOracle implements TuitionReimbursementFormD
 				gf.setId(rs.getInt("grade_format_id"));
 				ev.setId(rs.getInt("event_type"));
 				tr.setDateOfEvent(rs.getDate("date_of_event"));
-				tr.setTimeOfEvent(rs.getDate("time_of_event"));
+				tr.setTotalDays(rs.getInt("total_Days"));
 				tr.setEvent_address(rs.getString("event_address"));
 				tr.setEvent_city(rs.getString("event_city"));
 				tr.setEvent_state(rs.getString("event_state"));
@@ -172,7 +172,7 @@ public class TuitionReimbursementFormOracle implements TuitionReimbursementFormD
 			{
 				log.trace("This is not a TuitionReimbursementForm");
 				tr.setDateOfEvent(rs.getDate(null));
-				tr.setTimeOfEvent(rs.getDate(null));
+				tr.setTotalDays(rs.getInt(null));
 				tr.setEvent_address(null);
 				tr.setEvent_city(null);
 				tr.setEvent_state(null);
@@ -198,7 +198,7 @@ public class TuitionReimbursementFormOracle implements TuitionReimbursementFormD
 		Set<TuitionReimbursementForm> trList = new HashSet<TuitionReimbursementForm>();
 		try(Connection conn = cu.getConnection())
 		{
-			String sql = "select id, date_of_event, time_of_event, date_submitted,event_address,event_city,event_state, event_type, description, cost, grade_format_id, submitted_by, event_related_attachments, status from Tuition_Reimbursement_Form";
+			String sql = "select id, date_of_event, total_Days, date_submitted,event_address,event_city,event_state, event_type, description, cost, grade_format_id, submitted_by, event_related_attachments, status from Tuition_Reimbursement_Form";
 			PreparedStatement pstm = conn.prepareStatement(sql);
 			log.trace(sql);
 			ResultSet rs = pstm.executeQuery();
@@ -216,7 +216,7 @@ public class TuitionReimbursementFormOracle implements TuitionReimbursementFormD
 				ev.setId(rs.getInt("event_type"));
 				
 				tr.setDateOfEvent(rs.getDate("date_of_event"));
-				tr.setTimeOfEvent(rs.getDate("time_of_event"));
+				tr.setTotalDays(rs.getInt("total_Days"));
 				tr.setDate_submitted(rs.getDate("date_submitted"));
 				tr.setEvent_address(rs.getString("event_address"));
 				tr.setEvent_city(rs.getString("event_city"));
@@ -244,7 +244,7 @@ public class TuitionReimbursementFormOracle implements TuitionReimbursementFormD
 		Set<TuitionReimbursementForm> trList = new HashSet<TuitionReimbursementForm>();
 		try(Connection conn = cu.getConnection())
 		{
-			String sql = "select id, date_of_event, time_of_event,date_submitted,event_address,event_city,event_state, event_type, description, cost, grade_format_id, submitted_by, event_related_attachments, status from Tuition_Reimbursement_Form where status = 0";
+			String sql = "select id, date_of_event, total_Days,date_submitted,event_address,event_city,event_state, event_type, description, cost, grade_format_id, submitted_by, event_related_attachments, status from Tuition_Reimbursement_Form where status = 0";
 			PreparedStatement pstm = conn.prepareStatement(sql);
 			ResultSet rs = pstm.executeQuery();
 			while(rs.next())
@@ -260,7 +260,7 @@ public class TuitionReimbursementFormOracle implements TuitionReimbursementFormD
 				gf.setId(rs.getInt("grade_format_id"));
 				ev.setId(rs.getInt("event_type"));
 				tr.setDateOfEvent(rs.getDate("date_of_event"));
-				tr.setTimeOfEvent(rs.getDate("time_of_event"));
+				tr.setTotalDays(rs.getInt("totalDays"));
 				tr.setEvent_address(rs.getString("event_address"));
 				tr.setEvent_city(rs.getString("event_city"));
 				tr.setEvent_state(rs.getString("event_state"));
@@ -354,7 +354,6 @@ public class TuitionReimbursementFormOracle implements TuitionReimbursementFormD
 			PreparedStatement pstm = conn.prepareStatement(sql);
 			log.trace(sql);
 			ResultSet rs = pstm.executeQuery();
-			log.trace(rs);
 			while(rs.next())
 			{
 				TuitionReimbursementForm tr = new TuitionReimbursementForm();
@@ -362,13 +361,16 @@ public class TuitionReimbursementFormOracle implements TuitionReimbursementFormD
 				GradeFormat gf = new GradeFormat();
 				EventType ev = new EventType();
 				Status s = new Status();
+				em.setId(rs.getInt("eid"));
 				em.setFirstname(rs.getString("firstname"));
-				em.setFirstname(rs.getString("lastname"));
+				em.setLastname(rs.getString("lastname"));
+				em.setEmail(rs.getString("email"));
 				s.setName(rs.getString("status"));
 				ev.setName(rs.getString("event_type"));
+				gf.setName(rs.getString("grade_format"));
 				
 				tr.setDateOfEvent(rs.getDate("date_of_event"));
-				tr.setTimeOfEvent(rs.getDate("time_of_event"));
+				tr.setTotalDays(rs.getInt("total_Days"));
 				tr.setDate_submitted(rs.getDate("date_submitted"));
 				tr.setEvent_address(rs.getString("event_address"));
 				tr.setEvent_city(rs.getString("event_city"));

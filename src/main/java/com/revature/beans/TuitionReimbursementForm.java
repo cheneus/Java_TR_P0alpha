@@ -5,7 +5,7 @@ import java.util.Date;
 public class TuitionReimbursementForm {
 	private int id;
 	private Date dateOfEvent;
-	private Date timeOfEvent;
+	private int totalDays;
 	private Date date_submitted;
 	private String event_address;
 	private String event_city;
@@ -26,14 +26,14 @@ public class TuitionReimbursementForm {
 		this.id = id;
 	}
 	
-	public TuitionReimbursementForm(int id, Date dateOfEvent, Date timeOfEvent, Date date_submitted,
+	public TuitionReimbursementForm(int id, Date dateOfEvent, int totalDays, Date date_submitted,
 			String event_address, String event_city, String event_state, EventType eventId, String description,
 			double cost, GradeFormat grade_format_id, Employee submitted_by, Status status,
 			String event_related_attachments) {
 		super();
 		this.id = id;
 		this.dateOfEvent = dateOfEvent;
-		this.timeOfEvent = timeOfEvent;
+		this.totalDays = totalDays;
 		this.date_submitted = date_submitted;
 		this.event_address = event_address;
 		this.event_city = event_city;
@@ -58,11 +58,11 @@ public class TuitionReimbursementForm {
 	public void setDateOfEvent(Date dateOfEvent) {
 		this.dateOfEvent = dateOfEvent;
 	}
-	public Date getTimeOfEvent() {
-		return timeOfEvent;
+	public int getTotalDays() {
+		return totalDays;
 	}
-	public void setTimeOfEvent(Date timeOfEvent) {
-		this.timeOfEvent = timeOfEvent;
+	public void setTotalDays(int totalDays) {
+		this.totalDays = totalDays;
 	}
 	public Date getDate_submitted() {
 		return date_submitted;

@@ -24,6 +24,9 @@ var utils = {
         $('main').css('left-padding','11.5rem')
         $('#mainPg').show();
         $('#slide-out').show();
+        $('#name').text()
+        $('#email').text()
+
       })
       .catch(function(e) {
         $('#login_feedback').text("Wrong Username/Password");
@@ -44,5 +47,17 @@ var utils = {
       .catch(function(e) {
         console.log(e);
       });
+  },
+  getEmployeeInfo: function() {
+
+  },
+  getEventType: function() {
+
+  },
+  getFormatType: function() {
+
   }
 }
+
+
+

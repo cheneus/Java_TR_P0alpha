@@ -44,10 +44,15 @@ public class TuitionReimbursementFormServiceOracle implements TuitionReimburseme
 
 	@Override
 	public TuitionReimbursementForm getTuitionReimbursementFormById(int i) {
-		// TODO Auto-generated method stub
-		return null;
+		return trf.getTuitionReimbursementFormById(i);
 	}
 
+	@Override
+	public TuitionReimbursementForm getTuitionReimbursementForm(TuitionReimbursementForm tr) {
+		return trf.getTuitionReimbursementForm(tr);
+
+	}
+	
 	@Override
 	public Set<TuitionReimbursementForm> getTuitionReimbursementFormsByStatus(Status s) {
 		Set<TuitionReimbursementForm> trList = trf.getTuitionReimbursementFormsByStatus(s);

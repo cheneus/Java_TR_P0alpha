@@ -47,7 +47,7 @@ public class TRFDelegate implements FrontControllerDelegate {
 				TuitionReimbursementForm a = om.readValue(sb.toString(), TuitionReimbursementForm.class);
 				log.trace(a);
 				try {
-					log.trace("adding book to database");
+					log.trace("adding TuitionReimbursementForm to database");
 					as.addTuitionReimbursementForm(a);
 					log.trace(a);
 					resp.setStatus(HttpServletResponse.SC_CREATED);
@@ -66,12 +66,14 @@ public class TRFDelegate implements FrontControllerDelegate {
 	}
 
 	private void TuitionReimbursementFormTimes(HttpServletRequest req, HttpServletResponse resp, int TuitionReimbursementFormId) throws JsonProcessingException, IOException {
-		log.trace("Operating on a specific book with id: "+TuitionReimbursementFormId);
+		log.trace("Operating on a specific trf with id: "+TuitionReimbursementFormId);
 		PrintWriter writer = resp.getWriter();
 		
 		TuitionReimbursementForm a = as.getTuitionReimbursementFormById(TuitionReimbursementFormId);
+		log.trace(a);
 		switch(req.getMethod()) {
 		case "GET":
+//			as.getTuitionReimbursementForm(a);
 			resp.getWriter().write(om.writeValueAsString(a));
 			break;
 		case "PUT":
@@ -96,7 +98,8 @@ public class TRFDelegate implements FrontControllerDelegate {
 
 	private void getAllTuitionReimbursementForms(HttpServletRequest req, HttpServletResponse resp) throws JsonProcessingException, IOException {
 		log.trace("Retrieving a list of all TuitionReimbursementForms");
-		Set<TuitionReimbursementForm> TuitionReimbursementForms = as.getTuitionReimbursementForms();
+//		Set<TuitionReimbursementForm> TuitionReimbursementForms = as.getTuitionReimbursementForms();
+		Set<TuitionReimbursementForm> TuitionReimbursementForms = as.getTuitionReimbursementFormsOnView();
 		resp.getWriter().write(om.writeValueAsString(TuitionReimbursementForms));
 	}
 

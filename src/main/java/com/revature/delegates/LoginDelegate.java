@@ -90,11 +90,11 @@ public class LoginDelegate implements FrontControllerDelegate {
 //		private void respondWithUser(HttpServletResponse resp, Employee emp, Login l) throws IOException {
 		resp.setStatus(HttpServletResponse.SC_OK);
 		String c = om.writeValueAsString(l);
-//		String e = om.writeValueAsString(emp);
+		String e = om.writeValueAsString(emp);
 		StringBuilder sb = new StringBuilder("{\"Login\":");
 		sb.append(c);
-//		sb.append(", \"employee\":");
-//		sb.append(e);
+		sb.append(", \"employee\":");
+		sb.append(e);
 		sb.append("}");
 		resp.getWriter().write(sb.toString());
 	}

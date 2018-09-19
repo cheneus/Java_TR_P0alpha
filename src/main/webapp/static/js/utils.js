@@ -64,6 +64,24 @@ var utils = {
         console.log(e);
       });
   },
+  getTRFbyId: function(id) {
+    axios
+      .get(
+        'http://localhost:8080/Project1/trf'+id,
+        {
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+        },{
+          params: {
+
+          }
+        })
+      .then(function(res) {
+        console.log(res.data);
+      })
+      .catch(function(e) {
+        console.log(e);
+      });
+  },
   postTRF: function() {
     var title = $('#title_form').val();
     var beginDate = $('#beginDate_form').val();
@@ -84,7 +102,7 @@ var utils = {
           headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
         },
         {
-          params: {
+          body: {
             title: title,
             event_date: beginDate,
             totalDays:totalDays,
@@ -111,6 +129,15 @@ var utils = {
   },
   getFormatType: function() {
 
+  }
+}
+
+var webCtrl = {
+  getTRFbyId : function(x) {
+    
+  },
+  getTRFbyStatId : function(x) {
+    
   }
 }
 

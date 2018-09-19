@@ -21,7 +21,7 @@
 
 <body>
 
-    <ul id="slide-out" class="sidenav sidenav-fixed ">
+    <ul id="slide-out" class="sidenav sidenav-fixed slide-out">
         <li>
             <div class="user-view">
                 <div class="background">
@@ -29,12 +29,12 @@
                 </div>
                 <a href="#user"><img class="circle face-place" src="avatar.png"></a>
                 <a href="#name"><span class="name" id="name"></span></a>
-                <a href="#email"><span class="email" id="name"></span></a>
+                <a href="#email"><span class="email" id="email"></span></a>
             </div>
         </li>
         <li><a href="#!">My Info</a></li>
         <li><a href="#!">View</a></li>
-        <li><a href="#modal_add" class="modal-trigger waves-effect">Add New<i class="material-icons">add</i></a></li>
+        <li><a href="#modal_add" class="modal-trigger waves-effect ">Add New<i class="material-icons">add</i></a></li>
         <li>
             <div class="divider"></div>
         </li>
@@ -90,7 +90,7 @@
                 </div>
             </div>
             <!-- end of login pg -->
-            <div id='mainPg'>
+            <div id='mainPg' class="mainPg">
                 <div class="row">
                     <div class="col s12 ">
                         <div class="card darken-1">
@@ -116,25 +116,11 @@
 
                             </div>
                             <div class="card-action">
-                                <!-- Modal Trigger -->
-                                <a class="waves-effect waves-light modal-trigger" href="#modal1">Modal</a>
-
-                                <!-- Modal Structure -->
-                                <div id="modal1" class="modal">
-                                    <div class="modal-content">
-                                        <h4>Modal Header</h4>
-                                        <p>A bunch of text</p>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
-                                    </div>
-                                </div>
                                 <button class="btn" onclick="test()">TEST</button>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- <a href="#!">Create account</a> -->
             </div>
 
 

@@ -13,7 +13,6 @@ import com.revature.data.TuitionReimbursementFormDAO;
 public class TuitionReimbursementFormServiceOracle implements TuitionReimbursementFormService {
 	private Logger log = Logger.getLogger(TuitionReimbursementFormServiceOracle.class);
 	private TRAppDAOFactory bf = TRAppDAOFactory.getInstance();
-	private LoginDAO lg = bf.getLoginDAO();
 	private TuitionReimbursementFormDAO trf = bf.getTuitionReimbursementFormDAO();
 
 	@Override
@@ -62,14 +61,16 @@ public class TuitionReimbursementFormServiceOracle implements TuitionReimburseme
 	}
 
 	@Override
-	public Set<TuitionReimbursementForm> getTuitionReimbursementFormsByPendingStatus() {
-		return trf.getTuitionReimbursementFormsByPendingStatus();
-	}
-
-	@Override
 	public Set<TuitionReimbursementForm> getTuitionReimbursementFormsOnView() {
 		return trf.getTuitionReimbursementFormsOnView();
 	}
+
+	@Override
+	public Set<TuitionReimbursementForm> getTuitionReimbursementFormsByNoAppr(int i) {
+		return trf.getTuitionReimbursementFormsByNoAppr(i);
+	}
+
+
 
 	
 }

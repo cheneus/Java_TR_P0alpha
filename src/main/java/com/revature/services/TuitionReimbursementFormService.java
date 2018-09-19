@@ -13,7 +13,7 @@ public interface TuitionReimbursementFormService {
 	public TuitionReimbursementForm getTuitionReimbursementForm(TuitionReimbursementForm tr);
 	public Set<TuitionReimbursementForm> getTuitionReimbursementForms();
 	public Set<TuitionReimbursementForm> getTuitionReimbursementFormsByStatus(Status s);
-	Set<TuitionReimbursementForm> getTuitionReimbursementFormsByPendingStatus();
+	public Set<TuitionReimbursementForm> getTuitionReimbursementFormsByNoAppr(int i);
 	Set<TuitionReimbursementForm> getTuitionReimbursementFormsOnView();
 	// update
 	public void updateTuitionReimbursementForm(TuitionReimbursementForm tr);

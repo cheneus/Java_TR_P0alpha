@@ -73,7 +73,7 @@ public class TRFDelegate implements FrontControllerDelegate {
 		log.trace(a);
 		switch(req.getMethod()) {
 		case "GET":
-//			as.getTuitionReimbursementForm(a);
+			a = as.getTuitionReimbursementFormById(TuitionReimbursementFormId);
 			resp.getWriter().write(om.writeValueAsString(a));
 			break;
 		case "PUT":

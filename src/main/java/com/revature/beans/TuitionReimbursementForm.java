@@ -11,7 +11,7 @@ public class TuitionReimbursementForm {
 	private String event_city;
 	private String event_state;
 	private EventType eventId;
-	private String Description;
+	private String title;
 	private double cost;
 	private GradeFormat grade_format_id;
 	private Employee submitted_by;
@@ -27,7 +27,7 @@ public class TuitionReimbursementForm {
 	}
 	
 	public TuitionReimbursementForm(int id, Date dateOfEvent, int totalDays, Date date_submitted,
-			String event_address, String event_city, String event_state, EventType eventId, String description,
+			String event_address, String event_city, String event_state, EventType eventId, String Title,
 			double cost, GradeFormat grade_format_id, Employee submitted_by, Status status,
 			String event_related_attachments) {
 		super();
@@ -39,7 +39,7 @@ public class TuitionReimbursementForm {
 		this.event_city = event_city;
 		this.event_state = event_state;
 		this.eventId = eventId;
-		Description = description;
+		Title = Title;
 		this.cost = cost;
 		this.grade_format_id = grade_format_id;
 		this.submitted_by = submitted_by;
@@ -94,11 +94,11 @@ public class TuitionReimbursementForm {
 	public void setEventId(EventType eventId) {
 		this.eventId = eventId;
 	}
-	public String getDescription() {
-		return Description;
+	public String getTitle() {
+		return title;
 	}
-	public void setDescription(String description) {
-		Description = description;
+	public void setTitle(String Title) {
+		this.title = Title;
 	}
 	public double getCost() {
 		return cost;

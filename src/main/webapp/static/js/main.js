@@ -21,7 +21,7 @@ $(document).ready(function() {
   
   
   // $('select').material_select();
-  var objJson;
+  var objJsonInit;
   
   $('#addNewTR').submit( function() {
     // goes second
@@ -30,9 +30,9 @@ $(document).ready(function() {
   })
 });
 
-var createRowTR = (x) => {
+var createRowTR = function(x) {
   // var objTest = utils.getTRF();
-  objJson = x
+  var objJson = x
   // objJson = [{"id":2,"dateOfEvent":"2019-05-01","timeOfEvent":"2018-09-01","date_submitted":"2018-09-17","event_address":"1 E Jackson","event_city":"Chicago","event_state":"IL","eventId":{"id":1,"name":null},"cost":350.0,"grade_format_id":{"id":21,"name":null},"submitted_by":{"id":2,"lastname":null,"firstname":null,"title":null,"supervisor":null,"birthDate":null,"hireDate":null,"dept_id":null,"address":null,"reimbursement_balance":0.0,"phone":null,"email":null},"status":{"id":0,"name":null},"event_related_attachments":"www.eventbrite.com/superjsevo","description":"Super Node Evo"},{"id":1,"dateOfEvent":"2019-12-01","timeOfEvent":"2018-09-01","date_submitted":"2018-09-17","event_address":"1 E Jackson","event_city":"Chicago","event_state":"IL","eventId":{"id":1,"name":null},"cost":350.0,"grade_format_id":{"id":21,"name":null},"submitted_by":{"id":2,"lastname":null,"firstname":null,"title":null,"supervisor":null,"birthDate":null,"hireDate":null,"dept_id":null,"address":null,"reimbursement_balance":0.0,"phone":null,"email":null},"status":{"id":0,"name":null},"event_related_attachments":"www.eventbrite.com/superjsevo","description":"Super JS Evo"}]
   console.log(objJson)
   // objArr = {};
@@ -42,7 +42,7 @@ var createRowTR = (x) => {
     var rowTemplate = `<tr class="modal-trigger" href='#tableModal${i}' data-trId='${objJson[i].id}'><td>${objJson[i].id}</td>
     <td>${objJson[i].event_state}</td>
     <td>${objJson[i].cost}</td>
-    <td>${objJson[i].event_id}</td>
+    <td>${objJson[i].event_id.name}</td>
     <td>${objJson[i].submitted_by.firstname}, ${objJson[i].submitted_by.lastname}</td>
     <td><i class="material-icons">check</i><i class="material-icons">close</i></td>
     </tr>`;

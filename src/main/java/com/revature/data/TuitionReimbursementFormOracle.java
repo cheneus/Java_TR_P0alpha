@@ -246,7 +246,7 @@ public class TuitionReimbursementFormOracle implements TuitionReimbursementFormD
 
 		try(Connection conn = cu.getConnection())
 		{
-			String sql = "select * from Tuition_Reimbursement_Form where status != 6 and submitted_by =?";
+			String sql = "select * from GETTRFULL_VIEW where status != 'Approved' and eid =?";
 			PreparedStatement pstm = conn.prepareStatement(sql);
 			pstm.setInt(1, i);
 			log.trace(sql);
@@ -258,10 +258,16 @@ public class TuitionReimbursementFormOracle implements TuitionReimbursementFormD
 				GradeFormat gf = new GradeFormat();
 				EventType ev = new EventType();
 				Status s = new Status();
-				em.setId(rs.getInt("submitted_by"));
-				gf.setId(rs.getInt("grade_format_id"));
-				ev.setId(rs.getInt("event_type"));
-				s.setId(rs.getInt("status"));
+				em.setId(rs.getInt("eid"));
+				em.setFirstname(rs.getString("firstname"));
+				em.setLastname(rs.getString("lastname"));
+				gf.setId(rs.getInt("gfid"));
+				gf.setName(rs.getString("grade_format"));
+				ev.setId(rs.getInt("etid"));
+				s.setId(rs.getInt("sid"));
+				ev.setName(rs.getString("event_type"));
+				s.setName(rs.getString("status"));
+				
 				tr.setDateOfEvent(rs.getDate("date_of_event"));
 				tr.setDate_submitted(rs.getDate("date_submitted"));
 				tr.setTotalDays(rs.getInt("total_days"));
@@ -283,6 +289,7 @@ public class TuitionReimbursementFormOracle implements TuitionReimbursementFormD
 		{
 			LogUtil.logException(e,TuitionReimbursementFormOracle.class);
 		}
+		log.trace(trList);
 		return trList;
 	}
 
@@ -292,8 +299,10 @@ public class TuitionReimbursementFormOracle implements TuitionReimbursementFormD
 		try(Connection conn = cu.getConnection()){
 			conn.setAutoCommit(false);
 			
-			String sql = "update Tuition_Reimbursement_Form  set sup_id = ?, title = ? where id = ?";
+			String sql = "update Tuition_Reimbursement_Form  set status = ?, where submitted_by = ?";
 			PreparedStatement pstm = conn.prepareStatement(sql);
+			pstm.setInt(1, tr.getStatus().getId());
+			pstm.setInt(2,tr.getSubmitted_by().getId());
 //			pstm.setInt(1, TuitionReimbursementForm.getSupervisor().getId());
 //			pstm.setString(2, TuitionReimbursementForm.getTitle());
 //			pstm.setInt(3, TuitionReimbursementForm.getId());

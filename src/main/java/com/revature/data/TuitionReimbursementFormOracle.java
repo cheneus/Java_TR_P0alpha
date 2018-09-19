@@ -299,14 +299,15 @@ public class TuitionReimbursementFormOracle implements TuitionReimbursementFormD
 		try(Connection conn = cu.getConnection()){
 			conn.setAutoCommit(false);
 			
-			String sql = "update Tuition_Reimbursement_Form  set status = ?, where submitted_by = ?";
+			String sql = "update Tuition_Reimbursement_Form  set status = ? where id = ?";
 			PreparedStatement pstm = conn.prepareStatement(sql);
 			pstm.setInt(1, tr.getStatus().getId());
-			pstm.setInt(2,tr.getSubmitted_by().getId());
+			pstm.setInt(2,tr.getId());
 //			pstm.setInt(1, TuitionReimbursementForm.getSupervisor().getId());
 //			pstm.setString(2, TuitionReimbursementForm.getTitle());
 //			pstm.setInt(3, TuitionReimbursementForm.getId());
 			int number = pstm.executeUpdate();
+			log.trace(number);
 			if(number!=1)
 			{
 				log.warn("TuitionReimbursementForm not updated.");
@@ -404,6 +405,12 @@ public class TuitionReimbursementFormOracle implements TuitionReimbursementFormD
 			LogUtil.logException(e,TuitionReimbursementFormOracle.class);
 		}
 		return trList;
+	}
+
+	@Override
+	public void updateApprove(TuitionReimbursementForm tr) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

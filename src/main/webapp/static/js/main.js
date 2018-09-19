@@ -20,6 +20,14 @@ $(document).ready(function() {
   // $('#mainPg').hide();
 
   // $('select').material_select();
+
+  $(document).on('click', '#trCheck',function(event) {
+    event.stopPropagation();
+    event.preventDefault();
+    console.log("tag")
+    console.log($(this).data('trid'));
+  })
+
   var objJsonInit;
   $("#navLogout").click(function(){
     console.log(`logging out`)
@@ -41,16 +49,13 @@ var createRowTR = function(x) {
   for (let i = 0; i < objJson.length; i++) {
     // objArr[i] = objJson[i]
     var data = JSON.stringify(objJson[i]);
-    var rowTemplate = `<tr class="modal-trigger" href='#tableModal${i}' data-trId='${
-      objJson[i].id
-    }'><td>${objJson[i].id}</td>
+    var rowTemplate = `<tr class="modal-trigger" href='#tableModal${i}'>
+    <td>${objJson[i].id}</td>
+    <td>${objJson[i].title}</td>
     <td>${objJson[i].event_state}</td>
     <td>${objJson[i].cost}</td>
     <td>${objJson[i].eventId.name}</td>
-    <td>${objJson[i].submitted_by.firstname}, ${
-      objJson[i].submitted_by.lastname
-    }</td>
-    <td><i class="material-icons">check</i><i class="material-icons">close</i></td>
+    <td>${objJson[i].submitted_by.firstname}, ${objJson[i].submitted_by.lastname}</td>
     </tr>`;
 
     var modalTemplate = `
@@ -59,12 +64,14 @@ var createRowTR = function(x) {
         <div class="card-panel">
           <div class="row">
                <div class="col s12 m4">
-                    <h3 class="heading-tertiary">Event Address:</h3>
+               <h3 class="heading-tertiary">Event Address:</h3>
                     <p>${objJson[i].event_address}<br>
                     ${objJson[i].event_city} ,${objJson[i].event_state}</p>
+               <h3 class="heading-tertiary">Submitted by:</h3> <p>${objJson[i].submitted_by.firstname}, ${objJson[i].submitted_by.lastname}</p> <br>
                </div>
+              
                <div class="col s12 m4">
-               <h3 class="heading-tertiary">GradeFormat:</h3> <p>${objJson[i].grade_format_id.name}</p> <br>
+               <h3 class="heading-tertiary">Format:</h3> <p>${objJson[i].grade_format_id.name}</p> <br>
                <h3 class="heading-tertiary">Justification:</h3> <p>${objJson[i].eventId.name}</p><br>
                <h3 class="heading-tertiary">Status:</h3> <p>${objJson[i].status.name}</p>
                </div>
@@ -73,13 +80,19 @@ var createRowTR = function(x) {
                <h3 class="heading-tertiary">Total Days:</h3> <p>${objJson[i].totalDays}</p><br>
                <h3 class="heading-tertiary">Date Submitted:</h3> <p>${objJson[i].date_submitted}</p>
               </div>
-           </div>
+          </div>
+          <div class="card-action right-align">
+            <a class="btn modal-close waves-effect green waves-green" id="trCheck"  data-trId='${objJson[i].id}'>Approve</a>
+            <a class="btn modal-close waves-effect red waves-red" id="trCheck"  data-trId='${objJson[i].id}'>Deny</a>     
+          </div>
         </div>
       </div>
     </div>`;
 
     // var alternateRowTemplate = `<tr><td class='a'>{0}</td><td>SomewhatDifferent {1}</td></tr>`;
     //  ...... somewhere deep in your code
+    $('#trTable_body').empty();
+    $('#modal_for_table').empty();
     $('#trTable_body').append(rowTemplate);
     $('#modal_for_table').append(modalTemplate);
     // .append(alternateRowTemplate.format('myvalue3', 'myvalue4'));

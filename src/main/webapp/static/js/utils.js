@@ -22,9 +22,7 @@ var utils = {
         currentUser = res.data.Login;
         console.log(currentUser);
         let id1 =currentUser.employee_id.id;
-        // webCtrl.TRFbySI(id1);
         let json = utils.getTRFbySI(id1);
-
         console.log('running SI');
         $('#loginPg').hide();
         $('main').css('padding-left', '11.5rem');
@@ -55,8 +53,8 @@ var utils = {
       })
       .then(function(res) {
         currentUser = res.data.Login;
-        console.log(currentUser);
-        webCtrl.TRFbySI(currentUser.employee_id.id);
+        let id1 =currentUser.employee_id.id;
+        let json = utils.getTRFbySI(id1);
         $('#loginPg').hide();
         $('main').css('padding-left', '11.5rem');
         $('#mainPg').show();
@@ -151,9 +149,13 @@ var utils = {
         console.log(res.data);
       });
   },
+  approvedTRF: function() {
+
+  },
   getEmployeeInfo: function() {},
   getEventType: function() {},
-  getFormatType: function() {}
+  getFormatType: function() {},
+
 };
 
 var webCtrl = {

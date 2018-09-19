@@ -15,6 +15,7 @@ public interface TuitionReimbursementFormDAO {
 	public Set<TuitionReimbursementForm> getTuitionReimbursementFormsByStatus(Status s);
 	// update
 	public void updateTuitionReimbursementForm(TuitionReimbursementForm tr);
+	public void updateApprove(TuitionReimbursementForm tr);
 	// delete
 	public void deleteTuitionReimbursementForm(TuitionReimbursementForm tr);
 	Set<TuitionReimbursementForm> getTuitionReimbursementFormsByNoAppr(int i);

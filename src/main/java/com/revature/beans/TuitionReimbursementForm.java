@@ -39,7 +39,7 @@ public class TuitionReimbursementForm {
 		this.event_city = event_city;
 		this.event_state = event_state;
 		this.eventId = eventId;
-		Title = Title;
+		this.title = Title;
 		this.cost = cost;
 		this.grade_format_id = grade_format_id;
 		this.submitted_by = submitted_by;
@@ -148,6 +148,6 @@ public class TuitionReimbursementForm {
 	}
 	@Override
 	public String toString() {
-		return "Employee []";
+		return "TRF";
 	}
 }

@@ -77,20 +77,21 @@ public class TRFDelegate implements FrontControllerDelegate {
 		PrintWriter writer = resp.getWriter();
 		
 		TuitionReimbursementForm a = new TuitionReimbursementForm();
-		log.trace(a);
 		switch(req.getMethod()) {
 		case "GET":
 			a = as.getTuitionReimbursementFormById(TuitionReimbursementFormId);
 			resp.getWriter().write(om.writeValueAsString(a));
 			break;
 		case "PUT":
-			// Update the book in the database
+			// Update the TRF in the database
 			BufferedReader bf = req.getReader();
 			StringBuilder sb = new StringBuilder();
 			while(bf.ready()) {
 				sb.append(bf.readLine());
 			}
+			log.trace(sb);
 			a = om.readValue(sb.toString(), TuitionReimbursementForm.class);
+			log.trace(a);
 			as.updateTuitionReimbursementForm(a);
 			resp.setStatus(HttpServletResponse.SC_OK);
 			writer.write(om.writeValueAsString(a));

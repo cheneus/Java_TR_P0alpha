@@ -60,16 +60,27 @@ public class TRFDelegate implements FrontControllerDelegate {
 			default:
 				resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
 			}
+		} else if (path.equals("si")) {	
+			System.out.println("TRFSI");
+				getAllTRFBySnID(req, resp);
 		} else {
 			TuitionReimbursementFormTimes(req, resp, Integer.parseInt(path.toString()));
 		}
+	}
+
+	private void getAllTRFBySnID(HttpServletRequest req, HttpServletResponse resp)throws JsonProcessingException, IOException {
+		int id =  Integer.parseInt(req.getParameter("id"));
+		log.trace("Retrieving a list of TuitionReimbursementForms for TRFSI");
+		Set<TuitionReimbursementForm> trf = as.getTuitionReimbursementFormsByNoAppr(id);
+		resp.getWriter().write(om.writeValueAsString(trf));
+		
 	}
 
 	private void TuitionReimbursementFormTimes(HttpServletRequest req, HttpServletResponse resp, int TuitionReimbursementFormId) throws JsonProcessingException, IOException {
 		log.trace("Operating on a specific trf with id: "+TuitionReimbursementFormId);
 		PrintWriter writer = resp.getWriter();
 		
-		TuitionReimbursementForm a = as.getTuitionReimbursementFormById(TuitionReimbursementFormId);
+		TuitionReimbursementForm a = new TuitionReimbursementForm();
 		log.trace(a);
 		switch(req.getMethod()) {
 		case "GET":

@@ -21,6 +21,8 @@ var utils = {
       .then(function(res) {
         currentUser=res.data.Login
         console.log(currentUser);
+        webCtrl.TRFbySI(currentUser.employee_id.id);
+        console.log("running SI");
         $('#loginPg').hide();
         $('main').css('padding-left','11.5rem')
         $('#mainPg').show();
@@ -41,6 +43,7 @@ var utils = {
       .then(function(res) {
         currentUser=res.data.Login
         console.log(currentUser);
+        webCtrl.TRFbySI(currentUser.employee_id.id);
         $('#loginPg').hide();
         $('main').css('padding-left','11.5rem')
         $('#mainPg').show();
@@ -64,19 +67,35 @@ var utils = {
         console.log(e);
       });
   },
-  getTRFbyId: function(id) {
+  getTRFbySI: function(id) {
     axios
       .get(
-        'http://localhost:8080/Project1/trf'+id,
+        'http://localhost:8080/Project1/trf/si',
         {
           headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
         },{
           params: {
-
+            id: id
           }
         })
       .then(function(res) {
         console.log(res.data);
+        return res.data;
+      })
+      .catch(function(e) {
+        console.log(e);
+      });
+  },
+  getTRFbyId: function(i) {
+    axios
+      .get(
+        'http://localhost:8080/Project1/trf/'+i,
+        {
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+        })
+      .then(function(res) {
+        console.log(res.data);
+        return res.data;
       })
       .catch(function(e) {
         console.log(e);
@@ -133,11 +152,13 @@ var utils = {
 }
 
 var webCtrl = {
-  getTRFbyId : function(x) {
+  TRFbyId : function(x) {
     
   },
-  getTRFbyStatId : function(x) {
-    
+  TRFbySI : function(x) {
+    console.log("running SI");
+    var json = utils.getTRFbySI(x);
+    createRowTR(json);
   }
 }
 

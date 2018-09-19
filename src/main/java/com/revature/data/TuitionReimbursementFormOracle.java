@@ -243,16 +243,17 @@ public class TuitionReimbursementFormOracle implements TuitionReimbursementFormD
 	@Override
 	public Set<TuitionReimbursementForm> getTuitionReimbursementFormsByNoAppr(int i) {
 		Set<TuitionReimbursementForm> trList = new HashSet<TuitionReimbursementForm>();
-		TuitionReimbursementForm tr = new TuitionReimbursementForm();
+
 		try(Connection conn = cu.getConnection())
 		{
-			String sql = "select * from Tuition_Reimbursement_Form where status != 6 where and submitted_by =?";
+			String sql = "select * from Tuition_Reimbursement_Form where status != 6 and submitted_by =?";
 			PreparedStatement pstm = conn.prepareStatement(sql);
 			pstm.setInt(1, i);
 			log.trace(sql);
 			ResultSet rs = pstm.executeQuery();
 			while(rs.next())
 			{
+				TuitionReimbursementForm tr = new TuitionReimbursementForm();
 				Employee em = new Employee();
 				GradeFormat gf = new GradeFormat();
 				EventType ev = new EventType();

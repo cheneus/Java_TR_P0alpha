@@ -53,7 +53,7 @@ public class InfoReqDelegate implements FrontControllerDelegate {
 					resp.setStatus(HttpServletResponse.SC_CREATED);
 					resp.getWriter().write(om.writeValueAsString(a));
 				} catch(Exception e) {
-					LogUtil.logException(e, BookDelegate.class);
+					LogUtil.logException(e, InfoRequest.class);
 					resp.sendError(HttpServletResponse.SC_CONFLICT);
 				}
 				break;

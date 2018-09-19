@@ -134,7 +134,21 @@ public class EmployeeOracle implements EmployeeDAO {
 				} else {
 					emp.setSupervisor(new Employee(rs.getInt("supervisor")));
 				}
+				Department dept = new Department();
+				dept.setId(rs.getInt("dept_id"));
+				Address add = new Address();
+				add.setId(rs.getInt("address"));
+				emp.setId(rs.getInt("id"));
+				emp.setFirstname(rs.getString("firstname"));
+				emp.setLastname(rs.getString("lastname"));
 				emp.setTitle(rs.getString("title"));
+				emp.setBirthDate(rs.getDate("birthdate"));
+				emp.setHireDate(rs.getDate("hiredate"));
+				emp.setDept_id(dept);
+				emp.setAddress(add);
+				emp.setReimbursement_balance(rs.getDouble("reimbursement_balance"));
+				emp.setPhone(rs.getString("phone"));
+				emp.setEmail(rs.getString("email"));
 			}
 			else
 			{

@@ -12,7 +12,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+   <!--  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>--> 
     <link rel="stylesheet" type="text/css" media="screen" href="css/main.css" />
     <script src="js/jQuery.js"></script>
     <script src="js/main.js"></script>
@@ -28,8 +28,8 @@
 
                 </div>
                 <a href="#user"><img class="circle face-place" src="avatar.png"></a>
-                <a href="#name"><span class="name"></span></a>
-                <a href="#email"><span class="email"></span></a>
+                <a href="#name"><span class="name" id="name"></span></a>
+                <a href="#email"><span class="email" id="email"></span></a>
             </div>
         </li>
         <li><a href="#!">My Info</a></li>
@@ -162,7 +162,7 @@
                 <div class="modal-content">
                     <h4>Add New Tuition Reimbursement Request</h4>
                     <div class="row">
-                        <form class="col s12">
+                        <form class="col s12" id="addNewTR" onsubmit="formtest();    return false;">
                             <div class="row">
                                 <div class="input-field col s12">
                                     <input placeholder="Event title" id="title" type="text" class="validate">
@@ -225,12 +225,11 @@
                                     <label for="description">Describe the event in a tweet!</label>
                                 </div>
                             </div>
+                            <input type="submit" value="submit" class="btn waves-effect modal-close">
                         </form>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button href="#!" class="waves-effect btn" onclick="submit()">Submit</button>
-                </div>
+
             </div>
 
 

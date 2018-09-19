@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 $(document).ready(function() {
-  $('#loginPg').hide();
+//  $('#loginPg').hide();
   // $('#slide-out').hide();
   // $('#slide-out-icon').hide();
 
@@ -25,10 +25,9 @@ $(document).ready(function() {
   
   
   $('select').material_select();
-  var objJson;
- 
-});
 
+});
+var objJson;
 var test = () => {
   // var objTest = utils.getTRF();
   objJson = [{"id":2,"dateOfEvent":"2019-05-01","timeOfEvent":"2018-09-01","date_submitted":"2018-09-17","event_address":"1 E Jackson","event_city":"Chicago","event_state":"IL","eventId":{"id":1,"name":null},"cost":350.0,"grade_format_id":{"id":21,"name":null},"submitted_by":{"id":2,"lastname":null,"firstname":null,"title":null,"supervisor":null,"birthDate":null,"hireDate":null,"dept_id":null,"address":null,"reimbursement_balance":0.0,"phone":null,"email":null},"status":{"id":0,"name":null},"event_related_attachments":"www.eventbrite.com/superjsevo","description":"Super Node Evo"},{"id":1,"dateOfEvent":"2019-12-01","timeOfEvent":"2018-09-01","date_submitted":"2018-09-17","event_address":"1 E Jackson","event_city":"Chicago","event_state":"IL","eventId":{"id":1,"name":null},"cost":350.0,"grade_format_id":{"id":21,"name":null},"submitted_by":{"id":2,"lastname":null,"firstname":null,"title":null,"supervisor":null,"birthDate":null,"hireDate":null,"dept_id":null,"address":null,"reimbursement_balance":0.0,"phone":null,"email":null},"status":{"id":0,"name":null},"event_related_attachments":"www.eventbrite.com/superjsevo","description":"Super JS Evo"}]
@@ -69,4 +68,8 @@ var test = () => {
   }
   var elemsM = document.querySelectorAll('.modal');
   var instancesM = M.Modal.init(elemsM);
+}
+
+var formtest = function() {
+  alert('test')
 }

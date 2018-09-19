@@ -27,6 +27,7 @@ public class LoginDelegate implements FrontControllerDelegate {
 	public void process(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 		log.trace(req.getMethod() + " received by login delegate");
 		HttpSession session = req.getSession();
+
 		switch (req.getMethod()) {
 		case "GET":
 			checkLogin(req, resp);
@@ -57,6 +58,8 @@ public class LoginDelegate implements FrontControllerDelegate {
 		HttpSession session = req.getSession();
 		Login l = (Login) session.getAttribute("loggedLogin");
 		Employee e = (Employee) session.getAttribute("loggedEmployee");
+		log.trace(l);
+		log.trace(e);
 		if (l != null || e != null) {
 			respondWithUser(resp, e, l);
 		} else {
@@ -66,9 +69,9 @@ public class LoginDelegate implements FrontControllerDelegate {
 			String password = req.getParameter("pass");
 			log.trace((username + " " + password));
 			l = ls.getLogin(username, password);
-			log.trace(l);
 			if (l != null) {
 				e = es.getEmployee(l.getEmployee_id());
+				session.setAttribute("loggedLogin", l);
 			}
 
 			if (e != null) {

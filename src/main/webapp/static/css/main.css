@@ -58,10 +58,13 @@ footer {
 
 .loginPg {
   padding-left: 0;
+
 }
 
-.mainPg {
+.mainPg, 
+.slide-out {
   /* display:none; */
+    display:none;
 }
 
 .heading-secondary {
@@ -92,7 +95,3 @@ footer {
 
 
 /* Materialize */
-.card {
-  max-width: 65vw;
-  width:65vw;
-}

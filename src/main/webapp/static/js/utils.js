@@ -1,5 +1,5 @@
 var tuitionRF;
-
+var currentUser;
 var utils = {
   userLogin: function() {
     var user = $('#username').val();
@@ -19,20 +19,36 @@ var utils = {
         }
       )
       .then(function(res) {
-        console.log(res.data);
+        currentUser=res.data.Login
+        console.log(currentUser);
         $('#loginPg').hide();
-        $('main').css('left-padding','11.5rem')
+        $('main').css('padding-left','11.5rem')
         $('#mainPg').show();
         $('#slide-out').show();
-        $('#name').text()
-        $('#email').text()
+        $('#name').text(`${currentUser.employee_id.firstname}, ${currentUser.employee_id.lastname}`)
+        $('#email').text(`${currentUser.employee_id.email}`)
+      })
+  },
+
+  loginCheck : function() {
+    axios
+      .get(
+        'http://localhost:8080/Project1/login',
+        {
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+        }
+      )
+      .then(function(res) {
+        currentUser=res.data.Login
+        console.log(currentUser);
+        $('#loginPg').hide();
+        $('main').css('padding-left','11.5rem')
+        $('#mainPg').show();
+        $('#slide-out').show();
+        $('#name').text(`${currentUser.employee_id.firstname}, ${currentUser.employee_id.lastname}`)
+        $('#email').text(`${currentUser.employee_id.email}`)
 
       })
-      .catch(function(e) {
-        $('#login_feedback').text("Wrong Username/Password");
-        $('#login_feedback').css('display', 'block');
-        console.log(e);
-      });
   },
   getTRF: function() {
     axios
@@ -59,5 +75,5 @@ var utils = {
   }
 }
 
-
+utils.loginCheck();
 

@@ -64,6 +64,45 @@ var utils = {
         console.log(e);
       });
   },
+  postTRF: function() {
+    var title = $('#title_form').val();
+    var beginDate = $('#beginDate_form').val();
+    var totalDays =$('#totalDays_form').val();
+    var selectJ = $('#selectJ_form').find(":selected").val();
+    var selectF = $('#selectF_form').find(":selected").val();
+    var cost = $('#cost_form').val();
+    var address = $('address_form').val();
+    var city =$('#city_form').val();
+    var state = $('#state_form').val();
+    var addinfo =$('#addinfo_form').val();
+    alert('alpo')
+
+    axios
+      .post(
+        'http://localhost:8080/Project1/trf',
+        {
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+        },
+        {
+          params: {
+            title: title,
+            event_date: beginDate,
+            totalDays:totalDays,
+            event_type: selectJ,
+            grade_format: selectF,
+            cost: cost,
+            event_address:address,
+            event_city:city,
+            event_state:state,
+            addinfo:addinfo
+          }
+        }
+      )
+      .then(function(res) {
+        console.log(res.data)
+
+      })
+  },
   getEmployeeInfo: function() {
 
   },

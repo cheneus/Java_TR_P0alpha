@@ -12,7 +12,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-   <!--  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>--> 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" media="screen" href="css/main.css" />
     <script src="js/jQuery.js"></script>
     <script src="js/main.js"></script>
@@ -29,7 +29,7 @@
                 </div>
                 <a href="#user"><img class="circle face-place" src="avatar.png"></a>
                 <a href="#name"><span class="name" id="name"></span></a>
-                <a href="#email"><span class="email" id="email"></span></a>
+                <a href="#email"><span class="email" id="name"></span></a>
             </div>
         </li>
         <li><a href="#!">My Info</a></li>
@@ -40,13 +40,13 @@
         </li>
         <li><a class="waves-effect" href="#!">Log Out</a></li>
     </ul>
-    <a href="#" id="slide-out" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+    <a href="#" id="slide-out-icon" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
     <!-- SideNav Ends -->
     <div class="container">
         <div class="section"></div>
         <main>
             <!-- loginPg -->
-            <div class="text-center center" id="loginPg">
+            <div class="text-center center loginPg" id="loginPg">
                 <div class="row">
                     <div class="section"></div>
                     <h2 class="heading-secondary">Master Poke-TRS</h2>
@@ -160,72 +160,76 @@
 
             <div id="modal_add" class="modal">
                 <div class="modal-content">
-                    <h4>Add New Tuition Reimbursement Request</h4>
+                    <h4 class="text-center">Add New Tuition Reimbursement Request</h4>
                     <div class="row">
-                        <form class="col s12" id="addNewTR" onsubmit="formtest();    return false;">
+                        <form class="col s12" id="addNewTR" onsubmit="utils.postTRF();   return false;">
                             <div class="row">
                                 <div class="input-field col s12">
-                                    <input placeholder="Event title" id="title" type="text" class="validate">
+                                    <input placeholder="Event title" id="title_form" type="text" class="validate">
                                     <label for="title">Title</label>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="input-field col s6">
-                                    <select>
-                                        <option value="" disabled selected>Choose event type</option>
-                                        <option value="1">Option 1</option>
-                                        <option value="2">Option 2</option>
-                                        <option value="3">Option 3</option>
+                                <div class="input-field col s12 m6">
+                                    <select id="selectJ_form">
+                                      <option value="" disabled selected>Choose your option</option>
+                                      <option value="1">Option 1</option>
+                                      <option value="2">Option 2</option>
+                                      <option value="3">Option 3</option>
                                     </select>
-                                    <label>Event type</label>
-                                </div>
-                                <div class="input-field col s6">
-                                    <select multiple>
-                                        <option value="" disabled selected>Choose style(s)</option>
-                                        <option value="1">Option 1</option>
-                                        <option value="2">Option 2</option>
-                                        <option value="3">Option 3</option>
+                                    <label>Materialize Select</label>
+                                  </div>
+                                  <div class="input-field col s12 m6">
+                                    <select id="selectF_form">
+                                      <option value="" disabled selected>Choose your option</option>
+                                      <option value="1">Option 1</option>
+                                      <option value="2">Option 2</option>
+                                      <option value="3">Option 3</option>
                                     </select>
-                                    <label>Styles</label>
-                                </div>
+                                    <label>Materialize Select</label>
+                                  </div>
                             </div>
 
                             <div class="row">
-                                <div class="input-field col s6">
+                                <div class="input-field col s12 m4">
                                     <label>Begin date</label>
-                                    <input id="beginDate" type="date" class="datepicker">
+                                    <input id="beginDate_form" type="text" class="datepicker">
 
                                 </div>
-                                <div class="input-field col s6">
-                                    <label>End date</label>
-                                    <input id="endDate" type="date" class="datepicker">
+                                <div class="input-field col s12 m4">
+                                    <label>How Many Days</label>
+                                    <input id="totalDays_form" type="number" class="">
+
+                                </div>
+                                <div class="input-field col s12 m4">
+                                    <label>Cost</label>
+                                    <input id="cost_form" type="number" class="">
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s4">
+                                    <label>Event Address</label>
+                                    <input id="address_form" type="text" class="">
+                                </div>
+                                <div class="input-field col s4">
+                                    <label>Event City</label>
+                                    <input id="city_form" type="text" class="">
+
+                                </div>
+                                <div class="input-field col s4">
+                                    <label>Event State</label>
+                                    <input id="state_form" type="text" class="">
 
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="input-field col s12">
-                                    <input placeholder="Who is organizing the event?" id="organizer" type="text" class="validate">
-                                    <label for="organizer">Organizer</label>
+                                    <textarea id="addinfo_form" class="materialize-textarea" length="300" placeholder="ie. website, email, etc..."></textarea>
+                                    <label for="addinfo_form">Please provide addtional Information</label>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="input-field col s6">
-                                    <input placeholder="http://www.mywebsite.com" id="website" type="text" class="validate">
-                                    <label for="website">Website</label>
-                                </div>
-                                <div class="input-field col s6">
-                                    <input placeholder="contact@myweb.com" id="email" type="text" class="validate">
-                                    <label for="email">Contact email</label>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="input-field col s12">
-                                    <textarea id="description" class="materialize-textarea" length="140"></textarea>
-                                    <label for="description">Describe the event in a tweet!</label>
-                                </div>
-                            </div>
-                            <input type="submit" value="submit" class="btn waves-effect modal-close">
+                            <button class="btn" onclick="">TEST</button>
                         </form>
                     </div>
                 </div>

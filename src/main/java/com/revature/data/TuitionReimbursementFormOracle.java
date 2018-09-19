@@ -376,7 +376,7 @@ public class TuitionReimbursementFormOracle implements TuitionReimbursementFormD
 				tr.setEvent_city(rs.getString("event_city"));
 				tr.setEvent_state(rs.getString("event_state"));
 				tr.setEventId(ev);
-				tr.setTitle(rs.getString("Title"));
+				tr.setTitle(rs.getString("title"));
 				tr.setCost(rs.getDouble("cost"));
 				tr.setGrade_format_id(gf);
 				tr.setSubmitted_by(em);

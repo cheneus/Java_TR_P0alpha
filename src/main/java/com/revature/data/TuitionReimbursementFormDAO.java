@@ -12,6 +12,7 @@ public interface TuitionReimbursementFormDAO {
 	public TuitionReimbursementForm getTuitionReimbursementForm(TuitionReimbursementForm tr);
 	public TuitionReimbursementForm getTuitionReimbursementFormById(int i);
 	public Set<TuitionReimbursementForm> getTuitionReimbursementForms();
+	public Set<TuitionReimbursementForm> getMyTuitionReimbursementForms(int i);
 	public Set<TuitionReimbursementForm> getTuitionReimbursementFormsByStatus(Status s);
 	// update
 	public void updateTuitionReimbursementForm(TuitionReimbursementForm tr);
@@ -19,5 +20,6 @@ public interface TuitionReimbursementFormDAO {
 	// delete
 	public void deleteTuitionReimbursementForm(TuitionReimbursementForm tr);
 	Set<TuitionReimbursementForm> getTuitionReimbursementFormsByNoAppr(int i);
+	Set<TuitionReimbursementForm> getTRFNoApprByManager(int i);
 	Set<TuitionReimbursementForm> getTuitionReimbursementFormsOnView();
 }

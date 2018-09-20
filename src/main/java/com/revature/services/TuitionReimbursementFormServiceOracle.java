@@ -69,6 +69,11 @@ public class TuitionReimbursementFormServiceOracle implements TuitionReimburseme
 		return trf.getTuitionReimbursementFormsByNoAppr(i);
 	}
 
+	@Override
+	public Set<TuitionReimbursementForm> getMyTuitionReimbursementForms(int i) {
+		return trf.getMyTuitionReimbursementForms(i);
+	}
+
 
 
 	

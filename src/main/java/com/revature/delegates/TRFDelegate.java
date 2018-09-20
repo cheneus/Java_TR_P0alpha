@@ -23,24 +23,24 @@ public class TRFDelegate implements FrontControllerDelegate {
 	private Logger log = Logger.getLogger(TRFDelegate.class);
 	private ObjectMapper om = new ObjectMapper();
 	private TuitionReimbursementFormService as = new TuitionReimbursementFormServiceOracle();
-	
+
 	@Override
 	public void process(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 		String path = (String) req.getAttribute("path");
 		log.trace(path);
-		if(path==null) {
-			switch(req.getMethod()) {
-			case "GET": 
+		if (path == null) {
+			switch (req.getMethod()) {
+			case "GET":
 				getAllTuitionReimbursementForms(req, resp);
 				break;
 			case "POST":
 				BufferedReader bf = req.getReader();
 				StringBuilder sb = new StringBuilder();
-				while(bf.ready()) {
+				while (bf.ready()) {
 					sb.append(bf.readLine());
 				}
-				log.trace("Post called with TuitionReimbursementForm: "+sb.toString());
-				if(sb.equals(new StringBuilder(""))) {
+				log.trace("Post called with TuitionReimbursementForm: " + sb.toString());
+				if (sb.equals(new StringBuilder(""))) {
 					log.trace("String was empty, no data found");
 					resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
 				}
@@ -55,7 +55,7 @@ public class TRFDelegate implements FrontControllerDelegate {
 					log.trace(a);
 					resp.setStatus(HttpServletResponse.SC_CREATED);
 					resp.getWriter().write(om.writeValueAsString(a));
-				} catch(Exception e) {
+				} catch (Exception e) {
 					LogUtil.logException(e, TRFDelegate.class);
 					resp.sendError(HttpServletResponse.SC_CONFLICT);
 				}
@@ -63,24 +63,42 @@ public class TRFDelegate implements FrontControllerDelegate {
 			default:
 				resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
 			}
-		} else if (path.equals("si")) {	
-			System.out.println("TRFSI");
-			String test = req.getParameter("id");
-			log.trace(test);
-				getAllTRFBySnID(req, resp);
 		} else {
-			TuitionReimbursementFormTimes(req, resp, Integer.parseInt(path.toString()));
+			switch (path) {
+			case "si": {
+				System.out.println("TRFSI");
+				String test = req.getParameter("id");
+				log.trace(test);
+				getAllTRFBySnID(req, resp);
+				break;
+			}
+			case "my": {
+				System.out.println("TRFmy");
+				int i = Integer.parseInt(req.getParameter("id"));
+				log.trace("Retrieving a list of all my TuitionReimbursementForms");
+				Set<TuitionReimbursementForm> TuitionReimbursementForms = as.getMyTuitionReimbursementForms(i);
+				resp.getWriter().write(om.writeValueAsString(TuitionReimbursementForms));
+				break;
+			}
+			default: TuitionReimbursementFormTimes(req, resp, Integer.parseInt(path.toString()));
+			}
+//		} else if (path.equals("si")) {	
+//			System.out.println("TRFSI");
+//			String test = req.getParameter("id");
+//			log.trace(test);
+//			getAllTRFBySnID(req, resp);
+//		} else {
+//			TuitionReimbursementFormTimes(req, resp, Integer.parseInt(path.toString()));
 		}
 	}
 
-	
-
-	private void TuitionReimbursementFormTimes(HttpServletRequest req, HttpServletResponse resp, int TuitionReimbursementFormId) throws JsonProcessingException, IOException {
-		log.trace("Operating on a specific trf with id: "+TuitionReimbursementFormId);
+	private void TuitionReimbursementFormTimes(HttpServletRequest req, HttpServletResponse resp,
+			int TuitionReimbursementFormId) throws JsonProcessingException, IOException {
+		log.trace("Operating on a specific trf with id: " + TuitionReimbursementFormId);
 		PrintWriter writer = resp.getWriter();
-		
+
 		TuitionReimbursementForm a = new TuitionReimbursementForm();
-		switch(req.getMethod()) {
+		switch (req.getMethod()) {
 		case "GET":
 			a = as.getTuitionReimbursementFormById(TuitionReimbursementFormId);
 			resp.getWriter().write(om.writeValueAsString(a));
@@ -89,7 +107,7 @@ public class TRFDelegate implements FrontControllerDelegate {
 			// Update the TRF in the database
 			BufferedReader bf = req.getReader();
 			StringBuilder sb = new StringBuilder();
-			while(bf.ready()) {
+			while (bf.ready()) {
 				sb.append(bf.readLine());
 			}
 			log.trace(sb);
@@ -107,30 +125,31 @@ public class TRFDelegate implements FrontControllerDelegate {
 		}
 	}
 
-	private void getAllTuitionReimbursementForms(HttpServletRequest req, HttpServletResponse resp) throws JsonProcessingException, IOException {
+	private void getAllTuitionReimbursementForms(HttpServletRequest req, HttpServletResponse resp)
+			throws JsonProcessingException, IOException {
 		log.trace("Retrieving a list of all TuitionReimbursementForms");
 //		Set<TuitionReimbursementForm> TuitionReimbursementForms = as.getTuitionReimbursementForms();
 		Set<TuitionReimbursementForm> TuitionReimbursementForms = as.getTuitionReimbursementFormsOnView();
 		resp.getWriter().write(om.writeValueAsString(TuitionReimbursementForms));
 	}
-	
-	private void getAllTRFBySnID(HttpServletRequest req, HttpServletResponse resp) throws JsonProcessingException, IOException {
+
+	private void getAllTRFBySnID(HttpServletRequest req, HttpServletResponse resp)
+			throws JsonProcessingException, IOException {
 		Set<TuitionReimbursementForm> trf = null;
 		String test = req.getParameter("id");
-		if (null ==  req.getParameter("id")) {
+		if (null == req.getParameter("id")) {
 			log.trace("null test");
 			trf = null;
-		}
-		else {
-			int id =  Integer.parseInt(req.getParameter("id"));
+		} else {
+			int id = Integer.parseInt(req.getParameter("id"));
 			log.trace(id);
 			log.trace("Retrieving a list of TuitionReimbursementForms for TRFSI");
 			trf = as.getTuitionReimbursementFormsByNoAppr(id);
 		}
-		
+
 		log.trace(trf);
 		resp.getWriter().write(om.writeValueAsString(trf));
-		
+
 	}
 
 }

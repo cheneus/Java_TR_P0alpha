@@ -419,5 +419,111 @@ public class TuitionReimbursementFormOracle implements TuitionReimbursementFormD
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public Set<TuitionReimbursementForm> getMyTuitionReimbursementForms(int i) {
+		Set<TuitionReimbursementForm> trList = new HashSet<TuitionReimbursementForm>();
+
+		try(Connection conn = cu.getConnection())
+		{
+			String sql = "select * from GETTRFULL_VIEW where eid =?";
+			PreparedStatement pstm = conn.prepareStatement(sql);
+			pstm.setInt(1, i);
+			log.trace(sql);
+			ResultSet rs = pstm.executeQuery();
+			while(rs.next())
+			{
+				TuitionReimbursementForm tr = new TuitionReimbursementForm();
+				Employee em = new Employee();
+				GradeFormat gf = new GradeFormat();
+				EventType ev = new EventType();
+				Status s = new Status();
+				em.setId(rs.getInt("eid"));
+				em.setFirstname(rs.getString("firstname"));
+				em.setLastname(rs.getString("lastname"));
+				gf.setId(rs.getInt("gfid"));
+				gf.setName(rs.getString("grade_format"));
+				ev.setId(rs.getInt("etid"));
+				s.setId(rs.getInt("sid"));
+				ev.setName(rs.getString("event_type"));
+				s.setName(rs.getString("status"));
+				
+				tr.seteventDate(rs.getDate("event_date"));
+				tr.setdateSubmitted(rs.getDate("date_submitted"));
+				tr.setTotalDays(rs.getInt("total_days"));
+				tr.setEvent_address(rs.getString("event_address"));
+				tr.setEvent_city(rs.getString("event_city"));
+				tr.setEvent_state(rs.getString("event_state"));
+				tr.setEventId(ev);
+				tr.setTitle(rs.getString("title"));
+				tr.setCost(rs.getDouble("cost"));
+				tr.setgradeFormat(gf);
+				tr.setSubmittedBy(em);
+				tr.setStatus(s);
+				tr.setaddinfo(rs.getString("add_info"));
+				tr.setId(rs.getInt("id"));
+				trList.add(tr);
+			}
+		}
+		catch(Exception e)
+		{
+			LogUtil.logException(e,TuitionReimbursementFormOracle.class);
+		}
+		log.trace(trList);
+		return trList;
+	}
+
+	@Override
+	public Set<TuitionReimbursementForm> getTRFNoApprByManager(int i) {
+		Set<TuitionReimbursementForm> trList = new HashSet<TuitionReimbursementForm>();
+
+		try(Connection conn = cu.getConnection())
+		{
+			String sql = "select * from GETTRFULL_VIEW where eid =? or supervisor=?";
+			PreparedStatement pstm = conn.prepareStatement(sql);
+			pstm.setInt(1, i);
+			log.trace(sql);
+			ResultSet rs = pstm.executeQuery();
+			while(rs.next())
+			{
+				TuitionReimbursementForm tr = new TuitionReimbursementForm();
+				Employee em = new Employee();
+				GradeFormat gf = new GradeFormat();
+				EventType ev = new EventType();
+				Status s = new Status();
+				em.setId(rs.getInt("eid"));
+				em.setFirstname(rs.getString("firstname"));
+				em.setLastname(rs.getString("lastname"));
+				gf.setId(rs.getInt("gfid"));
+				gf.setName(rs.getString("grade_format"));
+				ev.setId(rs.getInt("etid"));
+				s.setId(rs.getInt("sid"));
+				ev.setName(rs.getString("event_type"));
+				s.setName(rs.getString("status"));
+				
+				tr.seteventDate(rs.getDate("event_date"));
+				tr.setdateSubmitted(rs.getDate("date_submitted"));
+				tr.setTotalDays(rs.getInt("total_days"));
+				tr.setEvent_address(rs.getString("event_address"));
+				tr.setEvent_city(rs.getString("event_city"));
+				tr.setEvent_state(rs.getString("event_state"));
+				tr.setEventId(ev);
+				tr.setTitle(rs.getString("title"));
+				tr.setCost(rs.getDouble("cost"));
+				tr.setgradeFormat(gf);
+				tr.setSubmittedBy(em);
+				tr.setStatus(s);
+				tr.setaddinfo(rs.getString("add_info"));
+				tr.setId(rs.getInt("id"));
+				trList.add(tr);
+			}
+		}
+		catch(Exception e)
+		{
+			LogUtil.logException(e,TuitionReimbursementFormOracle.class);
+		}
+		log.trace(trList);
+		return trList;
+	}
 	
 }

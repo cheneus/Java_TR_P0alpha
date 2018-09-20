@@ -3,6 +3,7 @@ package com.revature.delegates;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
 import java.util.Set;
 
 import javax.servlet.ServletException;
@@ -44,6 +45,8 @@ public class TRFDelegate implements FrontControllerDelegate {
 					resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
 				}
 				log.trace("Attempt to read TuitionReimbursementForm in");
+
+				om.setDateFormat(new SimpleDateFormat("dd-MMM-yy"));
 				TuitionReimbursementForm a = om.readValue(sb.toString(), TuitionReimbursementForm.class);
 				log.trace(a);
 				try {

@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // var instancesF = M.FormSelect.init(elems, options);
   var elemsC = document.querySelectorAll('.datepicker');
   // var instancesC = M.Datepicker.init(elemsC, options);
-  var instancesC = M.Datepicker.init(elemsC, { autoClose: 'true' });
+  var instancesC = M.Datepicker.init(elemsC, { autoClose: 'true', format: 'dd-mmm-yy'});
 });
 
 $(document).ready(function() {
@@ -39,9 +39,13 @@ $(document).ready(function() {
     var instancesF = M.FormSelect.init(elemsF);
   })
 
+  $('#sidebar_viewall').click(function(){
+    utils.getTRFbyEId();
+  })
+
   $('#addNewTR').submit(function() {
     // goes second
-    alert('yeahhhhh');
+
   });
 });
 
@@ -62,7 +66,7 @@ var createRowTR = function(x) {
     <td>${objJson[i].event_state}</td>
     <td>${objJson[i].cost}</td>
     <td>${objJson[i].eventId.name}</td>
-    <td>${objJson[i].submitted_by.firstname}, ${objJson[i].submitted_by.lastname}</td>
+    <td>${objJson[i].submittedBy.firstname}, ${objJson[i].submittedBy.lastname}</td>
     </tr>`;
 
     var modalTemplate = `
@@ -74,18 +78,18 @@ var createRowTR = function(x) {
                <h3 class="heading-tertiary">Event Address:</h3>
                     <p>${objJson[i].event_address}<br>
                     ${objJson[i].event_city} ,${objJson[i].event_state}</p>
-               <h3 class="heading-tertiary">Submitted by:</h3> <p>${objJson[i].submitted_by.firstname}, ${objJson[i].submitted_by.lastname}</p> <br>
+               <h3 class="heading-tertiary">Submitted by:</h3> <p>${objJson[i].submittedBy.firstname}, ${objJson[i].submittedBy.lastname}</p> <br>
                </div>
               
                <div class="col s12 m4">
-               <h3 class="heading-tertiary">Format:</h3> <p>${objJson[i].grade_format_id.name}</p> <br>
+               <h3 class="heading-tertiary">Format:</h3> <p>${objJson[i].gradeFormat.name}</p> <br>
                <h3 class="heading-tertiary">Justification:</h3> <p>${objJson[i].eventId.name}</p><br>
                <h3 class="heading-tertiary">Status:</h3> <p>${objJson[i].status.name}</p>
                </div>
                <div class="col s12 m4">
-               <h3 class="heading-tertiary">Date of Event:</h3> <p>${objJson[i].dateOfEvent}</p><br>
+               <h3 class="heading-tertiary">Date of Event:</h3> <p>${objJson[i].eventDate}</p><br>
                <h3 class="heading-tertiary">Total Days:</h3> <p>${objJson[i].totalDays}</p><br>
-               <h3 class="heading-tertiary">Date Submitted:</h3> <p>${objJson[i].date_submitted}</p>
+               <h3 class="heading-tertiary">Date Submitted:</h3> <p>${objJson[i].dateSubmitted}</p>
               </div>
           </div>
           <div class="card-action right-align">

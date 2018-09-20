@@ -114,14 +114,6 @@ public class Employee {
 		this.title = title;
 	}
 	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = super.hashCode();
-		result = prime * result + ((supervisor == null) ? 0 : supervisor.hashCode());
-		result = prime * result + ((title == null) ? 0 : title.hashCode());
-		return result;
-	}
-	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
@@ -144,7 +136,10 @@ public class Employee {
 	}
 	@Override
 	public String toString() {
-		return "Employee [supervisor=" + supervisor + ", title=" + title + "]";
+		return "Employee [id=" + id + ", lastname=" + lastname + ", firstname=" + firstname + ", title=" + title
+				+ ", supervisor=" + supervisor + ", birthDate=" + birthDate + ", hireDate=" + hireDate + ", dept_id="
+				+ dept_id + ", address=" + address + ", reimbursement_balance=" + reimbursement_balance + ", phone="
+				+ phone + ", email=" + email + "]";
 	}
 	public void setAddress(int i) {
 		// TODO Auto-generated method stub

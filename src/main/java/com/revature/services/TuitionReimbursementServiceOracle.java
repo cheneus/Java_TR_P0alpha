@@ -6,20 +6,17 @@ import org.apache.log4j.Logger;
 
 import com.revature.beans.Status;
 import com.revature.beans.TuitionReimbursement;
-import com.revature.beans.TuitionReimbursementForm;
-import com.revature.data.LoginDAO;
 import com.revature.data.TRAppDAOFactory;
 import com.revature.data.TuitionReimbursementDAO;
-import com.revature.data.TuitionReimbursementFormDAO;
 
 public class TuitionReimbursementServiceOracle implements TuitionReimbursementService {
 	private Logger log = Logger.getLogger(TuitionReimbursementServiceOracle.class);
 	private TRAppDAOFactory bf = TRAppDAOFactory.getInstance();
-	private TuitionReimbursementDAO tr = bf.getTuitionReimbursementDAO();
+	private TuitionReimbursementDAO trf = bf.getTuitionReimbursementDAO();
 
 	@Override
 	public Set<TuitionReimbursement> getTuitionReimbursements() {
-		Set<TuitionReimbursement> trList = tr.getTuitionReimbursements();
+		Set<TuitionReimbursement> trList = trf.getTuitionReimbursements();
 
 //		return empList;
 		return trList;
@@ -29,7 +26,7 @@ public class TuitionReimbursementServiceOracle implements TuitionReimbursementSe
 
 	@Override
 	public Set<TuitionReimbursement> getTuitionReimbursementsByStatus(Status s) {
-		Set<TuitionReimbursement> trList = tr.getTuitionReimbursementsByStatus(s);
+		Set<TuitionReimbursement> trList = trf.getTuitionReimbursementsByStatus(s);
 
 //		return empList;
 		return trList;
@@ -51,8 +48,7 @@ public class TuitionReimbursementServiceOracle implements TuitionReimbursementSe
 
 	@Override
 	public int addTuitionReimbursement(TuitionReimbursement tr) {
-		// TODO Auto-generated method stub
-		return 0;
+		return trf.addTuitionReimbursement(tr);
 	}
 
 

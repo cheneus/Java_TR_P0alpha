@@ -1,22 +1,22 @@
 package com.revature.beans;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class TuitionReimbursementForm {
 	private int id;
-	private Date dateOfEvent;
+	private Date eventDate;
 	private int totalDays;
-	private Date date_submitted;
+	private Date dateSubmitted;
 	private String event_address;
 	private String event_city;
 	private String event_state;
 	private EventType eventId;
 	private String title;
 	private double cost;
-	private GradeFormat grade_format_id;
-	private Employee submitted_by;
+	private GradeFormat gradeFormat;
+	private Employee submittedBy;
 	private Status status;
-	private String event_related_attachments;
+	private String addinfo;
 	
 	public TuitionReimbursementForm() {
 		super();
@@ -26,25 +26,25 @@ public class TuitionReimbursementForm {
 		this.id = id;
 	}
 	
-	public TuitionReimbursementForm(int id, Date dateOfEvent, int totalDays, Date date_submitted,
+	public TuitionReimbursementForm(int id, Date eventDate, int totalDays, Date dateSubmitted,
 			String event_address, String event_city, String event_state, EventType eventId, String Title,
-			double cost, GradeFormat grade_format_id, Employee submitted_by, Status status,
-			String event_related_attachments) {
+			double cost, GradeFormat gradeFormat, Employee submittedBy, Status status,
+			String addinfo) {
 		super();
 		this.id = id;
-		this.dateOfEvent = dateOfEvent;
+		this.eventDate = eventDate;
 		this.totalDays = totalDays;
-		this.date_submitted = date_submitted;
+		this.dateSubmitted = dateSubmitted;
 		this.event_address = event_address;
 		this.event_city = event_city;
 		this.event_state = event_state;
 		this.eventId = eventId;
 		this.title = Title;
 		this.cost = cost;
-		this.grade_format_id = grade_format_id;
-		this.submitted_by = submitted_by;
+		this.gradeFormat = gradeFormat;
+		this.submittedBy = submittedBy;
 		this.status = status;
-		this.event_related_attachments = event_related_attachments;
+		this.addinfo = addinfo;
 	}
 	public int getId() {
 		return id;
@@ -52,11 +52,11 @@ public class TuitionReimbursementForm {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public Date getDateOfEvent() {
-		return dateOfEvent;
+	public Date geteventDate() {
+		return eventDate;
 	}
-	public void setDateOfEvent(Date dateOfEvent) {
-		this.dateOfEvent = dateOfEvent;
+	public void seteventDate(Date eventDate) {
+		this.eventDate = eventDate;
 	}
 	public int getTotalDays() {
 		return totalDays;
@@ -64,11 +64,11 @@ public class TuitionReimbursementForm {
 	public void setTotalDays(int totalDays) {
 		this.totalDays = totalDays;
 	}
-	public Date getDate_submitted() {
-		return date_submitted;
+	public Date getdateSubmitted() {
+		return dateSubmitted;
 	}
-	public void setDate_submitted(Date date_submitted) {
-		this.date_submitted = date_submitted;
+	public void setdateSubmitted(Date dateSubmitted) {
+		this.dateSubmitted = dateSubmitted;
 	}
 	public String getEvent_address() {
 		return event_address;
@@ -106,17 +106,17 @@ public class TuitionReimbursementForm {
 	public void setCost(double cost) {
 		this.cost = cost;
 	}
-	public GradeFormat getGrade_format_id() {
-		return grade_format_id;
+	public GradeFormat getgradeFormat() {
+		return gradeFormat;
 	}
-	public void setGrade_format_id(GradeFormat grade_format_id) {
-		this.grade_format_id = grade_format_id;
+	public void setgradeFormat(GradeFormat gradeFormat) {
+		this.gradeFormat = gradeFormat;
 	}
-	public Employee getSubmitted_by() {
-		return submitted_by;
+	public Employee getSubmittedBy() {
+		return submittedBy;
 	}
-	public void setSubmitted_by(Employee submitted_by) {
-		this.submitted_by = submitted_by;
+	public void setSubmittedBy(Employee submittedBy) {
+		this.submittedBy = submittedBy;
 	}
 	public Status getStatus() {
 		return status;
@@ -124,11 +124,11 @@ public class TuitionReimbursementForm {
 	public void setStatus(Status status) {
 		this.status = status;
 	}
-	public String getEvent_related_attachments() {
-		return event_related_attachments;
+	public String getaddinfo() {
+		return addinfo;
 	}
-	public void setEvent_related_attachments(String event_related_attachments) {
-		this.event_related_attachments = event_related_attachments;
+	public void setaddinfo(String addinfo) {
+		this.addinfo = addinfo;
 	}
 	@Override
 	public boolean equals(Object obj) {
@@ -139,15 +139,19 @@ public class TuitionReimbursementForm {
 		if (getClass() != obj.getClass())
 			return false;
 		TuitionReimbursementForm other = (TuitionReimbursementForm) obj;
-		if (submitted_by == null) {
-			if (other.submitted_by != null)
+		if (submittedBy == null) {
+			if (other.submittedBy != null)
 				return false;
-		} else if (!submitted_by.equals(other.submitted_by))
+		} else if (!submittedBy.equals(other.submittedBy))
 			return false;
 		return true;
 	}
 	@Override
 	public String toString() {
-		return "TRF";
+		return "TuitionReimbursementForm [id=" + id + ", eventDate=" + eventDate + ", totalDays=" + totalDays
+				+ ", dateSubmitted=" + dateSubmitted + ", event_address=" + event_address + ", event_city=" + event_city
+				+ ", event_state=" + event_state + ", eventId=" + eventId + ", title=" + title + ", cost=" + cost
+				+ ", gradeFormat=" + gradeFormat + ", submittedBy=" + submittedBy + ", status=" + status
+				+ ", addinfo=" + addinfo + "]";
 	}
 }

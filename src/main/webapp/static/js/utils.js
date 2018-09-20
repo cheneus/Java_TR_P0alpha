@@ -1,7 +1,7 @@
 var tuitionRF;
-
+var currentUser;
 var utils = {
-  currentUser:{},
+  user:{},
   eventType:{},
   format:{},
  
@@ -83,6 +83,19 @@ var utils = {
         console.log(e);
       });
   },
+  getTRFbyEId: function() {
+    axios
+      .get('http://localhost:8080/Project1/trf', {
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+      })
+      .then(function(res) {
+        console.log(res.data);
+      })
+      .catch(function(e) {
+        console.log(e);
+      });
+  },
+  // using status and eid
   getTRFbySI: function(eid) {
     axios
       .get(
@@ -112,48 +125,46 @@ var utils = {
       });
   },
   postTRF: function() {
+    var eid = currentUser.id;
     var title = $('#title_form').val();
     var beginDate = $('#beginDate_form').val();
     var totalDays = $('#totalDays_form').val();
     var selectJ = $('#selectJ_form')
       .find(':selected')
-      .val();
+      .data('opid');
     var selectF = $('#selectF_form')
       .find(':selected')
-      .val();
+      .data('opid');
     var cost = $('#cost_form').val();
-    var address = $('address_form').val();
+    var address = $('#address_form').val();
     var city = $('#city_form').val();
     var state = $('#state_form').val();
     var addinfo = $('#addinfo_form').val();
-    alert('alpo');
     axios
       .post(
-        'http://localhost:8080/Project1/trf',
+        'http://localhost:8080/Project1/trf',        
         {
+          title: title,
+          eventDate: beginDate,
+          totalDays: totalDays,
+          eventId: selectJ,
+          gradeFormat: selectF,
+          cost: cost,
+          event_address: address,
+          event_city: city,
+          event_state: state,
+          addinfo: addinfo,
+          submittedBy:eid
+      },
+      {
           headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-        },
-        {
-          data: {
-            title: title,
-            event_date: beginDate,
-            totalDays: totalDays,
-            event_type: selectJ,
-            grade_format: selectF,
-            cost: cost,
-            event_address: address,
-            event_city: city,
-            event_state: state,
-            addinfo: addinfo
-          }
-        }
-      )
+      })
       .then(function(res) {
         console.log(res.data);
+        window.location.reload();
       });
   },
   approvedTRF: function(ap) {
-    
     axios
       .put(
         'http://localhost:8080/Project1/trf/'+ap,
@@ -161,12 +172,10 @@ var utils = {
           "status": {"id":6},
 	        "id":ap
          }
-        // {
-        //   headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-        // }
       )
       .then(function(res) {
         console.log(res.data);
+        utils.getTRFbySI(currentUser.employee_id.id);
       });
   },
   getEmployeeInfo: function() {},

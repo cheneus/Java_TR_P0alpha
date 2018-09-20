@@ -37,8 +37,7 @@ public class TuitionReimbursementFormServiceOracle implements TuitionReimburseme
 
 	@Override
 	public int addTuitionReimbursementForm(TuitionReimbursementForm tr) {
-		trf.addTuitionReimbursementForm(tr);
-		return 1;
+		return trf.addTuitionReimbursementForm(tr);
 	}
 
 	@Override

@@ -253,7 +253,7 @@ public class TuitionReimbursementFormOracle implements TuitionReimbursementFormD
 
 		try(Connection conn = cu.getConnection())
 		{
-			String sql = "select * from GETTRFULL_VIEW where status != 'Approved' and eid =?";
+			String sql = "select * from GETTRFULL_VIEW where status != 'Approved' and eid =? and status !='Denied'";
 			PreparedStatement pstm = conn.prepareStatement(sql);
 			pstm.setInt(1, i);
 			log.trace(sql);
@@ -540,7 +540,7 @@ public class TuitionReimbursementFormOracle implements TuitionReimbursementFormD
 
 		try(Connection conn = cu.getConnection())
 		{
-			String sql = "select * from GETTRFULL_VIEW where (eid =? or supervisor=? and dept_id =?) and status != 'Approved'";
+			String sql = "select * from GETTRFULL_VIEW where (eid =? or supervisor=? and dept_id =?) and status != 'Approved' and status !='Denied'";
 			PreparedStatement pstm = conn.prepareStatement(sql);
 			pstm.setInt(1, i);
 			pstm.setInt(2, i);

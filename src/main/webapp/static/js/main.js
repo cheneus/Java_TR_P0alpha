@@ -26,8 +26,9 @@ $(document).ready(function() {
 
   $(document).on('click', '#trCheck', function(event) {
     var tag = $(this).data('trid');
+    var status =$(this).data('trstat');
     console.log($(this).data('trid'));
-    utils.approvedTRF(tag);
+    utils.approvedTRF(tag, status);
   });
   $('#loginBtn').on('click', function() {
     utils.userLogin();

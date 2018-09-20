@@ -248,10 +248,10 @@ var utils = {
         window.location.reload();
       });
   },
-  approvedTRF: function(ap) {
+  approvedTRF: function(ap, stat) {
     axios
       .put('http://localhost:8080/Project1/trf/' + ap, {
-        status: { id: 6 },
+        status: { id: stat },
         id: ap
       })
       .then(function(res) {
@@ -360,7 +360,7 @@ var createRowTR = function(x) {
                <div class="col s12 m4">
                <h3 class="heading-tertiary">Event Address:</h3>
                     <p>${objJson[i].event_address}<br>
-                    ${objJson[i].event_city} ,${objJson[i].event_state}</p>
+                    ${objJson[i].event_city} ,${objJson[i].event_state}<br></p>
                <h3 class="heading-tertiary">Submitted by:</h3> <p>${
                  objJson[i].submittedBy.firstname
                }, ${objJson[i].submittedBy.lastname}</p> <br>
@@ -390,10 +390,13 @@ var createRowTR = function(x) {
               </div>
           </div>
           <div class="card-action right-align">
-            <a class="btn modal-close waves-effect green waves-green" id="trCheck"  data-trId='${
+            <a class="btn modal-close waves-effect green waves-green" id="trCheck" data-trstat='2' data-trId='${
               objJson[i].id
             }'>Approve</a>
-            <a class="btn modal-close waves-effect red waves-red" id="trCheck"  data-trId='${
+            <a class="btn modal-close waves-effect yellow waves-red" id="trCheck" data-trstat='4' data-trId='${
+              objJson[i].id
+            }'>RequestInfo</a>     
+            <a class="btn modal-close waves-effect red waves-red" id="trCheck" data-trstat='5' data-trId='${
               objJson[i].id
             }'>Deny</a>     
           </div>

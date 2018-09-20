@@ -479,7 +479,7 @@ public class TuitionReimbursementFormOracle implements TuitionReimbursementFormD
 
 		try(Connection conn = cu.getConnection())
 		{
-			String sql = "select * from GETTRFULL_VIEW where eid =? or supervisor=?";
+			String sql = "select * from GETTRFULL_VIEW where eid =? or supervisor=? and dept_id =?";
 			PreparedStatement pstm = conn.prepareStatement(sql);
 			pstm.setInt(1, i);
 			log.trace(sql);

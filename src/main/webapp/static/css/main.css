@@ -12,6 +12,19 @@ body {
   background: #fff;
 }
 
+.status-6 {
+  background: #81c784;
+}
+.status-3 {
+  background: #ff8a65;
+}
+.status-5 {
+  background: #e57373;
+}
+.status-1, .status-2, .status-4 {
+  background:#fff176 ;
+}
+
 .input-field input[type='date']:focus + label,
 .input-field input[type='text']:focus + label,
 .input-field input[type='email']:focus + label,

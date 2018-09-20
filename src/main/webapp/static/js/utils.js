@@ -58,7 +58,7 @@ var utils = {
       .then(function(res) {
         currentUser = res.data.Login;
         let id1 =currentUser.employee_id.id;
-        let json = utils.getTRFbySI(id1);
+        let json = utils.getTRFbySI(currentUser);
         $('#loginPg').hide();
         $('main').css('padding-left', '11.5rem');
         $('#mainPg').show();
@@ -262,7 +262,7 @@ var createRowTR = function(x) {
   for (let i = 0; i < objJson.length; i++) {
     // objArr[i] = objJson[i]
     var data = JSON.stringify(objJson[i]);
-    var rowTemplate = `<tr class="modal-trigger" href='#tableModal${i}'>
+    var rowTemplate = `<tr class="modal-trigger status-${objJson[i].status.id}" href='#tableModal${i}'>
     <td>${objJson[i].id}</td>
     <td>${objJson[i].title}</td>
     <td>${objJson[i].event_state}</td>

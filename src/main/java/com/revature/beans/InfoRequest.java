@@ -3,9 +3,9 @@ package com.revature.beans;
 public class InfoRequest {
 	private int id;
 	private String title;
-	private TuitionReimbursementForm form_ref;
-	private Employee requestor_id;
-	private Employee requestee_id;
+	private TuitionReimbursementForm formRef;
+	private Employee requestorId;
+	private Employee requesteeId;
 	private String response;
 	private int open;
 	
@@ -17,14 +17,14 @@ public class InfoRequest {
 		this.id = id;
 	}
 	
-	public InfoRequest(int id, String title, TuitionReimbursementForm form_ref, Employee requestor_id,
-			Employee requestee_id, String response, int open) {
+	public InfoRequest(int id, String title, TuitionReimbursementForm formRef, Employee requestorId,
+			Employee requesteeId, String response, int open) {
 		super();
 		this.id = id;
 		this.title = title;
-		this.form_ref = form_ref;
-		this.requestor_id = requestor_id;
-		this.requestee_id = requestee_id;
+		this.formRef = formRef;
+		this.requestorId = requestorId;
+		this.requesteeId = requesteeId;
 		this.response = response;
 		this.open = open;
 	}
@@ -41,23 +41,23 @@ public class InfoRequest {
 		this.title = title;
 	}
 	
-	public TuitionReimbursementForm getForm_ref() {
-		return form_ref;
+	public TuitionReimbursementForm getFormRef() {
+		return formRef;
 	}
-	public void setForm_ref(TuitionReimbursementForm form_ref) {
-		this.form_ref = form_ref;
+	public void setFormRef(TuitionReimbursementForm formRef) {
+		this.formRef = formRef;
 	}
-	public Employee getRequestor_id() {
-		return requestor_id;
+	public Employee getRequestorId() {
+		return requestorId;
 	}
-	public void setRequestor_id(Employee requestor_id) {
-		this.requestor_id = requestor_id;
+	public void setRequestorId(Employee requestorId) {
+		this.requestorId = requestorId;
 	}
-	public Employee getRequestee_id() {
-		return requestee_id;
+	public Employee getRequesteeId() {
+		return requesteeId;
 	}
-	public void setRequestee_id(Employee requestee_id) {
-		this.requestee_id = requestee_id;
+	public void setRequesteeId(Employee requesteeId) {
+		this.requesteeId = requesteeId;
 	}
 	public String getResponse() {
 		return response;

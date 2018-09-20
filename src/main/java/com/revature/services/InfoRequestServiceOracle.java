@@ -18,8 +18,7 @@ public class InfoRequestServiceOracle implements InfoRequestService {
 	private TuitionReimbursementFormDAO trfd= bf.getTuitionReimbursementFormDAO();
 	@Override
 	public int addInfoReq(InfoRequest info) {
-		infod.addInfoReq(info);
-		return 0;
+		return infod.addInfoReq(info);
 	}
 	@Override
 	public InfoRequest getInfoReq(InfoRequest info) {

@@ -33,9 +33,9 @@ public class InfoRequestOracle implements InfoRequestDAO {
 			String sql = "insert into info_request (title, form_ref, requestor_id, requestee_id) values (?,?,?,?)";
 			PreparedStatement pstm = conn.prepareStatement(sql, key);
 			pstm.setString(1,InfoRequest.getTitle());
-			pstm.setInt(2, InfoRequest.getForm_ref().getId());
-			pstm.setInt(3, InfoRequest.getRequestor_id().getId());
-			pstm.setInt(4, InfoRequest.getRequestee_id().getId());
+			pstm.setInt(2, InfoRequest.getFormRef().getId());
+			pstm.setInt(3, InfoRequest.getRequestorId().getId());
+			pstm.setInt(4, InfoRequest.getRequesteeId().getId());
 			pstm.setString(3, InfoRequest.getTitle());
 			int result = pstm.executeUpdate();
 			ResultSet rs = pstm.getGeneratedKeys();
@@ -96,9 +96,9 @@ public class InfoRequestOracle implements InfoRequestDAO {
 				em2.setId(rs.getInt("requestee_id"));
 				tr.setId(rs.getInt("form_ref"));
 				InfoRequest.setTitle(rs.getString("title"));
-				InfoRequest.setForm_ref(tr);
-				InfoRequest.setRequestor_id(em1);
-				InfoRequest.setRequestee_id(em2);
+				InfoRequest.setFormRef(tr);
+				InfoRequest.setRequestorId(em1);
+				InfoRequest.setRequesteeId(em2);
 				InfoRequest.setResponse(rs.getString("response"));
 				InfoRequest.setOpen(rs.getInt("open"));
 			}
@@ -107,9 +107,9 @@ public class InfoRequestOracle implements InfoRequestDAO {
 				log.trace("This is not a InfoRequest");
 				InfoRequest.setId(0);
 				InfoRequest.setTitle(null);
-				InfoRequest.setForm_ref(null);
-				InfoRequest.setRequestor_id(null);
-				InfoRequest.setRequestee_id(null);
+				InfoRequest.setFormRef(null);
+				InfoRequest.setRequestorId(null);
+				InfoRequest.setRequesteeId(null);
 				InfoRequest.setResponse(null);
 				InfoRequest.setOpen(0);
 			}
@@ -139,9 +139,9 @@ public class InfoRequestOracle implements InfoRequestDAO {
 				em2.setId(rs.getInt("requestee_id"));
 				tr.setId(rs.getInt("form_ref"));
 				InfoRequest.setTitle(rs.getString("title"));
-				InfoRequest.setForm_ref(tr);
-				InfoRequest.setRequestor_id(em1);
-				InfoRequest.setRequestee_id(em2);
+				InfoRequest.setFormRef(tr);
+				InfoRequest.setRequestorId(em1);
+				InfoRequest.setRequesteeId(em2);
 				InfoRequest.setResponse(rs.getString("response"));
 				InfoRequest.setOpen(rs.getInt("open"));
 			}

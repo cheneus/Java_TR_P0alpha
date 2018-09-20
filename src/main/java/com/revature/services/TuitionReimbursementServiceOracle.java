@@ -6,6 +6,7 @@ import org.apache.log4j.Logger;
 
 import com.revature.beans.Status;
 import com.revature.beans.TuitionReimbursement;
+import com.revature.beans.TuitionReimbursementForm;
 import com.revature.data.TRAppDAOFactory;
 import com.revature.data.TuitionReimbursementDAO;
 
@@ -22,12 +23,9 @@ public class TuitionReimbursementServiceOracle implements TuitionReimbursementSe
 		return trList;
 	}
 
-
-
 	@Override
 	public Set<TuitionReimbursement> getTuitionReimbursementsByStatus(Status s) {
 		Set<TuitionReimbursement> trList = trf.getTuitionReimbursementsByStatus(s);
-
 //		return empList;
 		return trList;
 	}
@@ -64,8 +62,8 @@ public class TuitionReimbursementServiceOracle implements TuitionReimbursementSe
 	@Override
 	public void deleteTuitionReimbursement(TuitionReimbursement tr) {
 		// TODO Auto-generated method stub
-		
 	}
+
 
 	
 }

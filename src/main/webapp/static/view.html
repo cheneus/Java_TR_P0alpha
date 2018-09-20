@@ -25,24 +25,24 @@
         <li>
             <div class="user-view">
                 <div class="background">
-
                 </div>
                 <a href="#user"><img class="circle face-place" src="assets/avatar.png"></a>
                 <a href="#name"><span class="name" id="name"></span></a>
                 <a href="#email"><span class="email" id="email"></span></a>
             </div>
         </li>
-        <li><a href="#!">My Info</a></li>
-        <li><a id="sidebar_view"href="#!">View Not Approved</a></li>
-        <li><a id="sidebar_viewall"href="#!">View All</a></li>
-        <li><a id="sidebar_add"href="#modal_add" class="modal-trigger waves-effect ">Add New<i class="material-icons">add</i></a></li>
+        <li><a id="sidebar_my" href="#modal_user" class="modal-trigger waves-effect ">My Info</a></li>
+        <li><a id="sidebar_viewNA" href="#!">View Not Approved</a></li>
+        <li><a id="sidebar_viewmine" href="#!">View Mine</a></li>
+        <li><a id="sidebar_viewall" href="#!">View All</a></li>
+        <li><a id="sidebar_add" href="#modal_add" class="modal-trigger waves-effect ">Add New<i class="material-icons">add</i></a></li>
         <li>
             <div class="divider"></div>
         </li>
         <li><a class="waves-effect red lighten-1" href="#!" id="navLogout">Log Out</a></li>
     </ul>
     <!-- <a href="#" id="slide-out-icon" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a> -->
-    <input type="checkbox" class="navi__checkbox sidenav-trigger"data-target="slide-out" id="navi-toggle">
+    <input type="checkbox" class="navi__checkbox sidenav-trigger" data-target="slide-out" id="navi-toggle">
     <label for="navi-toggle" class="navi__button">
         <span class="navi__icon">&nbsp;</span>
     </label>
@@ -86,8 +86,8 @@
                             <br />
                             <div>
                                 <div class='row'>
-                                    <button type='button' name='btn_login' class='col s12 btn btn-large waves-effect indigo'
-                                        onclick='utils.userLogin()'>Login</button>
+                                    <button type='button' id="loginBtn" name='btn_login' class='col s12 btn btn-large waves-effect indigo'
+                                        onclick='console.log("html")'>Login</button>
                                 </div>
                             </div>
                         </form>
@@ -112,7 +112,7 @@
                                             <th>Cost</th>
                                             <th>Justification</th>
                                             <th>Submitted By</th>
-                                         
+
                                         </tr>
                                     </thead>
                                     <tbody id='trTable_body'>
@@ -125,28 +125,6 @@
                     </div>
                 </div>
             </div>
-
-
-            <!-- <div class="card-panel">
-                <div class="row">
-                    <div class="col s12 m4">
-                        Event Address:<br>
-                        '123,1d Jackson'<br>
-                        IL Chicago
-                    </div>
-                    <div class="col s12 m4">
-                        GradeFormat: <br>
-                        Justification: <br>
-                        Status <br>
-                    </div>
-                    <div class="col s12 m4">
-                        Time of Event: 2019-MAY-04<br>
-                        Time of Event: 2019-MAY-04<br>
-                        Time of Event: 2019-MAY-04<br>
-                    </div>
-                </div>
-            </div> -->
-
             <div id="modal_add" class="modal">
                 <div class="modal-content">
                     <h4 class="text-center heading-tertiary">Add New Tuition Reimbursement Request</h4>
@@ -161,18 +139,18 @@
                             <div class="row">
                                 <div class="input-field col s12 m6">
                                     <select id="selectJ_form">
-                                      <option value="" disabled selected>Choose your option</option>
-                                    
+                                        <option value="" disabled selected>Choose your option</option>
+
                                     </select>
                                     <label>Justification</label>
-                                  </div>
-                                  <div class="input-field col s12 m6">
+                                </div>
+                                <div class="input-field col s12 m6">
                                     <select id="selectF_form">
-                                      <option value="" disabled selected>Choose your option</option>
-                                    
+                                        <option value="" disabled selected>Choose your option</option>
+
                                     </select>
                                     <label>Event Type</label>
-                                  </div>
+                                </div>
                             </div>
 
                             <div class="row">
@@ -188,7 +166,7 @@
                                 </div>
                                 <div class="input-field col s12 m4">
                                     <label>Cost</label>
-                                    <input id="cost_form" type="number" class="" >
+                                    <input id="cost_form" type="number" class="">
 
                                 </div>
                             </div>
@@ -219,7 +197,38 @@
                     </div>
                 </div>
             </div>
-            <div class="section"></div>
+            <!-- user info modal -->
+            <div id="modal_user" class="modal">
+                <div class="modal-content">
+                    <div class="card-panel">
+                        <div class="row">
+                            <div class="col s12 m4">
+                                <h3 class="heading-tertiary">Name:</h3>
+                                <p id="aname"></p><br>
+                                <h3 class="heading-tertiary">Address:</h3>
+                                <p> <span id="aline1"></span><br>
+                                    <span id="aline2"></span><br>
+                                    <span id="acity"></span>,&nbsp<span id="astate"> </span>,&nbsp <span id="azip"></span><br>
+                                </p>
+                            </div>
+
+                            <div class="col s12 m4">
+                                <h3 class="heading-tertiary">Title:</h3>
+                                <p id="atitle"></p> <br>
+                                <h3 class="heading-tertiary">Reimbursement Balance:</h3>
+                                <p id='arb'></p>
+                            </div>
+                            <div class="col s12 m4">
+                                <h3 class="heading-tertiary">Phone:</h3>
+                                <p id='aphone'>${objJson[i].eventDate}</p><br>
+                                <h3 class="heading-tertiary">Email:</h3>
+                                <p id='aemail'></p><br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- modal user info end -->
         </main>
     </div>
 </body>

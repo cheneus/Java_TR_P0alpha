@@ -22,4 +22,6 @@ public interface TuitionReimbursementFormDAO {
 	Set<TuitionReimbursementForm> getTuitionReimbursementFormsByNoAppr(int i);
 	Set<TuitionReimbursementForm> getTRFNoApprByManager(int i);
 	Set<TuitionReimbursementForm> getTuitionReimbursementFormsOnView();
+	Set<TuitionReimbursementForm> getTRFNoApprByManager(int i, int did);
+	Set<TuitionReimbursementForm> getTRFNoApprByManagerSI(int i, int did);
 }

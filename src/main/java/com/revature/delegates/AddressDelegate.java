@@ -68,7 +68,7 @@ public class AddressDelegate implements FrontControllerDelegate {
 	private void AddressTimes(HttpServletRequest req, HttpServletResponse resp, int AddressId) throws JsonProcessingException, IOException {
 		log.trace("Operating on a specific book with id: "+AddressId);
 		PrintWriter writer = resp.getWriter();
-		
+		log.trace(AddressId);
 		Address a = as.getAddressById(AddressId);
 		switch(req.getMethod()) {
 		case "GET":

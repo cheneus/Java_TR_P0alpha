@@ -1,17 +1,39 @@
 var tuitionRF;
+var tuitionRFSI;
+var tuitionRF_filtered;
 var currentUser;
+var url = 'http://localhost:8080/Project1';
+var webCtrl = {
+  buildInfo: function(x) {
+    $('#aname').html(
+      `${currentUser.employee_id.firstname}, ${
+        currentUser.employee_id.lastname
+      }`
+    );
+    $('#atitle').html(currentUser.employee_id.title);
+    $('#aphone').html(currentUser.employee_id.phone);
+    $('#aemail').html(currentUser.employee_id.email);
+    $('#arb').html(currentUser.employee_id.reimbursement_balance);
+  },
+  initLogin: function(x) {
+    console.log('running SI');
+    var json = utils.getTRFbySI(x);
+    createRowTR(json);
+  }
+};
+
 var utils = {
-  user:{},
-  eventType:{},
-  format:{},
- 
+  user: {},
+  eventType: {},
+  format: {},
+
   userLogin: function() {
     var user = $('#username').val();
     var pass = $('#password').val();
     console.log(`${user}, ${pass}`);
     axios
       .post(
-        'http://localhost:8080/Project1/login',
+        `${url}/login`,
         {
           headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
         },
@@ -25,9 +47,22 @@ var utils = {
       .then(function(res) {
         currentUser = res.data.Login;
         console.log(currentUser);
-        let id1 =currentUser.employee_id.id;
-        let json = utils.getTRFbySI(currentUser);
-        console.log('running SI');
+        let uid = currentUser.id;
+        let dept_id = currentUser.employee_id.dept_id.id;
+        let sup_id = currentUser.employee_id.supervisor;
+        if (dept_id === 2) {
+          console.log('HR');
+          utils.getTRF();
+        } else if (sup_id === null) {
+          console.log('supervisors');
+          utils.getTRFmgrSI(uid, dept_id);
+        } else {
+          utils.getTRFbySI(currentUser);
+        }
+
+        // utils.getTRFbySI(currentUser);
+        // webCtrl.initLogin(currentUser);
+        console.log('loginTRF');
         $('#loginPg').hide();
         $('main').css('padding-left', '11.5rem');
         $('#mainPg').show();
@@ -38,27 +73,27 @@ var utils = {
           }`
         );
         $('#email').text(`${currentUser.employee_id.email}`);
+        webCtrl.buildInfo();
       });
   },
   logOut: function() {
-      axios
-        .delete('http://localhost:8080/Project1/login', {
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-        })
-        .then(function(res) {
-          console.log(res.data)
-          window.location.reload();
-        });
+    axios
+      .delete('http://localhost:8080/Project1/login', {
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+      })
+      .then(function(res) {
+        console.log(res.data);
+        window.location.reload();
+      });
   },
-   loginCheck: function() {
+  loginCheck: function() {
     axios
       .get('http://localhost:8080/Project1/login', {
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
       })
       .then(function(res) {
         currentUser = res.data.Login;
-        let id1 =currentUser.employee_id.id;
-        let json = utils.getTRFbySI(currentUser);
+        utils.getTRFbySI(currentUser);
         $('#loginPg').hide();
         $('main').css('padding-left', '11.5rem');
         $('#mainPg').show();
@@ -69,6 +104,7 @@ var utils = {
           }`
         );
         $('#email').text(`${currentUser.employee_id.email}`);
+        webCtrl.buildInfo();
       });
   },
   getTRF: function() {
@@ -83,13 +119,37 @@ var utils = {
         console.log(e);
       });
   },
-  getTRFbyEId: function() {
+  getTRFmgr: function(id, did) {
     axios
-      .get('http://localhost:8080/Project1/trf', {
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+      .get('http://localhost:8080/Project1/trf/mgr', {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          eid: id,
+          deptid: did
+        }
       })
       .then(function(res) {
         console.log(res.data);
+        tuitionRF = res.data;
+        createRowTR(res.data);
+      })
+      .catch(function(e) {
+        console.log(e);
+      });
+  },
+  getTRFmgrSI: function(id, did) {
+    axios
+      .get('http://localhost:8080/Project1/trf/mgrsi', {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          eid: id,
+          deptid: did
+        }
+      })
+      .then(function(res) {
+        console.log(res.data);
+        tuitionRF_filtered = res.data;
+        createRowTR(res.data);
       })
       .catch(function(e) {
         console.log(e);
@@ -101,19 +161,20 @@ var utils = {
     var deptId = user.employee_id.dept_id.id || 0;
     axios
       .get(
-        'http://localhost:8080/Project1/trf/si?id='+ eid, 
+        'http://localhost:8080/Project1/trf/si?id=' + eid,
         {
           headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
         },
         {
           params: {
-            'id':eid,
-            'deptId':deptId
+            id: eid,
+            deptId: deptId
           }
         }
       )
       .then(function(res) {
         console.log(res.data);
+        tuitionRFSI = res.data;
         createRowTR(res.data);
       })
       .catch(function(e) {
@@ -122,11 +183,9 @@ var utils = {
   },
   getMyTRF: function(eid) {
     axios
-      .get(
-        'http://localhost:8080/Project1/trf/my?id='+ eid, {
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-        }
-      )
+      .get('http://localhost:8080/Project1/trf/my?id=' + eid, {
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+      })
       .then(function(res) {
         console.log(res.data);
         createRowTR(res.data);
@@ -166,7 +225,7 @@ var utils = {
     var addinfo = $('#addinfo_form').val();
     axios
       .post(
-        'http://localhost:8080/Project1/trf',        
+        'http://localhost:8080/Project1/trf',
         {
           title: title,
           eventDate: beginDate,
@@ -178,11 +237,12 @@ var utils = {
           event_city: city,
           event_state: state,
           addinfo: addinfo,
-          submittedBy:eid
-      },
-      {
+          submittedBy: eid
+        },
+        {
           headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-      })
+        }
+      )
       .then(function(res) {
         console.log(res.data);
         window.location.reload();
@@ -190,64 +250,81 @@ var utils = {
   },
   approvedTRF: function(ap) {
     axios
-      .put(
-        'http://localhost:8080/Project1/trf/'+ap,
-        {
-          "status": {"id":6},
-	        "id":ap
-         }
-      )
+      .put('http://localhost:8080/Project1/trf/' + ap, {
+        status: { id: 6 },
+        id: ap
+      })
       .then(function(res) {
         console.log(res.data);
-        utils.getTRFbySI(currentUser.employee_id.id);
+        utils.getTRFmgrSI(currentUser.id, currentUser.employee_id.dept_id.id);
       });
   },
   getEmployeeInfo: function() {},
   getEventType: function() {
     axios
-    .get('http://localhost:8080/Project1/eventtype', {
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-    })
-    .then(function(res) {
-      console.log(res.data);
-      // eventType = res.data;
-      let option = res.data;
-      for(let k = 0; k< option.length; k++) {
-        var newOpt = `<option value="${option[k].name}" data-opId='${option[k].id}'>${option[k].name}</option>`
-        $('#selectJ_form').append(newOpt);
-      }
-    })
-    .catch(function(e) {
-      console.log(e);
-    });
+      .get('http://localhost:8080/Project1/eventtype', {
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+      })
+      .then(function(res) {
+        console.log(res.data);
+        // eventType = res.data;
+        let option = res.data;
+        for (let k = 0; k < option.length; k++) {
+          var newOpt = `<option value="${option[k].name}" data-opId='${
+            option[k].id
+          }'>${option[k].name}</option>`;
+          $('#selectJ_form').append(newOpt);
+        }
+      })
+      .catch(function(e) {
+        console.log(e);
+      });
   },
   getFormatType: function() {
     axios
-    .get('http://localhost:8080/Project1/gradeformat', {
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-    })
-    .then(function(res) {
-      console.log(res.data);
-           // format= res.data;
-      let option = res.data;
-      for(let k = 0; k< option.length; k++) {
-        var newOpt = `<option value="${option[k].name}" data-opId='${option[k].id}'>${option[k].name}</option>`
-        $('#selectF_form').append(newOpt);
-      }
-    })
-    .catch(function(e) {
-      console.log(e);
-    });
+      .get('http://localhost:8080/Project1/gradeformat', {
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+      })
+      .then(function(res) {
+        console.log(res.data);
+        // format= res.data;
+        let option = res.data;
+        for (let k = 0; k < option.length; k++) {
+          var newOpt = `<option value="${option[k].name}" data-opId='${
+            option[k].id
+          }'>${option[k].name}</option>`;
+          $('#selectF_form').append(newOpt);
+        }
+      })
+      .catch(function(e) {
+        console.log(e);
+      });
   },
-
-};
-
-var webCtrl = {
-  TRFbyId: function(x) {},
-  TRFbySI: function(x) {
-    console.log('running SI');
-    var json = utils.getTRFbySI(x);
-    createRowTR(json);
+  getAddress: function(aid) {
+    axios
+      .get(
+        'http://localhost:8080/Project1/address/' + aid,
+        {
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+        },
+        {
+          params: {
+            address: aid
+          }
+        }
+      )
+      .then(function(res) {
+        console.log(res.data);
+        let addr = res.data;
+        $('#aline1').html(addr.lineOne);
+        $('#aline2').html(addr.lineTwo);
+        $('#acity').html(addr.city);
+        $('#astate').html(addr.state);
+        $('#azip').html(addr.zip);
+      })
+      .catch(function(e) {
+        console.log(e);
+      });
   }
 };
 
@@ -262,13 +339,17 @@ var createRowTR = function(x) {
   for (let i = 0; i < objJson.length; i++) {
     // objArr[i] = objJson[i]
     var data = JSON.stringify(objJson[i]);
-    var rowTemplate = `<tr class="modal-trigger status-${objJson[i].status.id}" href='#tableModal${i}'>
+    var rowTemplate = `<tr class="modal-trigger status-${
+      objJson[i].status.id
+    }" href='#tableModal${i}'>
     <td>${objJson[i].id}</td>
     <td>${objJson[i].title}</td>
     <td>${objJson[i].event_state}</td>
     <td>${objJson[i].cost}</td>
     <td>${objJson[i].eventId.name}</td>
-    <td>${objJson[i].submittedBy.firstname}, ${objJson[i].submittedBy.lastname}</td>
+    <td>${objJson[i].submittedBy.firstname}, ${
+      objJson[i].submittedBy.lastname
+    }</td>
     </tr>`;
 
     var modalTemplate = `
@@ -280,23 +361,41 @@ var createRowTR = function(x) {
                <h3 class="heading-tertiary">Event Address:</h3>
                     <p>${objJson[i].event_address}<br>
                     ${objJson[i].event_city} ,${objJson[i].event_state}</p>
-               <h3 class="heading-tertiary">Submitted by:</h3> <p>${objJson[i].submittedBy.firstname}, ${objJson[i].submittedBy.lastname}</p> <br>
+               <h3 class="heading-tertiary">Submitted by:</h3> <p>${
+                 objJson[i].submittedBy.firstname
+               }, ${objJson[i].submittedBy.lastname}</p> <br>
                </div>
               
                <div class="col s12 m4">
-               <h3 class="heading-tertiary">Format:</h3> <p>${objJson[i].gradeFormat.name}</p> <br>
-               <h3 class="heading-tertiary">Justification:</h3> <p>${objJson[i].eventId.name}</p><br>
-               <h3 class="heading-tertiary">Status:</h3> <p>${objJson[i].status.name}</p>
+               <h3 class="heading-tertiary">Format:</h3> <p>${
+                 objJson[i].gradeFormat.name
+               }</p> <br>
+               <h3 class="heading-tertiary">Justification:</h3> <p>${
+                 objJson[i].eventId.name
+               }</p><br>
+               <h3 class="heading-tertiary">Status:</h3> <p>${
+                 objJson[i].status.name
+               }</p>
                </div>
                <div class="col s12 m4">
-               <h3 class="heading-tertiary">Date of Event:</h3> <p>${objJson[i].eventDate}</p><br>
-               <h3 class="heading-tertiary">Total Days:</h3> <p>${objJson[i].totalDays}</p><br>
-               <h3 class="heading-tertiary">Date Submitted:</h3> <p>${objJson[i].dateSubmitted}</p>
+               <h3 class="heading-tertiary">Date of Event:</h3> <p>${
+                 objJson[i].eventDate
+               }</p><br>
+               <h3 class="heading-tertiary">Total Days:</h3> <p>${
+                 objJson[i].totalDays
+               }</p><br>
+               <h3 class="heading-tertiary">Date Submitted:</h3> <p>${
+                 objJson[i].dateSubmitted
+               }</p>
               </div>
           </div>
           <div class="card-action right-align">
-            <a class="btn modal-close waves-effect green waves-green" id="trCheck"  data-trId='${objJson[i].id}'>Approve</a>
-            <a class="btn modal-close waves-effect red waves-red" id="trCheck"  data-trId='${objJson[i].id}'>Deny</a>     
+            <a class="btn modal-close waves-effect green waves-green" id="trCheck"  data-trId='${
+              objJson[i].id
+            }'>Approve</a>
+            <a class="btn modal-close waves-effect red waves-red" id="trCheck"  data-trId='${
+              objJson[i].id
+            }'>Deny</a>     
           </div>
         </div>
       </div>
@@ -311,7 +410,6 @@ var createRowTR = function(x) {
   var elemsM = document.querySelectorAll('.modal');
   var instancesM = M.Modal.init(elemsM);
 };
-
 
 utils.loginCheck();
 utils.getEventType();

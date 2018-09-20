@@ -13,6 +13,7 @@ public interface TuitionReimbursementService {
 	public Set<TuitionReimbursement> getTuitionReimbursements();
 	public Set<TuitionReimbursement> getTuitionReimbursementsByStatus(Status s);
 	public Set<TuitionReimbursement> getTuitionReimbursementsByPendingStatus();
+
 	// update
 	public void updateTuitionReimbursement(TuitionReimbursement tr);
 	// delete

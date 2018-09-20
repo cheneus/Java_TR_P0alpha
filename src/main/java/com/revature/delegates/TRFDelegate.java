@@ -80,6 +80,26 @@ public class TRFDelegate implements FrontControllerDelegate {
 				resp.getWriter().write(om.writeValueAsString(TuitionReimbursementForms));
 				break;
 			}
+			case "mgr": {
+				System.out.println("TRFmgr");
+				log.trace(req.getHeader("eid"));
+				int i = Integer.parseInt(req.getHeader("eid"));
+				int did = Integer.parseInt(req.getHeader("deptid"));
+				log.trace("Retrieving a list of all my ppl TuitionReimbursementForms");
+				Set<TuitionReimbursementForm> TuitionReimbursementForms = as.getTRFNoApprByManager(i, did);
+				resp.getWriter().write(om.writeValueAsString(TuitionReimbursementForms));
+				break;
+			}
+			case "mgrsi": {
+				System.out.println("TRFmgrsi");
+				log.trace(req.getHeader("eid"));
+				int i = Integer.parseInt(req.getHeader("eid"));
+				int did = Integer.parseInt(req.getHeader("deptid"));
+				log.trace("Retrieving a list of all my ppl TuitionReimbursementForms");
+				Set<TuitionReimbursementForm> TuitionReimbursementForms = as.getTRFNoApprByManagerSI(i, did);
+				resp.getWriter().write(om.writeValueAsString(TuitionReimbursementForms));
+				break;
+			}
 			default: TuitionReimbursementFormTimes(req, resp, Integer.parseInt(path.toString()));
 			}
 //		} else if (path.equals("si")) {	

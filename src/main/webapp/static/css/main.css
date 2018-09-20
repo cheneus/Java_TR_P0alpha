@@ -22,7 +22,7 @@ body {
   background: #e57373;
 }
 .status-1, .status-2, .status-4 {
-  background:#fff176 ;
+  background:#fcec5f ;
 }
 
 .input-field input[type='date']:focus + label,

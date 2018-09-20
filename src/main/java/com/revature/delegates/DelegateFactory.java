@@ -26,7 +26,6 @@ public class DelegateFactory {
 		case "trf": return new TRFDelegate();
 		case "trt": return new TRTDelegate();
 		case "login": return new LoginDelegate();
-		case "purchases":
 		default: return null;
 		}
 	}

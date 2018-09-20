@@ -1,6 +1,10 @@
 var tuitionRF;
-var currentUser;
+
 var utils = {
+  currentUser:{},
+  eventType:{},
+  format:{},
+ 
   userLogin: function() {
     var user = $('#username').val();
     var pass = $('#password').val();
@@ -123,7 +127,6 @@ var utils = {
     var state = $('#state_form').val();
     var addinfo = $('#addinfo_form').val();
     alert('alpo');
-
     axios
       .post(
         'http://localhost:8080/Project1/trf',
@@ -131,7 +134,7 @@ var utils = {
           headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
         },
         {
-          body: {
+          data: {
             title: title,
             event_date: beginDate,
             totalDays: totalDays,
@@ -149,12 +152,60 @@ var utils = {
         console.log(res.data);
       });
   },
-  approvedTRF: function() {
-
+  approvedTRF: function(ap) {
+    
+    axios
+      .put(
+        'http://localhost:8080/Project1/trf/'+ap,
+        {
+          "status": {"id":6},
+	        "id":ap
+         }
+        // {
+        //   headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+        // }
+      )
+      .then(function(res) {
+        console.log(res.data);
+      });
   },
   getEmployeeInfo: function() {},
-  getEventType: function() {},
-  getFormatType: function() {},
+  getEventType: function() {
+    axios
+    .get('http://localhost:8080/Project1/eventtype', {
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+    })
+    .then(function(res) {
+      console.log(res.data);
+      // eventType = res.data;
+      let option = res.data;
+      for(let k = 0; k< option.length; k++) {
+        var newOpt = `<option value="${option[k].name}" data-opId='${option[k].id}'>${option[k].name}</option>`
+        $('#selectJ_form').append(newOpt);
+      }
+    })
+    .catch(function(e) {
+      console.log(e);
+    });
+  },
+  getFormatType: function() {
+    axios
+    .get('http://localhost:8080/Project1/gradeformat', {
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+    })
+    .then(function(res) {
+      console.log(res.data);
+           // format= res.data;
+      let option = res.data;
+      for(let k = 0; k< option.length; k++) {
+        var newOpt = `<option value="${option[k].name}" data-opId='${option[k].id}'>${option[k].name}</option>`
+        $('#selectF_form').append(newOpt);
+      }
+    })
+    .catch(function(e) {
+      console.log(e);
+    });
+  },
 
 };
 
@@ -168,4 +219,7 @@ var webCtrl = {
 };
 
 utils.loginCheck();
+
+utils.getEventType();
+utils.getFormatType();
 // utils.getTRFbySI(2);

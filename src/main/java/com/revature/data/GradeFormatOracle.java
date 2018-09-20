@@ -25,7 +25,7 @@ public class GradeFormatOracle implements GradeFormatDAO {
 		Connection conn = cu.getConnection();
 		try {
 			conn.setAutoCommit(false);
-			String sql = "insert into GradeFormat(name) values(?)";
+			String sql = "insert into Grade_Format(name) values(?)";
 			String[] keys = { "id" };
 			log.trace(sql);
 			PreparedStatement stmt = conn.prepareStatement(sql, keys);
@@ -63,7 +63,7 @@ public class GradeFormatOracle implements GradeFormatDAO {
 
 	@Override
 	public GradeFormat getGradeFormatById(int id) {
-		log.trace("Retrieving GradeFormat with id = " + id);
+		log.trace("Retrieving Grade_Format with id = " + id);
 		GradeFormat ev = null;
 		try (Connection conn = cu.getConnection()) {
 			String sql = "select name from GradeFormat where id =?";
@@ -88,7 +88,7 @@ public class GradeFormatOracle implements GradeFormatDAO {
 		log.trace("Retrieving GradeFormat with GradeFormat= " + ev);
 		GradeFormat g = null;
 		try (Connection conn = cu.getConnection()) {
-			String sql = "select id, name from GradeFormat where GradeFormat =?";
+			String sql = "select id, name from Grade_Format where id =?";
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setString(1, ev.getName());
 			ResultSet rs = stmt.executeQuery();
@@ -110,7 +110,7 @@ public class GradeFormatOracle implements GradeFormatDAO {
 		log.trace("Retrieving GradeFormats");
 		Set<GradeFormat> GradeFormats = new HashSet<GradeFormat>();
 		try (Connection conn = cu.getConnection()) {
-			String sql = "select id, name from GradeFormat";
+			String sql = "select id, name from Grade_Format";
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			ResultSet rs = stmt.executeQuery();
 			while (rs.next()) {
@@ -153,12 +153,12 @@ public class GradeFormatOracle implements GradeFormatDAO {
 
 	@Override
 	public void updateGradeFormat(GradeFormat g) {
-		log.trace("Updating GradeFormat to "+ g);
+		log.trace("Updating Grade_Format to "+ g);
 		Connection conn = cu.getConnection();
         try {
         	// JDBC automatically commits data. Lets stop it.
         	conn.setAutoCommit(false);
-            String sql = "update GradeFormat set GradeFormat = ? where id = ?";
+            String sql = "update GradeFormat set Grade_Format = ? where id = ?";
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setInt(2, g.getId());
             stmt.setString(1, g.getName());
@@ -191,7 +191,7 @@ public class GradeFormatOracle implements GradeFormatDAO {
         try {
         	// JDBC automatically commits data. Lets stop it.
         	conn.setAutoCommit(false);
-            String sql = "delete from GradeFormat where id = ?";
+            String sql = "delete from Grade_Format where id = ?";
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setInt(1, ev.getId());
             int rs = stmt.executeUpdate();

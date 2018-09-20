@@ -22,18 +22,23 @@ $(document).ready(function() {
   // $('select').material_select();
 
   $(document).on('click', '#trCheck',function(event) {
-    event.stopPropagation();
-    event.preventDefault();
-    console.log("tag")
+    var tag = $(this).data('trid')
     console.log($(this).data('trid'));
-  })
+    utils.approvedTRF(tag);
+  });
+
 
   var objJsonInit;
   $("#navLogout").click(function(){
     console.log(`logging out`)
     utils.logOut();
 
+  });
+  $('#sidebar_add').click(function(){
+    var elemsF = document.querySelectorAll('select');
+    var instancesF = M.FormSelect.init(elemsF);
   })
+
   $('#addNewTR').submit(function() {
     // goes second
     alert('yeahhhhh');
@@ -41,6 +46,8 @@ $(document).ready(function() {
 });
 
 var createRowTR = function(x) {
+  $('#trTable_body').empty();
+  $('#modal_for_table').empty();
   // var objTest = utils.getTRF();
   var objJson = x;
   // objJson = [{"id":2,"dateOfEvent":"2019-05-01","timeOfEvent":"2018-09-01","date_submitted":"2018-09-17","event_address":"1 E Jackson","event_city":"Chicago","event_state":"IL","eventId":{"id":1,"name":null},"cost":350.0,"grade_format_id":{"id":21,"name":null},"submitted_by":{"id":2,"lastname":null,"firstname":null,"title":null,"supervisor":null,"birthDate":null,"hireDate":null,"dept_id":null,"address":null,"reimbursement_balance":0.0,"phone":null,"email":null},"status":{"id":0,"name":null},"event_related_attachments":"www.eventbrite.com/superjsevo","description":"Super Node Evo"},{"id":1,"dateOfEvent":"2019-12-01","timeOfEvent":"2018-09-01","date_submitted":"2018-09-17","event_address":"1 E Jackson","event_city":"Chicago","event_state":"IL","eventId":{"id":1,"name":null},"cost":350.0,"grade_format_id":{"id":21,"name":null},"submitted_by":{"id":2,"lastname":null,"firstname":null,"title":null,"supervisor":null,"birthDate":null,"hireDate":null,"dept_id":null,"address":null,"reimbursement_balance":0.0,"phone":null,"email":null},"status":{"id":0,"name":null},"event_related_attachments":"www.eventbrite.com/superjsevo","description":"Super JS Evo"}]
@@ -91,8 +98,6 @@ var createRowTR = function(x) {
 
     // var alternateRowTemplate = `<tr><td class='a'>{0}</td><td>SomewhatDifferent {1}</td></tr>`;
     //  ...... somewhere deep in your code
-    $('#trTable_body').empty();
-    $('#modal_for_table').empty();
     $('#trTable_body').append(rowTemplate);
     $('#modal_for_table').append(modalTemplate);
     // .append(alternateRowTemplate.format('myvalue3', 'myvalue4'));

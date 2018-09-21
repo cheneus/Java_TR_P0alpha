@@ -21,13 +21,13 @@
     <link rel="stylesheet" type="text/css" media="screen" href="css/main.css" />
     <!-- <script src="js/jQuery.js"></script> -->
     <script src="js/utils.js"></script>
-    <script src="js/infoR.js"></script>
+    <script src="js/builder.js"></script>
     <script src="js/main.js"></script>
 </head>
 
-<body>
+<body class="section-feature">
 
-    <ul id="slide-out" class="sidenav sidenav-fixed slide-out">
+    <ul id="slide-out" class="sidenav sidenav-fixed slide-out background__re">
         <li>
             <div class="user-view">
                 <div class="background">
@@ -61,9 +61,9 @@
     <!-- SideNav Ends -->
     <div class="container">
         <div class="section"></div>
-        <main>
+        <main class="">
             <!-- loginPg -->
-            <div class="text-center center loginPg" id="loginPg">
+            <div class="text-center center loginPg .background__re" id="loginPg">
                 <div class="row">
                     <div class="section"></div>
                     <h2 class="heading-secondary">Timber & Magnus-TRMS</h2>
@@ -156,11 +156,12 @@
                         <div class="input-field col s12">
                             <input placeholder="Event title" id="title_form" type="text" aria-required="true" class="validate" required>
                             <label for="title">Title</label>
+                            <span class="helper-text" data-error="Please add a title" data-success="Great Title!"></span>
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s12 m6">
-                            <select id="selectJ_form" required>
+                            <select id="selectJ_form">
                                 <option value="" disabled selected>Choose your option</option>
 
                             </select>
@@ -178,33 +179,35 @@
                     <div class="row">
                         <div class="input-field col s12 m4">
                             <label>Begin date</label>
-                            <input id="beginDate_form" type="text" class="datepicker">
+                            <input id="beginDate_form" type="text" aria-required="true" class="datepicker" required>
 
                         </div>
                         <div class="input-field col s12 m4">
                             <label>How Many Days</label>
-                            <input id="totalDays_form" type="number"  aria-required="true" class="validate">
+                            <input id="totalDays_form" type="number"  aria-required="true" class="validate" required>
+                            <span class="helper-text" data-error="Days? Please?" data-success="Looks Great"></span>
                         </div>
                         <div class="input-field col s12 m4">
                             <label>Cost</label>
-                            <input id="cost_form" type="number"  aria-required="true" class="validate">
-
+                            <input id="cost_form" type="number"  aria-required="true" class="validate" required>
+                            <span class="helper-text" data-error="Please enter an amount" data-success="Great Value?"></span>
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s4">
                             <label>Event Address</label>
-                            <input id="address_form" type="text" class="validate" aria-required="true" aria-required="true">
+                            <input id="address_form" type="text" class="validate" aria-required="true" aria-required="true" required>
+                            <span class="helper-text" data-error="Please add an address" data-success="Great!"></span>
                         </div>
                         <div class="input-field col s4">
                             <label>Event City</label>
-                            <input id="city_form" type="text" class="validate" aria-required="true">
-
+                            <input id="city_form" type="text" class="validate" aria-required="true" required>
+                            <span class="helper-text" data-error="Please add a city" data-success="Great"></span>
                         </div>
                         <div class="input-field col s4">
                             <label>Event State</label>
                             <input id="state_form" type="text" class="validate" aria-required="true" required>
-
+                            <span class="helper-text" data-error="Please add a state" data-success="Great"></span>
                         </div>
                     </div>
                     <div class="row">

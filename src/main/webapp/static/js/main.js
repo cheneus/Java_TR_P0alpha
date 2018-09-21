@@ -77,7 +77,7 @@ $(document).ready(function() {
   });
 
   $('#submit_form').on('click', function() {
-    $('#addNewTR').valid()
+    // $('#addNewTR').valid()
     utils.postTRF();
   })
 

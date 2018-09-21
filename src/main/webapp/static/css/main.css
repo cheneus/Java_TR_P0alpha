@@ -173,4 +173,13 @@ footer {
   top: 0.7rem;
 }
 
+.section-feature {
+  background-image: linear-gradient(to bottom, #f7f7f7, rgba(24, 90, 157, 0.8)), url(assets/nat-4.jpg);
+  background-size: cover;
+  backface-visibility: hidden;
+}
+  
+.background__re {
+  background-color: rgba(255, 255, 255, 0.6);
+}
 /* Materialize */

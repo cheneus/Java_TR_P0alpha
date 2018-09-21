@@ -59,7 +59,7 @@ public class Login {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((employee_id == null) ? 0 : employee_id.hashCode());
+		result = prime * result + admin;
 		result = prime * result + id;
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
 		result = prime * result + ((username == null) ? 0 : username.hashCode());
@@ -74,10 +74,7 @@ public class Login {
 		if (getClass() != obj.getClass())
 			return false;
 		Login other = (Login) obj;
-		if (employee_id == null) {
-			if (other.employee_id != null)
-				return false;
-		} else if (!employee_id.equals(other.employee_id))
+		if (admin != other.admin)
 			return false;
 		if (id != other.id)
 			return false;
@@ -95,7 +92,7 @@ public class Login {
 	}
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", username=" + username + ", password=" + password + ", employee_id=" + employee_id + ", admin="
-				+ admin + "]";
+		return "Login [id=" + id + ", username=" + username + ", password=" + password + ", employee_id=" + employee_id
+				+ ", admin=" + admin + "]";
 	}
 }

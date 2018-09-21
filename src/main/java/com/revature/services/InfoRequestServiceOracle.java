@@ -22,13 +22,13 @@ public class InfoRequestServiceOracle implements InfoRequestService {
 	}
 	@Override
 	public InfoRequest getInfoReq(InfoRequest info) {
-		infod.getInfoReq(info);
-		return null;
+		return infod.getInfoReq(info);
+
 	}
 	@Override
 	public InfoRequest getInfoReqById(int id) {
-		infod.getInfoReqById(id);
-		return null;
+		return infod.getInfoReqById(id);
+
 	}
 	@Override
 	public void deleteInfoReq(InfoRequest InfoRequest) {

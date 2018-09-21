@@ -30,13 +30,12 @@ public class InfoRequestOracle implements InfoRequestDAO {
 		try {
 			log.trace("Inserting InfoRequest into db");
 			conn.setAutoCommit(false);
-			String sql = "insert into info_request (title, form_ref, requestor_id, requestee_id) values (?,?,?,?)";
-			PreparedStatement pstm = conn.prepareStatement(sql, key);
-			pstm.setString(1,InfoRequest.getTitle());
-			pstm.setInt(2, InfoRequest.getFormRef().getId());
-			pstm.setInt(3, InfoRequest.getRequestorId().getId());
-			pstm.setInt(4, InfoRequest.getRequesteeId().getId());
-			pstm.setString(3, InfoRequest.getTitle());
+			String sql = "insert into info_request (form_ref, requestor_id, requestee_id) values (?,?,?)";
+			String[] keys = { "id" };
+			PreparedStatement pstm = conn.prepareStatement(sql, keys);
+			pstm.setInt(1, InfoRequest.getFormRef().getId());
+			pstm.setInt(2, InfoRequest.getRequestorId().getId());
+			pstm.setInt(3, InfoRequest.getRequesteeId().getId());
 			int result = pstm.executeUpdate();
 			ResultSet rs = pstm.getGeneratedKeys();
 			if(rs.next())
@@ -63,7 +62,7 @@ public class InfoRequestOracle implements InfoRequestDAO {
 				LogUtil.logException(e,InfoRequestOracle.class);
 			}
 		}
-		return 0;
+		return key;
 	}
 
 	@Override
@@ -77,7 +76,7 @@ public class InfoRequestOracle implements InfoRequestDAO {
 			throw new NullArgumentException("InfoRequest can't be null");
 		}
 		try {
-			String sql = "select title, form_ref,requestor_id, requestee_id, response, open from InfoRequest where id=?";
+			String sql = "select form_ref,requestor_id, requestee_id, response, open from InfoRequest where id=?";
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setInt(1, InfoRequest.getId());
 			ResultSet rs = ps.executeQuery();

@@ -33,13 +33,13 @@ public class TuitionReimbursementOracle implements TuitionReimbursementDAO {
 			log.trace("Inserting TuitionReimbursement into db");
 			conn.setAutoCommit(false);
 			String sql = "insert into TuitionReimbursement "
-					+ "(amount_reimbursed, reason, form_ref, grade_stat, approved_by, remarks, type_id, status)"
+					+ "(amount_reimbursed, reason, formRef, grade_stat, approved_by, remarks, type_id, status)"
 					+ " values (?,?,?,?,?, ?,?,?)";
 			PreparedStatement ps = conn.prepareStatement(sql, key);
 					
-			ps.setDouble(1,tr.getAmount_reimbursed());
+			ps.setDouble(1,tr.getAmountReimbursed());
 			ps.setString(2, tr.getReason());
-			ps.setInt(3, tr.getForm_ref().getId());
+			ps.setInt(3, tr.getFormRef().getId());
 			ps.setInt(4, tr.getGrade_stat().getId());
 			ps.setInt(5, tr.getApproved_by().getId());
 			ps.setString(6,tr.getRemarks());
@@ -79,7 +79,7 @@ public class TuitionReimbursementOracle implements TuitionReimbursementDAO {
 		}
 		try(Connection conn = cu.getConnection())
 		{
-			String sql = "select amount_reimbursed, date_received, reason, form_ref, grade_stat, approved_by, remarks, type_id, status from TuitionReimbursement where id=?";
+			String sql = "select amount_reimbursed, date_received, reason, formRef, grade_stat, approved_by, remarks, type_id, status from TuitionReimbursement where id=?";
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setInt(1, tr.getId());
 			ResultSet rs = ps.executeQuery();
@@ -91,17 +91,17 @@ public class TuitionReimbursementOracle implements TuitionReimbursementDAO {
 				Employee em = new Employee();
 				Status s = new Status();
 				
-				tf.setId(rs.getInt("form_ref"));
+				tf.setId(rs.getInt("formRef"));
 				tfy.setId(rs.getInt("type_if"));
 				gs.setId(rs.getInt("grade_stat"));
 				em.setId(rs.getInt("apporved_by"));
 				s.setId(rs.getInt("status"));
 				
 				tr.setStatus(s);
-				tr.setAmount_reimbursed(rs.getDouble("cost"));
+				tr.setAmountReimbursed(rs.getDouble("cost"));
 				tr.setDate_received(rs.getDate("date_received"));
 				tr.setReason(rs.getString("reason"));
-				tr.setForm_ref(tf);
+				tr.setFormRef(tf);
 				tr.setGrade_stat(gs);
 				tr.setApproved_by(em);
 				tr.setRemarks(rs.getString("remarks"));
@@ -112,10 +112,10 @@ public class TuitionReimbursementOracle implements TuitionReimbursementDAO {
 				log.trace("This is not a TuitionReimbursement");
 				tr.setId(0);
 				tr.setStatus(null);
-				tr.setAmount_reimbursed(0);
+				tr.setAmountReimbursed(0);
 				tr.setDate_received(null);
 				tr.setReason(null);
-				tr.setForm_ref(null);
+				tr.setFormRef(null);
 				tr.setGrade_stat(null);
 				tr.setApproved_by(null);
 				tr.setRemarks(null);
@@ -134,7 +134,7 @@ public class TuitionReimbursementOracle implements TuitionReimbursementDAO {
 		TuitionReimbursement tr = new TuitionReimbursement();
 		try(Connection conn = cu.getConnection())
 		{
-			String sql = "select id, amount_reimbursed, date_received, reason, form_ref, grade_stat, approved_by, remarks, type_id, status from TuitionReimbursement where id=?";
+			String sql = "select id, amount_reimbursed, date_received, reason, formRef, grade_stat, approved_by, remarks, type_id, status from TuitionReimbursement where id=?";
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setInt(1, i);
 			ResultSet rs = ps.executeQuery();
@@ -145,17 +145,17 @@ public class TuitionReimbursementOracle implements TuitionReimbursementDAO {
 				GradeStatus gs = new GradeStatus();
 				Employee em = new Employee();
 				Status s = new Status();
-				tf.setId(rs.getInt("form_ref"));
+				tf.setId(rs.getInt("formRef"));
 				tfy.setId(rs.getInt("type_if"));
 				gs.setId(rs.getInt("grade_stat"));
 				em.setId(rs.getInt("apporved_by"));
 				s.setId(rs.getInt("status"));
 				tr.setId(i);
 				tr.setStatus(s);
-				tr.setAmount_reimbursed(rs.getDouble("cost"));
+				tr.setAmountReimbursed(rs.getDouble("cost"));
 				tr.setDate_received(rs.getDate("date_received"));
 				tr.setReason(rs.getString("reason"));
-				tr.setForm_ref(tf);
+				tr.setFormRef(tf);
 				tr.setGrade_stat(gs);
 				tr.setApproved_by(em);
 				tr.setRemarks(rs.getString("remarks"));
@@ -166,10 +166,10 @@ public class TuitionReimbursementOracle implements TuitionReimbursementDAO {
 				log.trace("This is not a TuitionReimbursement");
 				tr.setId(0);
 				tr.setStatus(null);
-				tr.setAmount_reimbursed(0);
+				tr.setAmountReimbursed(0);
 				tr.setDate_received(null);
 				tr.setReason(null);
-				tr.setForm_ref(null);
+				tr.setFormRef(null);
 				tr.setGrade_stat(null);
 				tr.setApproved_by(null);
 				tr.setRemarks(null);
@@ -188,7 +188,7 @@ public class TuitionReimbursementOracle implements TuitionReimbursementDAO {
 		Set<TuitionReimbursement> trList = new HashSet<TuitionReimbursement>();
 		try(Connection conn = cu.getConnection())
 		{
-			String sql = "select id, amount_reimbursed, date_received, reason, form_ref, grade_stat, approved_by, remarks, type_id, status from TuitionReimbursement";
+			String sql = "select id, amount_reimbursed, date_received, reason, formRef, grade_stat, approved_by, remarks, type_id, status from TuitionReimbursement";
 			PreparedStatement pstm = conn.prepareStatement(sql);
 			ResultSet rs = pstm.executeQuery();
 			while(rs.next())
@@ -199,17 +199,17 @@ public class TuitionReimbursementOracle implements TuitionReimbursementDAO {
 				GradeStatus gs = new GradeStatus();
 				Employee em = new Employee();
 				Status s = new Status();
-				tf.setId(rs.getInt("form_ref"));
+				tf.setId(rs.getInt("formRef"));
 				tfy.setId(rs.getInt("type_if"));
 				gs.setId(rs.getInt("grade_stat"));
 				em.setId(rs.getInt("apporved_by"));
 				s.setId(rs.getInt("status"));
 				
 				tr.setStatus(s);
-				tr.setAmount_reimbursed(rs.getDouble("cost"));
+				tr.setAmountReimbursed(rs.getDouble("cost"));
 				tr.setDate_received(rs.getDate("date_received"));
 				tr.setReason(rs.getString("reason"));
-				tr.setForm_ref(tf);
+				tr.setFormRef(tf);
 				tr.setGrade_stat(gs);
 				tr.setApproved_by(em);
 				tr.setRemarks(rs.getString("remarks"));
@@ -230,7 +230,7 @@ public class TuitionReimbursementOracle implements TuitionReimbursementDAO {
 		Set<TuitionReimbursement> trList = new HashSet<TuitionReimbursement>();
 		try(Connection conn = cu.getConnection())
 		{
-			String sql = "select id, amount_reimbursed, date_received, reason, form_ref, grade_stat, approved_by, remarks, type_id, status from TuitionReimbursement where status = 0";
+			String sql = "select id, amount_reimbursed, date_received, reason, formRef, grade_stat, approved_by, remarks, type_id, status from TuitionReimbursement where status = 0";
 			PreparedStatement pstm = conn.prepareStatement(sql);
 			ResultSet rs = pstm.executeQuery();
 			while(rs.next())
@@ -241,17 +241,17 @@ public class TuitionReimbursementOracle implements TuitionReimbursementDAO {
 				GradeStatus gs = new GradeStatus();
 				Employee em = new Employee();
 				Status s = new Status();
-				tf.setId(rs.getInt("form_ref"));
+				tf.setId(rs.getInt("formRef"));
 				tfy.setId(rs.getInt("type_if"));
 				gs.setId(rs.getInt("grade_stat"));
 				em.setId(rs.getInt("apporved_by"));
 				s.setId(rs.getInt("status"));
 				
 				tr.setStatus(s);
-				tr.setAmount_reimbursed(rs.getDouble("cost"));
+				tr.setAmountReimbursed(rs.getDouble("cost"));
 				tr.setDate_received(rs.getDate("date_received"));
 				tr.setReason(rs.getString("reason"));
-				tr.setForm_ref(tf);
+				tr.setFormRef(tf);
 				tr.setGrade_stat(gs);
 				tr.setApproved_by(em);
 				tr.setRemarks(rs.getString("remarks"));

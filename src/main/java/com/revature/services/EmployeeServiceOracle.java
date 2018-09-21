@@ -51,7 +51,9 @@ public class EmployeeServiceOracle implements EmployeeService {
 
 	@Override
 	public Employee getEmployeeById(int i) {
-		return null;
+		Employee emp = new Employee();
+		emp.setId(i);
+		return ed.getEmployee(emp);
 
 	}
 
@@ -72,8 +74,6 @@ public class EmployeeServiceOracle implements EmployeeService {
 
 	@Override
 	public void updateEmployee(Employee emp) {
-		if (emp.getSupervisor().getFirstname() != null)
-			ed.updateEmployee(emp.getSupervisor());
 		ed.updateEmployee(emp);
 
 	}

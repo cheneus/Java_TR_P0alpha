@@ -208,11 +208,10 @@ public class EmployeeOracle implements EmployeeDAO {
 		try(Connection conn = cu.getConnection()){
 			conn.setAutoCommit(false);
 			
-			String sql = "update emp set sup_id = ?, title = ? where id = ?";
+			String sql = "update employee set REIMBURSEMENT_BALANCE = ? where id = ?";
 			PreparedStatement pstm = conn.prepareStatement(sql);
-			pstm.setInt(1, employee.getSupervisor().getId());
-			pstm.setString(2, employee.getTitle());
-			pstm.setInt(3, employee.getId());
+			pstm.setDouble(1, employee.getReimbursement_balance());
+			pstm.setInt(2, employee.getId());
 			int number = pstm.executeUpdate();
 			if(number!=1)
 			{

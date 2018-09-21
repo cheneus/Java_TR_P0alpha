@@ -47,9 +47,9 @@ var utils = {
       .then(function(res) {
         currentUser = res.data.Login;
         console.log(currentUser);
-        let uid = currentUser.id;
-        let dept_id = currentUser.employee_id.dept_id.id;
-        let sup_id = currentUser.employee_id.supervisor;
+        var uid = currentUser.id;
+        var dept_id = currentUser.employee_id.dept_id.id;
+        var sup_id = currentUser.employee_id.supervisor;
         if (dept_id === 2) {
           console.log('HR');
           utils.getTRF();
@@ -78,7 +78,7 @@ var utils = {
   },
   logOut: function() {
     axios
-      .delete('http://localhost:8080/Project1/login', {
+      .delete(`${url}/login`, {
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
       })
       .then(function(res) {
@@ -88,12 +88,25 @@ var utils = {
   },
   loginCheck: function() {
     axios
-      .get('http://localhost:8080/Project1/login', {
+      .get(`${url}/login`, {
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
       })
       .then(function(res) {
         currentUser = res.data.Login;
-        utils.getTRFbySI(currentUser);
+        console.log(currentUser);
+        var uid = currentUser.id;
+        var dept_id = currentUser.employee_id.dept_id.id;
+        var sup_id = currentUser.employee_id.supervisor;
+        if (dept_id === 2) {
+          console.log('HR');
+          utils.getTRF();
+        } else if (sup_id === null) {
+          console.log('supervisors');
+          utils.getTRFmgrSI(uid, dept_id);
+        } else {
+          utils.getTRFbySI(currentUser);
+        }
+        console.log('checkloginTRF');
         $('#loginPg').hide();
         $('main').css('padding-left', '11.5rem');
         $('#mainPg').show();
@@ -109,7 +122,7 @@ var utils = {
   },
   getTRF: function() {
     axios
-      .get('http://localhost:8080/Project1/trf', {
+      .get(`${url}/trf`, {
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
       })
       .then(function(res) {
@@ -121,7 +134,7 @@ var utils = {
   },
   getTRFmgr: function(id, did) {
     axios
-      .get('http://localhost:8080/Project1/trf/mgr', {
+      .get(`${url}/trf/mgr`, {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
           eid: id,
@@ -139,7 +152,7 @@ var utils = {
   },
   getTRFmgrSI: function(id, did) {
     axios
-      .get('http://localhost:8080/Project1/trf/mgrsi', {
+      .get(`${url}/trf/mgrsi`, {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
           eid: id,
@@ -161,7 +174,7 @@ var utils = {
     var deptId = user.employee_id.dept_id.id || 0;
     axios
       .get(
-        'http://localhost:8080/Project1/trf/si?id=' + eid,
+        `${url}/trf/si?id=` + eid,
         {
           headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
         },
@@ -183,7 +196,7 @@ var utils = {
   },
   getMyTRF: function(eid) {
     axios
-      .get('http://localhost:8080/Project1/trf/my?id=' + eid, {
+      .get(`${url}/trf/my?id=` + eid, {
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
       })
       .then(function(res) {
@@ -196,7 +209,7 @@ var utils = {
   },
   getTRFbyId: function(i) {
     axios
-      .get('http://localhost:8080/Project1/trf/' + i, {
+      .get(`${url}/trf/` + i, {
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
       })
       .then(function(res) {
@@ -225,7 +238,7 @@ var utils = {
     var addinfo = $('#addinfo_form').val();
     axios
       .post(
-        'http://localhost:8080/Project1/trf',
+        `${url}/trf`,
         {
           title: title,
           eventDate: beginDate,
@@ -250,7 +263,7 @@ var utils = {
   },
   approvedTRF: function(ap, stat) {
     axios
-      .put('http://localhost:8080/Project1/trf/' + ap, {
+      .put(`${url}/trf/` + ap, {
         status: { id: stat },
         id: ap
       })
@@ -259,10 +272,38 @@ var utils = {
         utils.getTRFmgrSI(currentUser.id, currentUser.employee_id.dept_id.id);
       });
   },
-  getEmployeeInfo: function() {},
+
+  // end of TRF axios
+  updateEmployeeInfo: function() {
+    axios
+      .put(`${url}/employee`, {})
+      .then(function(res) {
+        console.log(res.data);
+        // eventType = res.data;
+      })
+      .catch(function(e) {
+        console.log(e);
+      });
+  },
+  updateEmployeeBalance: function(b, eid) {
+    var balance = currentUser.employee_id.tuition_reimbursement_balance;
+    currentUser.reimbursement_balance = balance -b;
+    console.log(currentUser.reimbursement_balance)
+    axios
+      .put(`${url}/employee/`+eid, {
+        currentUser
+      })
+      .then(function(res) {
+        console.log(res.data);
+        // eventType = res.data;
+      })
+      .catch(function(e) {
+        console.log(e);
+      });
+  },
   getEventType: function() {
     axios
-      .get('http://localhost:8080/Project1/eventtype', {
+      .get(`${url}/eventtype`, {
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
       })
       .then(function(res) {
@@ -282,7 +323,7 @@ var utils = {
   },
   getFormatType: function() {
     axios
-      .get('http://localhost:8080/Project1/gradeformat', {
+      .get(`${url}/gradeformat`, {
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
       })
       .then(function(res) {
@@ -303,7 +344,7 @@ var utils = {
   getAddress: function(aid) {
     axios
       .get(
-        'http://localhost:8080/Project1/address/' + aid,
+        `${url}/address/` + aid,
         {
           headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
         },
@@ -325,7 +366,26 @@ var utils = {
       .catch(function(e) {
         console.log(e);
       });
-  }
+  },
+  // info Req
+  postInfoReq: function(trid,uid) {
+    axios
+      .post(`${url}/inforeq`,
+        {
+          formRef: trid,
+          requestorId: currentUser.id,
+          requesteeId:uid
+        },
+        {
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+        }
+      )
+      .then(function(res) {
+        console.log(res.data);
+        console.log(trid)
+        utils.approvedTRF(trid, 4)
+      });
+  },
 };
 
 var createRowTR = function(x) {
@@ -360,7 +420,7 @@ var createRowTR = function(x) {
                <div class="col s12 m4">
                <h3 class="heading-tertiary">Event Address:</h3>
                     <p>${objJson[i].event_address}<br>
-                    ${objJson[i].event_city} ,${objJson[i].event_state}<br></p>
+                    ${objJson[i].event_city} ,${objJson[i].event_state}</p><br>
                <h3 class="heading-tertiary">Submitted by:</h3> <p>${
                  objJson[i].submittedBy.firstname
                }, ${objJson[i].submittedBy.lastname}</p> <br>
@@ -381,9 +441,7 @@ var createRowTR = function(x) {
                <h3 class="heading-tertiary">Date of Event:</h3> <p>${
                  objJson[i].eventDate
                }</p><br>
-               <h3 class="heading-tertiary">Total Days:</h3> <p>${
-                 objJson[i].totalDays
-               }</p><br>
+               <h3 class="heading-tertiary">Total Days:</h3> <p></p>${objJson[i].totalDays}</p><br>
                <h3 class="heading-tertiary">Date Submitted:</h3> <p>${
                  objJson[i].dateSubmitted
                }</p>
@@ -393,10 +451,10 @@ var createRowTR = function(x) {
             <a class="btn modal-close waves-effect green waves-green" id="trCheck" data-trstat='2' data-trId='${
               objJson[i].id
             }'>Approve</a>
-            <a class="btn modal-close waves-effect yellow waves-red" id="trCheck" data-trstat='4' data-trId='${
+            <a class="btn waves-effect orange darken-1 waves-yellow" id="trInfoReq" data-user='${objJson[i].submittedBy.id}' data-trstat='4' data-trId='${
               objJson[i].id
             }'>RequestInfo</a>     
-            <a class="btn modal-close waves-effect red waves-red" id="trCheck" data-trstat='5' data-trId='${
+            <a class="btn modal-close waves-effect red waves-red" id="trCheck" data-cost=${objJson[i].cost} data-trstat='5' data-trId='${
               objJson[i].id
             }'>Deny</a>     
           </div>

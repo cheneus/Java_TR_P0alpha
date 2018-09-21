@@ -26,10 +26,23 @@ $(document).ready(function() {
 
   $(document).on('click', '#trCheck', function(event) {
     var tag = $(this).data('trid');
-    var status =$(this).data('trstat');
+    var status = $(this).data('trstat');
+    var cost = $(this).data('cost');
+    if (status === 5) {
+      utils.updateEmployeeBalance(cost, tag);
+    }
     console.log($(this).data('trid'));
     utils.approvedTRF(tag, status);
   });
+
+  $(document).on('click', '#trInfoReq', function(event) {
+    var tag = $(this).data('trid');
+    var status = $(this).data('trstat');
+    var target = $(this).data('user');
+    console.log(target);
+    utils.postInfoReq(tag, target)
+  });
+
   $('#loginBtn').on('click', function() {
     utils.userLogin();
     console.log(`loggged = ${currentUser} `);
@@ -50,14 +63,16 @@ $(document).ready(function() {
   });
 
   $('#sidebar_viewall').click(function() {
-    utils.getTRFmgr(currentUser.id, currentUser.employee_id.dept_id.id);
+    createRowTR(tuitionRF);
+    // utils.getTRFmgr(currentUser.id, currentUser.employee_id.dept_id.id);
   });
 
   $('#sidebar_viewNA').on('click', function() {
-    utils.getTRFmgrSI(currentUser.id, currentUser.employee_id.dept_id.id);
+    createRowTR(tuitionRF_filtered)
+    // utils.getTRFmgrSI(currentUser.id, currentUser.employee_id.dept_id.id);
   });
   $('#sidebar_my').on('click', function() {
-    utils.getAddress(currentUser.employee_id.address.id)
+    utils.getAddress(currentUser.employee_id.address.id);
   });
 
   $('#addNewTR').submit(function() {

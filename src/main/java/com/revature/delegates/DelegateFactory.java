@@ -15,7 +15,7 @@ public class DelegateFactory {
 		switch(name) {
 		case "department": return new DepartmentDelegate();
 		case "address": return new AddressDelegate();
-//		case "employee": return new EmployeeDelegate();
+		case "employee": return new EmployeeDelegate();
 		case "eventlocation": return new EventLocationDelegate();
 		case "eventtype": return new EventTypeDelegate();
 		case "gradeformat": return new GradeFormatDelegate();

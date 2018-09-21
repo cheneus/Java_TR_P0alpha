@@ -9,6 +9,7 @@ import java.util.Set;
 
 import org.apache.log4j.Logger;
 
+import com.revature.beans.TuitionReimbursementForm;
 import com.revature.beans.TuitionReimbursementType;
 import com.revature.utils.ConnectionUtil;
 import com.revature.utils.LogUtil;
@@ -215,5 +216,4 @@ public class TuitionReimbursementTypeOracle implements TuitionReimbursementTypeD
         }
         log.trace("Method returning: " + null);
 	}
-
 }

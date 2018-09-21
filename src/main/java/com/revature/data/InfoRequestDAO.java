@@ -18,6 +18,7 @@ public interface InfoRequestDAO {
 	 */
 	public void updateInfoReq(InfoRequest InfoRequest);
 	public Set<InfoRequest> getInfoReq();
+	public Set<InfoRequest> getUrInfoReq(int i);
 	
 	
 }

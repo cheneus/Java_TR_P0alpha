@@ -17,7 +17,6 @@ import com.revature.utils.ConnectionUtil;
 import com.revature.utils.LogUtil;
 
 public class InfoRequestOracle implements InfoRequestDAO {
-
 	private Logger log = Logger.getLogger(InfoRequestOracle.class);
 	private ConnectionUtil cu = ConnectionUtil.getInstance();
 	
@@ -76,7 +75,7 @@ public class InfoRequestOracle implements InfoRequestDAO {
 			throw new NullArgumentException("InfoRequest can't be null");
 		}
 		try {
-			String sql = "select form_ref,requestor_id, requestee_id, response, open from InfoRequest where id=?";
+			String sql = "select form_ref,requestor_id, requestee_id, response, open from Info_Request where id=?";
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setInt(1, InfoRequest.getId());
 			ResultSet rs = ps.executeQuery();
@@ -125,7 +124,7 @@ public class InfoRequestOracle implements InfoRequestDAO {
 		Set<InfoRequest> InfoRequestList = new HashSet<InfoRequest>();
 		try(Connection conn = cu.getConnection())
 		{
-			String sql = "Select id, title, form_ref,requestor_id, requestee_id, response, open from InfoRequest";
+			String sql = "Select id, form_ref,requestor_id, requestee_id, response, open from Info_Request";
 			PreparedStatement pstm = conn.prepareStatement(sql);
 			ResultSet rs = pstm.executeQuery();
 			while(rs.next())
@@ -137,7 +136,6 @@ public class InfoRequestOracle implements InfoRequestDAO {
 				em1.setId(rs.getInt("requestor_id"));
 				em2.setId(rs.getInt("requestee_id"));
 				tr.setId(rs.getInt("form_ref"));
-				InfoRequest.setTitle(rs.getString("title"));
 				InfoRequest.setFormRef(tr);
 				InfoRequest.setRequestorId(em1);
 				InfoRequest.setRequesteeId(em2);
@@ -158,7 +156,7 @@ public class InfoRequestOracle implements InfoRequestDAO {
 		try(Connection conn = cu.getConnection()){
 			conn.setAutoCommit(false);
 			
-			String sql = "update InfoRequest set response=? open=? where id = ?";
+			String sql = "update Info_Request set response=? open=? where id = ?";
 			PreparedStatement pstm = conn.prepareStatement(sql);
 			pstm.setString(1, InfoRequest.getResponse());
 			pstm.setInt(2, InfoRequest.getOpen());
@@ -187,7 +185,7 @@ public class InfoRequestOracle implements InfoRequestDAO {
 		try(Connection conn = cu.getConnection()){
 			conn.setAutoCommit(false);
 			
-			String sql = "delete from InfoRequest where id = ?";
+			String sql = "delete from Info_Request where id = ?";
 			PreparedStatement pstm = conn.prepareStatement(sql);
 			pstm.setInt(1, InfoRequest.getId());
 			int number = pstm.executeUpdate();
@@ -212,6 +210,40 @@ public class InfoRequestOracle implements InfoRequestDAO {
 	public InfoRequest getInfoReqById(int id) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public Set<InfoRequest> getUrInfoReq(int i) {
+		Set<InfoRequest> InfoRequestList = new HashSet<InfoRequest>();
+		try(Connection conn = cu.getConnection())
+		{
+			String sql = "Select id, form_ref,requestor_id, requestee_id, response, open from Info_Request where requestee_id= ?";
+			PreparedStatement pstm = conn.prepareStatement(sql);
+			pstm.setInt(1, i);
+			ResultSet rs = pstm.executeQuery();
+			while(rs.next())
+			{
+				InfoRequest InfoRequest = new InfoRequest();
+				Employee em1 = new Employee();
+				Employee em2 = new Employee();
+				TuitionReimbursementForm tr = new TuitionReimbursementForm();
+				em1.setId(rs.getInt("requestor_id"));
+				em2.setId(rs.getInt("requestee_id"));
+				tr.setId(rs.getInt("form_ref"));
+				InfoRequest.setTitle(rs.getString("title"));
+				InfoRequest.setFormRef(tr);
+				InfoRequest.setRequestorId(em1);
+				InfoRequest.setRequesteeId(em2);
+				InfoRequest.setResponse(rs.getString("response"));
+				InfoRequest.setOpen(rs.getInt("open"));
+				InfoRequestList.add(InfoRequest);
+			}
+		}
+		catch(Exception e)
+		{
+			LogUtil.logException(e,InfoRequestOracle.class);
+		}
+		return InfoRequestList;
 	}
 
 

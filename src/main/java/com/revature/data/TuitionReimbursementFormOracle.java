@@ -153,28 +153,7 @@ public class TuitionReimbursementFormOracle implements TuitionReimbursementFormD
 			ResultSet rs = ps.executeQuery();
 			if(rs.next())
 			{
-				Employee em = new Employee();
-				GradeFormat gf = new GradeFormat();
-				EventType ev = new EventType();
-				Status s = new Status();
-				em.setId(rs.getInt("submitted_by"));
-				gf.setId(rs.getInt("grade_format_id"));
-				ev.setId(rs.getInt("event_type"));
-				s.setId(rs.getInt("status"));
-				tr.setId(i);
-				tr.seteventDate(rs.getDate("event_date"));
-				tr.setdateSubmitted(rs.getDate("date_submitted"));
-				tr.setTotalDays(rs.getInt("total_days"));
-				tr.setEvent_address(rs.getString("event_address"));
-				tr.setEvent_city(rs.getString("event_city"));
-				tr.setEvent_state(rs.getString("event_state"));
-				tr.setEventId(ev);
-				tr.setTitle(rs.getString("title"));
-				tr.setCost(rs.getDouble("cost"));
-				tr.setgradeFormat(gf);
-				tr.setSubmittedBy(em);
-				tr.setStatus(s);
-				tr.setaddinfo(rs.getString("add_info"));
+				 tr =makeForm(rs);
 			
 			}
 			else
@@ -213,30 +192,7 @@ public class TuitionReimbursementFormOracle implements TuitionReimbursementFormD
 			ResultSet rs = pstm.executeQuery();
 			while(rs.next())
 			{
-				TuitionReimbursementForm tr = new TuitionReimbursementForm();
-				Employee em = new Employee();
-				GradeFormat gf = new GradeFormat();
-				EventType ev = new EventType();
-				Status s = new Status();
-				
-				em.setId(rs.getInt("submitted_by"));
-				gf.setId(rs.getInt("grade_format_id"));
-				ev.setId(rs.getInt("event_type"));
-				
-				tr.seteventDate(rs.getDate("event_date"));
-				tr.setTotalDays(rs.getInt("total_Days"));
-				tr.setdateSubmitted(rs.getDate("date_submitted"));
-				tr.setEvent_address(rs.getString("event_address"));
-				tr.setEvent_city(rs.getString("event_city"));
-				tr.setEvent_state(rs.getString("event_state"));
-				tr.setEventId(ev);
-				tr.setTitle(rs.getString("title"));
-				tr.setCost(rs.getDouble("cost"));
-				tr.setgradeFormat(gf);
-				tr.setSubmittedBy(em);
-				tr.setStatus(s);
-				tr.setaddinfo(rs.getString("add_info"));
-				tr.setId(rs.getInt("id"));
+				TuitionReimbursementForm tr =makeForm(rs);
 				trList.add(tr);
 			}
 		}
@@ -260,35 +216,7 @@ public class TuitionReimbursementFormOracle implements TuitionReimbursementFormD
 			ResultSet rs = pstm.executeQuery();
 			while(rs.next())
 			{
-				TuitionReimbursementForm tr = new TuitionReimbursementForm();
-				Employee em = new Employee();
-				GradeFormat gf = new GradeFormat();
-				EventType ev = new EventType();
-				Status s = new Status();
-				em.setId(rs.getInt("eid"));
-				em.setFirstname(rs.getString("firstname"));
-				em.setLastname(rs.getString("lastname"));
-				gf.setId(rs.getInt("gfid"));
-				gf.setName(rs.getString("grade_format"));
-				ev.setId(rs.getInt("etid"));
-				s.setId(rs.getInt("sid"));
-				ev.setName(rs.getString("event_type"));
-				s.setName(rs.getString("status"));
-				
-				tr.seteventDate(rs.getDate("event_date"));
-				tr.setdateSubmitted(rs.getDate("date_submitted"));
-				tr.setTotalDays(rs.getInt("total_days"));
-				tr.setEvent_address(rs.getString("event_address"));
-				tr.setEvent_city(rs.getString("event_city"));
-				tr.setEvent_state(rs.getString("event_state"));
-				tr.setEventId(ev);
-				tr.setTitle(rs.getString("title"));
-				tr.setCost(rs.getDouble("cost"));
-				tr.setgradeFormat(gf);
-				tr.setSubmittedBy(em);
-				tr.setStatus(s);
-				tr.setaddinfo(rs.getString("add_info"));
-				tr.setId(rs.getInt("id"));
+				TuitionReimbursementForm tr =makeForm(rs);
 				trList.add(tr);
 			}
 		}
@@ -377,33 +305,7 @@ public class TuitionReimbursementFormOracle implements TuitionReimbursementFormD
 			ResultSet rs = pstm.executeQuery();
 			while(rs.next())
 			{
-				TuitionReimbursementForm tr = new TuitionReimbursementForm();
-				Employee em = new Employee();
-				GradeFormat gf = new GradeFormat();
-				EventType ev = new EventType();
-				Status s = new Status();
-				em.setId(rs.getInt("eid"));
-				em.setFirstname(rs.getString("firstname"));
-				em.setLastname(rs.getString("lastname"));
-				em.setEmail(rs.getString("email"));
-				s.setName(rs.getString("status"));
-				ev.setName(rs.getString("event_type"));
-				gf.setName(rs.getString("grade_format"));
-				
-				tr.seteventDate(rs.getDate("event_date"));
-				tr.setTotalDays(rs.getInt("total_Days"));
-				tr.setdateSubmitted(rs.getDate("date_submitted"));
-				tr.setEvent_address(rs.getString("event_address"));
-				tr.setEvent_city(rs.getString("event_city"));
-				tr.setEvent_state(rs.getString("event_state"));
-				tr.setEventId(ev);
-				tr.setTitle(rs.getString("title"));
-				tr.setCost(rs.getDouble("cost"));
-				tr.setgradeFormat(gf);
-				tr.setSubmittedBy(em);
-				tr.setStatus(s);
-				tr.setaddinfo(rs.getString("add_info"));
-				tr.setId(rs.getInt("id"));
+				TuitionReimbursementForm tr =makeForm(rs);
 				trList.add(tr);
 			}
 		}
@@ -433,35 +335,7 @@ public class TuitionReimbursementFormOracle implements TuitionReimbursementFormD
 			ResultSet rs = pstm.executeQuery();
 			while(rs.next())
 			{
-				TuitionReimbursementForm tr = new TuitionReimbursementForm();
-				Employee em = new Employee();
-				GradeFormat gf = new GradeFormat();
-				EventType ev = new EventType();
-				Status s = new Status();
-				em.setId(rs.getInt("eid"));
-				em.setFirstname(rs.getString("firstname"));
-				em.setLastname(rs.getString("lastname"));
-				gf.setId(rs.getInt("gfid"));
-				gf.setName(rs.getString("grade_format"));
-				ev.setId(rs.getInt("etid"));
-				s.setId(rs.getInt("sid"));
-				ev.setName(rs.getString("event_type"));
-				s.setName(rs.getString("status"));
-				
-				tr.seteventDate(rs.getDate("event_date"));
-				tr.setdateSubmitted(rs.getDate("date_submitted"));
-				tr.setTotalDays(rs.getInt("total_days"));
-				tr.setEvent_address(rs.getString("event_address"));
-				tr.setEvent_city(rs.getString("event_city"));
-				tr.setEvent_state(rs.getString("event_state"));
-				tr.setEventId(ev);
-				tr.setTitle(rs.getString("title"));
-				tr.setCost(rs.getDouble("cost"));
-				tr.setgradeFormat(gf);
-				tr.setSubmittedBy(em);
-				tr.setStatus(s);
-				tr.setaddinfo(rs.getString("add_info"));
-				tr.setId(rs.getInt("id"));
+				TuitionReimbursementForm tr =makeForm(rs);
 				trList.add(tr);
 			}
 		}
@@ -488,35 +362,7 @@ public class TuitionReimbursementFormOracle implements TuitionReimbursementFormD
 			ResultSet rs = pstm.executeQuery();
 			while(rs.next())
 			{
-				TuitionReimbursementForm tr = new TuitionReimbursementForm();
-				Employee em = new Employee();
-				GradeFormat gf = new GradeFormat();
-				EventType ev = new EventType();
-				Status s = new Status();
-				em.setId(rs.getInt("eid"));
-				em.setFirstname(rs.getString("firstname"));
-				em.setLastname(rs.getString("lastname"));
-				gf.setId(rs.getInt("gfid"));
-				gf.setName(rs.getString("grade_format"));
-				ev.setId(rs.getInt("etid"));
-				s.setId(rs.getInt("sid"));
-				ev.setName(rs.getString("event_type"));
-				s.setName(rs.getString("status"));
-				
-				tr.seteventDate(rs.getDate("event_date"));
-				tr.setdateSubmitted(rs.getDate("date_submitted"));
-				tr.setTotalDays(rs.getInt("total_days"));
-				tr.setEvent_address(rs.getString("event_address"));
-				tr.setEvent_city(rs.getString("event_city"));
-				tr.setEvent_state(rs.getString("event_state"));
-				tr.setEventId(ev);
-				tr.setTitle(rs.getString("title"));
-				tr.setCost(rs.getDouble("cost"));
-				tr.setgradeFormat(gf);
-				tr.setSubmittedBy(em);
-				tr.setStatus(s);
-				tr.setaddinfo(rs.getString("add_info"));
-				tr.setId(rs.getInt("id"));
+				TuitionReimbursementForm tr =makeForm(rs);
 				trList.add(tr);
 			}
 		}
@@ -549,35 +395,7 @@ public class TuitionReimbursementFormOracle implements TuitionReimbursementFormD
 			ResultSet rs = pstm.executeQuery();
 			while(rs.next())
 			{
-				TuitionReimbursementForm tr = new TuitionReimbursementForm();
-				Employee em = new Employee();
-				GradeFormat gf = new GradeFormat();
-				EventType ev = new EventType();
-				Status s = new Status();
-				em.setId(rs.getInt("eid"));
-				em.setFirstname(rs.getString("firstname"));
-				em.setLastname(rs.getString("lastname"));
-				gf.setId(rs.getInt("gfid"));
-				gf.setName(rs.getString("grade_format"));
-				ev.setId(rs.getInt("etid"));
-				s.setId(rs.getInt("sid"));
-				ev.setName(rs.getString("event_type"));
-				s.setName(rs.getString("status"));
-				
-				tr.seteventDate(rs.getDate("event_date"));
-				tr.setdateSubmitted(rs.getDate("date_submitted"));
-				tr.setTotalDays(rs.getInt("total_days"));
-				tr.setEvent_address(rs.getString("event_address"));
-				tr.setEvent_city(rs.getString("event_city"));
-				tr.setEvent_state(rs.getString("event_state"));
-				tr.setEventId(ev);
-				tr.setTitle(rs.getString("title"));
-				tr.setCost(rs.getDouble("cost"));
-				tr.setgradeFormat(gf);
-				tr.setSubmittedBy(em);
-				tr.setStatus(s);
-				tr.setaddinfo(rs.getString("add_info"));
-				tr.setId(rs.getInt("id"));
+				TuitionReimbursementForm tr =makeForm(rs);
 				trList.add(tr);
 			}
 		}
@@ -589,4 +407,39 @@ public class TuitionReimbursementFormOracle implements TuitionReimbursementFormD
 		return trList;
 	}
 	
+	/*
+	 * Method to make default forms
+	 * */
+	public TuitionReimbursementForm makeForm (ResultSet rs) throws SQLException {
+		TuitionReimbursementForm tr = new TuitionReimbursementForm();
+		Employee em = new Employee();
+		GradeFormat gf = new GradeFormat();
+		EventType ev = new EventType();
+		Status s = new Status();
+		em.setId(rs.getInt("eid"));
+		em.setFirstname(rs.getString("firstname"));
+		em.setLastname(rs.getString("lastname"));
+		gf.setId(rs.getInt("gfid"));
+		gf.setName(rs.getString("grade_format"));
+		ev.setId(rs.getInt("etid"));
+		s.setId(rs.getInt("sid"));
+		ev.setName(rs.getString("event_type"));
+		s.setName(rs.getString("status"));
+		
+		tr.seteventDate(rs.getDate("event_date"));
+		tr.setdateSubmitted(rs.getDate("date_submitted"));
+		tr.setTotalDays(rs.getInt("total_days"));
+		tr.setEvent_address(rs.getString("event_address"));
+		tr.setEvent_city(rs.getString("event_city"));
+		tr.setEvent_state(rs.getString("event_state"));
+		tr.setEventId(ev);
+		tr.setTitle(rs.getString("title"));
+		tr.setCost(rs.getDouble("cost"));
+		tr.setgradeFormat(gf);
+		tr.setSubmittedBy(em);
+		tr.setStatus(s);
+		tr.setaddinfo(rs.getString("add_info"));
+		tr.setId(rs.getInt("id"));
+		return tr;
+	}
 }

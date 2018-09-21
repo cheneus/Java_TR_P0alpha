@@ -9,6 +9,7 @@ public interface InfoRequestService {
 	public int addInfoReq(InfoRequest info);
 	public InfoRequest getInfoReq(InfoRequest info);
 	public Set<InfoRequest> getInfoReq();
+	public Set<InfoRequest> getUrInfoReq(int i);
 	public InfoRequest getInfoReqById(int id);
 	public void deleteInfoReq(InfoRequest InfoRequest);
 	

@@ -386,6 +386,21 @@ var utils = {
         utils.approvedTRF(trid, 4)
       });
   },
+  getMyInfoReq: function(id) {
+    axios
+      .get(`${url}/inforeq/my`, {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          eid: id,
+        }
+      })
+      .then(function(res) {
+        console.log(res.data);
+      })
+      .catch(function(e) {
+        console.log(e);
+      });
+  }
 };
 
 var createRowTR = function(x) {

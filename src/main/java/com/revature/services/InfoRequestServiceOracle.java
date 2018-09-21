@@ -44,4 +44,8 @@ public class InfoRequestServiceOracle implements InfoRequestService {
 	public Set<InfoRequest> getInfoReq() {
 		return infod.getInfoReq();
 	}
+	@Override
+	public Set<InfoRequest> getUrInfoReq(int i) {
+		return infod.getUrInfoReq(i);
+	}
 }

@@ -8,7 +8,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.Date;
+import java.sql.Date;
 
 import org.apache.log4j.Logger;
 
@@ -93,17 +93,15 @@ public class TuitionReimbursementFormOracle implements TuitionReimbursementFormD
 			ResultSet rs = ps.executeQuery();
 			if(rs.next())
 			{
-				EventLocation lo = new EventLocation();
 				Employee em = new Employee();
 				GradeFormat gf = new GradeFormat();
 				EventType ev = new EventType();
 				Status s = new Status();
-				lo.setId(rs.getInt("location_id"));
 				em.setId(rs.getInt("submitted_by"));
-				gf.setId(rs.getInt("gradeFormat"));
+				gf.setId(rs.getInt("grade_format_id"));
 				ev.setId(rs.getInt("event_type"));
 				tr.seteventDate(rs.getDate("event_date"));
-				tr.setTotalDays(rs.getInt("totalDays"));
+				tr.setTotalDays(rs.getInt("total_Days"));
 				tr.setEvent_address(rs.getString("event_address"));
 				tr.setEvent_city(rs.getString("event_city"));
 				tr.setEvent_state(rs.getString("event_state"));
@@ -154,7 +152,6 @@ public class TuitionReimbursementFormOracle implements TuitionReimbursementFormD
 			if(rs.next())
 			{
 				 tr =makeForm(rs);
-			
 			}
 			else
 			{

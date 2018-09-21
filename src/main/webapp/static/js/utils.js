@@ -59,7 +59,7 @@ var utils = {
         } else {
           utils.getTRFbySI(currentUser);
         }
-
+        utils.getMyInfoReq(currentUser)
         // utils.getTRFbySI(currentUser);
         // webCtrl.initLogin(currentUser);
         console.log('loginTRF');
@@ -386,7 +386,8 @@ var utils = {
         utils.approvedTRF(trid, 4)
       });
   },
-  getMyInfoReq: function(id) {
+  getMyInfoReq: function(x) {
+    var id = x.id;
     axios
       .get(`${url}/inforeq/my`, {
         headers: {
@@ -396,6 +397,7 @@ var utils = {
       })
       .then(function(res) {
         console.log(res.data);
+        createInfoTab(res.data)
       })
       .catch(function(e) {
         console.log(e);

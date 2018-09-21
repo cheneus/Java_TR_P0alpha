@@ -19,6 +19,9 @@ import com.revature.utils.LogUtil;
 public class InfoRequestOracle implements InfoRequestDAO {
 	private Logger log = Logger.getLogger(InfoRequestOracle.class);
 	private ConnectionUtil cu = ConnectionUtil.getInstance();
+	private TRAppDAOFactory bf =TRAppDAOFactory.getInstance();
+	private EmployeeDAO emp = bf.getEmployeeDAO();
+	private TuitionReimbursementFormDAO trf= bf.getTuitionReimbursementFormDAO();
 	
 	@Override
 	public int addInfoReq(InfoRequest InfoRequest) {
@@ -228,13 +231,18 @@ public class InfoRequestOracle implements InfoRequestDAO {
 				Employee em2 = new Employee();
 				TuitionReimbursementForm tr = new TuitionReimbursementForm();
 				em1.setId(rs.getInt("requestor_id"));
+				em1 = emp.getEmployee(em1);
 				em2.setId(rs.getInt("requestee_id"));
+				em2 = emp.getEmployee(em2);
 				tr.setId(rs.getInt("form_ref"));
-				InfoRequest.setTitle(rs.getString("title"));
+				tr=trf.getTuitionReimbursementForm(tr);
+				log.trace(rs.getString("response"));
+				InfoRequest.setResponse(rs.getString("response"));
 				InfoRequest.setFormRef(tr);
 				InfoRequest.setRequestorId(em1);
 				InfoRequest.setRequesteeId(em2);
-				InfoRequest.setResponse(rs.getString("response"));
+				
+
 				InfoRequest.setOpen(rs.getInt("open"));
 				InfoRequestList.add(InfoRequest);
 			}

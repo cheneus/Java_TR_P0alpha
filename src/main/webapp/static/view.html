@@ -16,6 +16,7 @@
     <link rel="stylesheet" type="text/css" media="screen" href="css/main.css" />
     <script src="js/jQuery.js"></script>
     <script src="js/utils.js"></script>
+    <script src="js/infoR.js"></script>
     <script src="js/main.js"></script>
 </head>
 
@@ -31,10 +32,16 @@
                 <a href="#email"><span class="email" id="email"></span></a>
             </div>
         </li>
+        <li>
+            <div class="divider"></div>
+        </li>
         <li><a id="sidebar_my" href="#modal_user" class="modal-trigger waves-effect ">My Info</a></li>
         <li><a id="sidebar_viewNA" href="#!">View Not Approved</a></li>
         <li><a id="sidebar_viewmine" href="#!">View Mine</a></li>
         <li><a id="sidebar_viewall" href="#!">View All</a></li>
+        <li>
+            <div class="divider"></div>
+        </li>
         <li><a id="sidebar_add" href="#modal_add" class="modal-trigger waves-effect ">Add New<i class="material-icons">add</i></a></li>
         <li>
             <div class="divider"></div>
@@ -54,7 +61,7 @@
             <div class="text-center center loginPg" id="loginPg">
                 <div class="row">
                     <div class="section"></div>
-                    <h2 class="heading-secondary">Master Poke-TRMS</h2>
+                    <h2 class="heading-secondary">Timber & Magnus-TRMS</h2>
                     <h4 class="indigo-text">From Noobie To Master</h4>
 
                     <div class="z-depth-1 grey lighten-4 row" style="display: inline-block; padding: 32px 48px 0px 48px; border: 1px solid #EEE;">
@@ -119,117 +126,127 @@
                                         <tr></tr>
                                     </tbody>
                                 </table>
-
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12">
+                        <div class="card darken-1">
+                           
+                            <div class="card-content" id="infoReqTabs">
+                                    <span class="card-title">Open Info Request</span>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div id="modal_add" class="modal">
-                <div class="modal-content">
-                    <h4 class="text-center heading-tertiary">Add New Tuition Reimbursement Request</h4>
+    </div>
+    <div id="modal_add" class="modal">
+        <div class="modal-content">
+            <h4 class="text-center heading-tertiary">Add New Tuition Reimbursement Request</h4>
+            <div class="row">
+                <form class="col s12" id="addNewTR" onsubmit="utils.postTRF();   return false;">
                     <div class="row">
-                        <form class="col s12" id="addNewTR" onsubmit="utils.postTRF();   return false;">
-                            <div class="row">
-                                <div class="input-field col s12">
-                                    <input placeholder="Event title" id="title_form" type="text" class="validate">
-                                    <label for="title">Title</label>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="input-field col s12 m6">
-                                    <select id="selectJ_form">
-                                        <option value="" disabled selected>Choose your option</option>
-
-                                    </select>
-                                    <label>Justification</label>
-                                </div>
-                                <div class="input-field col s12 m6">
-                                    <select id="selectF_form">
-                                        <option value="" disabled selected>Choose your option</option>
-
-                                    </select>
-                                    <label>Event Type</label>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="input-field col s12 m4">
-                                    <label>Begin date</label>
-                                    <input id="beginDate_form" type="text" class="datepicker">
-
-                                </div>
-                                <div class="input-field col s12 m4">
-                                    <label>How Many Days</label>
-                                    <input id="totalDays_form" type="number" class="">
-
-                                </div>
-                                <div class="input-field col s12 m4">
-                                    <label>Cost</label>
-                                    <input id="cost_form" type="number" class="">
-
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="input-field col s4">
-                                    <label>Event Address</label>
-                                    <input id="address_form" type="text" class="validate" required="" aria-required="true">
-                                </div>
-                                <div class="input-field col s4">
-                                    <label>Event City</label>
-                                    <input id="city_form" type="text" class="">
-
-                                </div>
-                                <div class="input-field col s4">
-                                    <label>Event State</label>
-                                    <input id="state_form" type="text" class="">
-
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="input-field col s12">
-                                    <textarea id="addinfo_form" class="materialize-textarea" length="300" placeholder="ie. website, email, etc..."></textarea>
-                                    <label for="addinfo_form">Please provide addtional Information</label>
-                                </div>
-                            </div>
-                            <button class="btn" onclick="">Submit</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <!-- user info modal -->
-            <div id="modal_user" class="modal">
-                <div class="modal-content">
-                    <div class="card-panel">
-                        <div class="row">
-                            <div class="col s12 m4">
-                                <h3 class="heading-tertiary">Name:</h3>
-                                <p id="aname"></p><br>
-                                <h3 class="heading-tertiary">Address:</h3>
-                                <p> <span id="aline1"></span><br>
-                                    <span id="aline2"></span><br>
-                                    <span id="acity"></span>,&nbsp<span id="astate"> </span>,&nbsp <span id="azip"></span><br>
-                                </p>
-                            </div>
-
-                            <div class="col s12 m4">
-                                <h3 class="heading-tertiary">Title:</h3>
-                                <p id="atitle"></p> <br>
-                                <h3 class="heading-tertiary">Reimbursement Balance:</h3>
-                                <p id='arb'></p>
-                            </div>
-                            <div class="col s12 m4">
-                                <h3 class="heading-tertiary">Phone:</h3>
-                                <p id='aphone'>${objJson[i].eventDate}</p><br>
-                                <h3 class="heading-tertiary">Email:</h3>
-                                <p id='aemail'></p><br>
-                            </div>
+                        <div class="input-field col s12">
+                            <input placeholder="Event title" id="title_form" type="text" class="validate">
+                            <label for="title">Title</label>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="input-field col s12 m6">
+                            <select id="selectJ_form">
+                                <option value="" disabled selected>Choose your option</option>
+
+                            </select>
+                            <label>Justification</label>
+                        </div>
+                        <div class="input-field col s12 m6">
+                            <select id="selectF_form">
+                                <option value="" disabled selected>Choose your option</option>
+
+                            </select>
+                            <label>Event Type</label>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="input-field col s12 m4">
+                            <label>Begin date</label>
+                            <input id="beginDate_form" type="text" class="datepicker">
+
+                        </div>
+                        <div class="input-field col s12 m4">
+                            <label>How Many Days</label>
+                            <input id="totalDays_form" type="number" class="">
+
+                        </div>
+                        <div class="input-field col s12 m4">
+                            <label>Cost</label>
+                            <input id="cost_form" type="number" class="">
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s4">
+                            <label>Event Address</label>
+                            <input id="address_form" type="text" class="validate" required="" aria-required="true">
+                        </div>
+                        <div class="input-field col s4">
+                            <label>Event City</label>
+                            <input id="city_form" type="text" class="">
+
+                        </div>
+                        <div class="input-field col s4">
+                            <label>Event State</label>
+                            <input id="state_form" type="text" class="">
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <textarea id="addinfo_form" class="materialize-textarea" length="300" placeholder="ie. website, email, etc..."></textarea>
+                            <label for="addinfo_form">Please provide addtional Information</label>
+                        </div>
+                    </div>
+                    <button class="btn" onclick="">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- user info modal -->
+    <div id="modal_user" class="modal">
+        <div class="modal-content">
+            <div class="card-panel">
+                <div class="row">
+                    <div class="col s12 m4">
+                        <h3 class="heading-tertiary">Name:</h3>
+                        <p id="aname"></p><br>
+                        <h3 class="heading-tertiary">Address:</h3>
+                        <p> <span id="aline1"></span><br>
+                            <span id="aline2"></span><br>
+                            <span id="acity"></span>,&nbsp<span id="astate"> </span>,&nbsp <span id="azip"></span><br>
+                        </p>
+                    </div>
+
+                    <div class="col s12 m4">
+                        <h3 class="heading-tertiary">Title:</h3>
+                        <p id="atitle"></p> <br>
+                        <h3 class="heading-tertiary">Reimbursement Balance:</h3>
+                        <p id='arb'></p>
+                    </div>
+                    <div class="col s12 m4">
+                        <h3 class="heading-tertiary">Phone:</h3>
+                        <p id='aphone'>${objJson[i].eventDate}</p><br>
+                        <h3 class="heading-tertiary">Email:</h3>
+                        <p id='aemail'></p><br>
+                    </div>
                 </div>
             </div>
-            <!-- modal user info end -->
-        </main>
+        </div>
+    </div>
+    <!-- modal user info end -->
+    </main>
     </div>
 </body>
 

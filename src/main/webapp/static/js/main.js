@@ -58,12 +58,12 @@ $(document).ready(function() {
     var instancesF = M.FormSelect.init(elemsF);
   });
 
-  $('#sidebar_viewmine').click(function() {
+  $('#sidebar_viewmine').on('click',function() {
     // createRowTR(tuitionRF_filtered);
     utils.getMyTRF(currentUser.id);
   });
 
-  $('#sidebar_viewall').click(function() {
+  $('#sidebar_viewall').on('click',function() {
     createRowTR(tuitionRF);
     // utils.getTRFmgr(currentUser.id, currentUser.employee_id.dept_id.id);
   });

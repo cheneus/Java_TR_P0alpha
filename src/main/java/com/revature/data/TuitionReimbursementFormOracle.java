@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.Set;
+import java.sql.Date;
 
 import org.apache.log4j.Logger;
 
@@ -94,6 +95,7 @@ public class TuitionReimbursementFormOracle implements TuitionReimbursementFormD
 				gf.setId(rs.getInt("grade_format_id"));
 				ev.setId(rs.getInt("event_type"));
 				tr.seteventDate(rs.getDate("event_date"));
+				tr.setdateSubmitted(rs.getDate("date_submitted"));
 				tr.setTotalDays(rs.getInt("total_Days"));
 				tr.setEvent_address(rs.getString("event_address"));
 				tr.setEvent_city(rs.getString("event_city"));

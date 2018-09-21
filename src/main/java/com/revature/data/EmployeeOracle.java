@@ -73,7 +73,6 @@ public class EmployeeOracle implements EmployeeDAO {
 				log.trace("This is a employee");
 				if(rs.getObject("supervisor")==null)
 				{
-					log.trace("null supervisor");
 				} else {
 					emp.setSupervisor(new Employee(rs.getInt("supervisor")));
 				}

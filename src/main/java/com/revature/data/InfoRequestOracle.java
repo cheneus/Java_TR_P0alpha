@@ -220,7 +220,7 @@ public class InfoRequestOracle implements InfoRequestDAO {
 		Set<InfoRequest> InfoRequestList = new HashSet<InfoRequest>();
 		try(Connection conn = cu.getConnection())
 		{
-			String sql = "Select id, form_ref,requestor_id, requestee_id, response, open from Info_Request where requestee_id= ?";
+			String sql = "select id, form_ref,requestor_id, requestee_id, response, open from Info_Request where requestee_id= ?";
 			PreparedStatement pstm = conn.prepareStatement(sql);
 			pstm.setInt(1, i);
 			ResultSet rs = pstm.executeQuery();
@@ -236,14 +236,13 @@ public class InfoRequestOracle implements InfoRequestDAO {
 				em2 = emp.getEmployee(em2);
 				tr.setId(rs.getInt("form_ref"));
 				tr=trf.getTuitionReimbursementForm(tr);
-				log.trace(rs.getString("response"));
+				InfoRequest.setId(rs.getInt("id"));
 				InfoRequest.setResponse(rs.getString("response"));
 				InfoRequest.setFormRef(tr);
 				InfoRequest.setRequestorId(em1);
 				InfoRequest.setRequesteeId(em2);
-				
-
 				InfoRequest.setOpen(rs.getInt("open"));
+				log.trace(InfoRequest);
 				InfoRequestList.add(InfoRequest);
 			}
 		}

@@ -53,8 +53,10 @@ var utils = {
         if (dept_id === 2) {
           console.log('HR');
           utils.getTRF();
+          utils.getTRFHr(dept_id);
         } else if (sup_id === null) {
           console.log('supervisors');
+          utils.getTRFmgr(uid, dept_id)
           utils.getTRFmgrSI(uid, dept_id);
         } else {
           utils.getTRFbySI(currentUser);
@@ -100,12 +102,15 @@ var utils = {
         if (dept_id === 2) {
           console.log('HR');
           utils.getTRF();
+          utils.getTRFHr(dept_id);
         } else if (sup_id === null) {
           console.log('supervisors');
+          utils.getTRFmgr(uid, dept_id);
           utils.getTRFmgrSI(uid, dept_id);
         } else {
           utils.getTRFbySI(currentUser);
         }
+        utils.getMyInfoReq(currentUser)
         console.log('checkloginTRF');
         $('#loginPg').hide();
         $('main').css('padding-left', '11.5rem');
@@ -127,6 +132,23 @@ var utils = {
       })
       .then(function(res) {
         console.log(res.data);
+        tuitionRF = res.data;
+      })
+      .catch(function(e) {
+        console.log(e);
+      });
+  },
+  getTRFHr: function(did) {
+    axios
+      .get(`${url}/trf/mgrsi`, {
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded',
+        deptid: did
+      }
+      })
+      .then(function(res) {
+        console.log(res.data);
+        tuitionRF = res.data;
+        createRowTR(res.data);
       })
       .catch(function(e) {
         console.log(e);
@@ -144,7 +166,6 @@ var utils = {
       .then(function(res) {
         console.log(res.data);
         tuitionRF = res.data;
-        createRowTR(res.data);
       })
       .catch(function(e) {
         console.log(e);
@@ -161,7 +182,7 @@ var utils = {
       })
       .then(function(res) {
         console.log(res.data);
-        tuitionRF_filtered = res.data;
+        tuitionRFSI = res.data;
         createRowTR(res.data);
       })
       .catch(function(e) {
@@ -201,6 +222,7 @@ var utils = {
       })
       .then(function(res) {
         console.log(res.data);
+        tuitionRF_filtered = res.data
         createRowTR(res.data);
       })
       .catch(function(e) {
@@ -269,6 +291,7 @@ var utils = {
       })
       .then(function(res) {
         console.log(res.data);
+        utils.postToHR(ap)
         utils.getTRFmgrSI(currentUser.id, currentUser.employee_id.dept_id.id);
       });
   },
@@ -401,6 +424,21 @@ var utils = {
       })
       .catch(function(e) {
         console.log(e);
+      });
+  },
+  postToHR: function(x) {
+    axios
+      .post(`${url}/tr`,
+        {
+          formRef: x,
+        },
+        {
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+        }
+      )
+      .then(function(res) {
+        console.log(res.data);
+
       });
   }
 };

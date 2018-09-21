@@ -16,6 +16,7 @@ public interface TuitionReimbursementFormService {
 	public Set<TuitionReimbursementForm> getTuitionReimbursementFormsByStatus(Status s);
 	public Set<TuitionReimbursementForm> getTuitionReimbursementFormsByNoAppr(int i);
 	public Set<TuitionReimbursementForm> getTRFNoApprByManager(int i, int did);
+	public Set<TuitionReimbursementForm> getTRFNoApprByHR();
 	Set<TuitionReimbursementForm> getTuitionReimbursementFormsOnView();
 	// update
 	public void updateTuitionReimbursementForm(TuitionReimbursementForm tr);

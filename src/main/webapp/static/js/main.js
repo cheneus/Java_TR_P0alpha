@@ -40,7 +40,7 @@ $(document).ready(function() {
     var status = $(this).data('trstat');
     var target = $(this).data('user');
     console.log(target);
-    utils.postInfoReq(tag, target)
+    utils.postInfoReq(tag, target);
   });
 
   $('#loginBtn').on('click', function() {
@@ -59,6 +59,7 @@ $(document).ready(function() {
   });
 
   $('#sidebar_viewmine').click(function() {
+    // createRowTR(tuitionRF_filtered);
     utils.getMyTRF(currentUser.id);
   });
 
@@ -68,18 +69,88 @@ $(document).ready(function() {
   });
 
   $('#sidebar_viewNA').on('click', function() {
-    createRowTR(tuitionRF_filtered)
+    createRowTR(tuitionRFSI);
     // utils.getTRFmgrSI(currentUser.id, currentUser.employee_id.dept_id.id);
   });
   $('#sidebar_my').on('click', function() {
     utils.getAddress(currentUser.employee_id.address.id);
   });
 
+  $('#submit_form').on('click', function() {
+    $('#addNewTR').valid()
+    utils.postTRF();
+  })
+
   $('#addNewTR').submit(function() {
     // goes second
   });
-});
 
-var formtest = function() {
-  alert('test');
-};
+  $('#addNewTR').validate({
+    rules: {
+      uname: {
+        required: true,
+        minlength: 5
+      },
+      cemail: {
+        required: true,
+        email: true
+      },
+      password: {
+        required: true,
+        minlength: 5
+      },
+      cpassword: {
+        required: true,
+        minlength: 5,
+        equalTo: '#password'
+      },
+      title_form: {
+        required: true,
+        minlength: 6
+      },
+      selectF_form: {
+        required: true
+      },
+      selectJ_form: {
+        required: true
+      },
+      beginDate_form: {
+        required: true
+      },
+      totalDays_form: {
+        required: true
+      },
+      cost_form: {
+        required: true
+      },
+      event_address: {
+        required: true
+      },
+      event_city: {
+        required: true
+      },
+      event_state: {
+        required: true
+      },
+      //For custom messages
+      messages: {
+        uname: {
+          required: 'Enter a username',
+          minlength: 'Enter at least 5 characters'
+        },
+        cost_form: {
+          required: 'Please enter an amount'
+        }
+      },
+      errorElement: 'div',
+      errorPlacement: function(error, element) {
+        var placement = $(element).data('error');
+        if (placement) {
+          $(placement).append(error);
+        } else {
+          error.insertAfter(element);
+        }
+      }
+    }
+  });
+});

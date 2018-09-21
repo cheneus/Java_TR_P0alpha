@@ -13,15 +13,21 @@ body {
 }
 
 .status-6 {
-  background: #81c784;
+  background: #66bb6a;
 }
 .status-3 {
   background: #ff8a65;
 }
+.status-4 {
+  background:#ffa726;
+}
 .status-5 {
   background: #e57373;
 }
-.status-1, .status-2, .status-4 {
+.status-2 {
+  background: #9ccc65;
+}
+.status-1 {
   background:#f4ff81 ;
 }
 

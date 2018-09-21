@@ -103,7 +103,7 @@ public class EmployeeOracle implements EmployeeDAO {
 				emp.setTitle(null);
 				emp.setHireDate(null);
 				emp.setDept_id(null);
-				emp.setAddress(0);
+				emp.setAddress(null);
 				emp.setReimbursement_balance(0);
 				emp.setPhone(null);
 				emp.setEmail(null);
@@ -159,7 +159,7 @@ public class EmployeeOracle implements EmployeeDAO {
 				emp.setBirthDate(null);
 				emp.setHireDate(null);
 				emp.setDept_id(null);
-				emp.setAddress(0);
+				emp.setAddress(null);
 				emp.setReimbursement_balance(0);
 				emp.setPhone(null);
 				emp.setEmail(null);

@@ -114,14 +114,78 @@ public class Employee {
 		this.title = title;
 	}
 	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((address == null) ? 0 : address.hashCode());
+		result = prime * result + ((birthDate == null) ? 0 : birthDate.hashCode());
+		result = prime * result + ((dept_id == null) ? 0 : dept_id.hashCode());
+		result = prime * result + ((email == null) ? 0 : email.hashCode());
+		result = prime * result + ((firstname == null) ? 0 : firstname.hashCode());
+		result = prime * result + ((hireDate == null) ? 0 : hireDate.hashCode());
+		result = prime * result + id;
+		result = prime * result + ((lastname == null) ? 0 : lastname.hashCode());
+		result = prime * result + ((phone == null) ? 0 : phone.hashCode());
+		long temp;
+		temp = Double.doubleToLongBits(reimbursement_balance);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		result = prime * result + ((supervisor == null) ? 0 : supervisor.hashCode());
+		result = prime * result + ((title == null) ? 0 : title.hashCode());
+		return result;
+	}
+	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (!super.equals(obj))
+		if (obj == null)
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
 		Employee other = (Employee) obj;
+		if (address == null) {
+			if (other.address != null)
+				return false;
+		} else if (!address.equals(other.address))
+			return false;
+		if (birthDate == null) {
+			if (other.birthDate != null)
+				return false;
+		} else if (!birthDate.equals(other.birthDate))
+			return false;
+		if (dept_id == null) {
+			if (other.dept_id != null)
+				return false;
+		} else if (!dept_id.equals(other.dept_id))
+			return false;
+		if (email == null) {
+			if (other.email != null)
+				return false;
+		} else if (!email.equals(other.email))
+			return false;
+		if (firstname == null) {
+			if (other.firstname != null)
+				return false;
+		} else if (!firstname.equals(other.firstname))
+			return false;
+		if (hireDate == null) {
+			if (other.hireDate != null)
+				return false;
+		} else if (!hireDate.equals(other.hireDate))
+			return false;
+		if (id != other.id)
+			return false;
+		if (lastname == null) {
+			if (other.lastname != null)
+				return false;
+		} else if (!lastname.equals(other.lastname))
+			return false;
+		if (phone == null) {
+			if (other.phone != null)
+				return false;
+		} else if (!phone.equals(other.phone))
+			return false;
+		if (Double.doubleToLongBits(reimbursement_balance) != Double.doubleToLongBits(other.reimbursement_balance))
+			return false;
 		if (supervisor == null) {
 			if (other.supervisor != null)
 				return false;
@@ -140,9 +204,5 @@ public class Employee {
 				+ ", supervisor=" + supervisor + ", birthDate=" + birthDate + ", hireDate=" + hireDate + ", dept_id="
 				+ dept_id + ", address=" + address + ", reimbursement_balance=" + reimbursement_balance + ", phone="
 				+ phone + ", email=" + email + "]";
-	}
-	public void setAddress(int i) {
-		// TODO Auto-generated method stub
-		
 	}
 }

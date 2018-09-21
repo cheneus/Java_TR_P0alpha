@@ -83,9 +83,10 @@ public class TRFDelegate implements FrontControllerDelegate {
 			case "mgr": {
 				System.out.println("TRFmgr");
 				log.trace(req.getHeader("eid"));
-				int i = Integer.parseInt(req.getHeader("eid"));
 				int did = Integer.parseInt(req.getHeader("deptid"));
 				log.trace("Retrieving a list of all my ppl TuitionReimbursementForms");
+				int i = Integer.parseInt(req.getHeader("eid"));
+				log.trace("regular");
 				Set<TuitionReimbursementForm> TuitionReimbursementForms = as.getTRFNoApprByManager(i, did);
 				resp.getWriter().write(om.writeValueAsString(TuitionReimbursementForms));
 				break;
@@ -93,14 +94,21 @@ public class TRFDelegate implements FrontControllerDelegate {
 			case "mgrsi": {
 				System.out.println("TRFmgrsi");
 				log.trace(req.getHeader("eid"));
-				int i = Integer.parseInt(req.getHeader("eid"));
 				int did = Integer.parseInt(req.getHeader("deptid"));
-				log.trace("Retrieving a list of all my ppl TuitionReimbursementForms");
-				Set<TuitionReimbursementForm> TuitionReimbursementForms = as.getTRFNoApprByManagerSI(i, did);
-				resp.getWriter().write(om.writeValueAsString(TuitionReimbursementForms));
+				if (did == 2) {
+					log.trace("Ran into HR");
+					Set<TuitionReimbursementForm> TuitionReimbursementForms = as.getTRFNoApprByHR();
+					resp.getWriter().write(om.writeValueAsString(TuitionReimbursementForms));
+				} else {
+					int i = Integer.parseInt(req.getHeader("eid"));
+					log.trace("Retrieving a list of all my ppl TuitionReimbursementForms");
+					Set<TuitionReimbursementForm> TuitionReimbursementForms = as.getTRFNoApprByManagerSI(i, did);
+					resp.getWriter().write(om.writeValueAsString(TuitionReimbursementForms));
+				}
 				break;
 			}
-			default: TuitionReimbursementFormTimes(req, resp, Integer.parseInt(path.toString()));
+			default:
+				TuitionReimbursementFormTimes(req, resp, Integer.parseInt(path.toString()));
 			}
 //		} else if (path.equals("si")) {	
 //			System.out.println("TRFSI");

@@ -128,30 +128,6 @@ public class TuitionReimbursementTypeOracle implements TuitionReimbursementTypeD
 		return TuitionReimbursementTypes;
 	}
 
-//	@Override
-//	public Set<TuitionReimbursementType> getTuitionReimbursementTypesByBook(Book b) {
-//		log.trace("Retrieving TuitionReimbursementTypes");
-//		Set<TuitionReimbursementType> TuitionReimbursementTypes = new HashSet<TuitionReimbursementType>();
-//		try (Connection conn = cu.getConnection()) {
-//			String sql = "select g.id, g.TuitionReimbursementType from TuitionReimbursementType g join book_TuitionReimbursementType bg on bg.TuitionReimbursementType_id ="
-//					+ "g.id where bg.book_id = ?";
-//			PreparedStatement stmt = conn.prepareStatement(sql);
-//			stmt.setInt(1, b.getId());
-//			ResultSet rs = stmt.executeQuery();
-//			while (rs.next()) {
-//				log.trace(rs.getInt(1) + " | " + rs.getString(2));
-//				TuitionReimbursementType g = new TuitionReimbursementType();
-//				g.setId(rs.getInt("id"));
-//				g.setTuitionReimbursementType(rs.getString("TuitionReimbursementType"));
-//				TuitionReimbursementTypes.add(g);
-//			}
-//		} catch (SQLException e) {
-//			LogUtil.logException(e, TuitionReimbursementTypeOracle.class);
-//		}
-//		log.trace("Method returning: " + TuitionReimbursementTypes);
-//		return TuitionReimbursementTypes;
-//	}
-
 	@Override
 	public void updateTuitionReimbursementType(TuitionReimbursementType g) {
 		log.trace("Updating TuitionReimbursementType to "+ g);

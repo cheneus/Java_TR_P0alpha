@@ -2,5 +2,5 @@ projectKey=sc:Project1
 serverUrl=http://54.218.113.80:9000
 serverVersion=6.7.0.33306
 dashboardUrl=http://54.218.113.80:9000/dashboard/index/sc:Project1
-ceTaskId=AWX4jEk_e1BiA4ZbcfdX
-ceTaskUrl=http://54.218.113.80:9000/api/ce/task?id=AWX4jEk_e1BiA4ZbcfdX
+ceTaskId=AWX6WTdEe1BiA4ZbcfdZ
+ceTaskUrl=http://54.218.113.80:9000/api/ce/task?id=AWX6WTdEe1BiA4ZbcfdZ

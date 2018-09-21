@@ -4,16 +4,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.HashSet;
 import java.util.Set;
-import java.sql.Date;
 
 import org.apache.log4j.Logger;
 
 import com.revature.beans.Employee;
-import com.revature.beans.EventLocation;
 import com.revature.beans.EventType;
 import com.revature.beans.GradeFormat;
 import com.revature.beans.Status;
@@ -34,11 +30,8 @@ public class TuitionReimbursementFormOracle implements TuitionReimbursementFormD
 		
 			conn.setAutoCommit(false);
 			String sql = "insert into tuition_reimbursement_form (event_date, total_days, event_address, event_city, event_state, event_type, title, cost, grade_format_id, submitted_by, add_info) values (?,?,?,?,? ,?,?,?,?,? ,?)";
-//			String sql = "insert into tuition_reimbursement_form(event_type,grade_format_id,cost,submitted_by) values (?,?,?,?)";
 			String[] keys = { "id" };
 			PreparedStatement ps = conn.prepareStatement(sql, keys);
-//			DateFormat parser = new SimpleDateFormat("dd-MMM-yy");
-//			Date date = parser.parse(tr.geteventDate());
 			ps.setDate(1, tr.geteventDate());
 			ps.setInt(2, tr.getTotalDays());
 			ps.setString(3, tr.getEvent_address());
@@ -296,7 +289,7 @@ public class TuitionReimbursementFormOracle implements TuitionReimbursementFormD
 		Set<TuitionReimbursementForm> trList = new HashSet<TuitionReimbursementForm>();
 		try(Connection conn = cu.getConnection())
 		{
-			String sql = "select * from gettrfname_view";
+			String sql = "select * from GETTRFULL_VIEW";
 			PreparedStatement pstm = conn.prepareStatement(sql);
 			log.trace(sql);
 			ResultSet rs = pstm.executeQuery();
@@ -328,6 +321,30 @@ public class TuitionReimbursementFormOracle implements TuitionReimbursementFormD
 			String sql = "select * from GETTRFULL_VIEW where eid =?";
 			PreparedStatement pstm = conn.prepareStatement(sql);
 			pstm.setInt(1, i);
+			log.trace(sql);
+			ResultSet rs = pstm.executeQuery();
+			while(rs.next())
+			{
+				TuitionReimbursementForm tr =makeForm(rs);
+				trList.add(tr);
+			}
+		}
+		catch(Exception e)
+		{
+			LogUtil.logException(e,TuitionReimbursementFormOracle.class);
+		}
+		log.trace(trList);
+		return trList;
+	}
+	
+	@Override
+	public Set<TuitionReimbursementForm> getTRFNoApprByHR() {
+		Set<TuitionReimbursementForm> trList = new HashSet<TuitionReimbursementForm>();
+
+		try(Connection conn = cu.getConnection())
+		{
+			String sql = "select * from GETTRFULL_VIEW where status != 'Approved' and status !='Denied'";
+			PreparedStatement pstm = conn.prepareStatement(sql);
 			log.trace(sql);
 			ResultSet rs = pstm.executeQuery();
 			while(rs.next())
@@ -439,4 +456,6 @@ public class TuitionReimbursementFormOracle implements TuitionReimbursementFormD
 		tr.setId(rs.getInt("id"));
 		return tr;
 	}
+
+	
 }

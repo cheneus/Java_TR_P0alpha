@@ -1,4 +1,7 @@
 var createInfoTab = function(x) {
+    if (x === "" || x === undefined) {
+        return false;
+    }
   // $('#trTable_body').empty();
   // $('#modal_for_table').empty();
   for (let i = 0; i < x.length; i++) {
@@ -59,3 +62,7 @@ var createInfoTab = function(x) {
   var elemsT = document.querySelectorAll('.collapsible');
   var instancesT = M.Collapsible.init(elemsT, { accordion: 'true' });
 };
+
+var TR_final = function() {
+
+}
